@@ -1,8 +1,12 @@
 package com.fabricio.fishing.entity;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public abstract class Entity {
     protected float x;
     protected float y;
+    protected double hp;
+    protected double armor;
 
     public Entity(float x, float y) {
         this.x = x;
@@ -18,4 +22,6 @@ public abstract class Entity {
     }
 
     public abstract void update(float delta);
+
+//    public abstract void render();
 }

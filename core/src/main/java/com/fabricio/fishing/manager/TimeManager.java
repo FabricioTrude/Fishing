@@ -1,27 +1,28 @@
 package com.fabricio.fishing.manager;
 
 import com.fabricio.fishing.entity.enums.TimePeriod;
-import com.badlogic.gdx.graphics.Color;
-import com.fabricio.fishing.util.Palette;
 
 import java.time.LocalTime;
 
 public class TimeManager {
-    final boolean useRealTime = true;
-    private TimePeriod currentPeriod;
+    protected final boolean useRealTime = true;
+    protected float tick = 20;
+    protected float time;
+    protected LocalTime realTime = LocalTime.now();
+    protected TimePeriod currentPeriod;
 
     public TimeManager() {
-        update();
+        this.currentPeriod = TimePeriod.DAY;
     }
 
-    public TimeManager(TimePeriod currentPeriod) {
-        this.currentPeriod = currentPeriod;
+    public void update(float delta){
+        this.time += delta;
+        realTime = LocalTime.now();
+        if(useRealTime)updateCurrentPeriod();
     }
 
-    public void update(){
-        if(!useRealTime) return;
-        LocalTime now = LocalTime.now();
-        int hour = now.getHour();
+    public void updateCurrentPeriod(){
+        int hour = realTime.getHour();
         switch (hour) {
             case 4,5,6,7 ->
                 currentPeriod = TimePeriod.DAWN;
@@ -38,19 +39,5 @@ public class TimeManager {
 
     public TimePeriod getCurrentPeriod() {
         return currentPeriod;
-    }
-
-    public void setCurrentPeriod(TimePeriod currentPeriod) {
-        this.currentPeriod = currentPeriod;
-    }
-
-    public Color getSkyColor(){
-        return switch(currentPeriod){
-            case DAWN -> Palette.DAWN_SKY;
-            case DAY -> Palette.DAY_SKY;
-            case SUNSET -> Palette.SUNSET_SKY;
-            case NIGHT -> Palette.NIGHT_SKY;
-            case MIDNIGHT -> Palette.MIDNIGHT_SKY;
-        };
     }
 }
