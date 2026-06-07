@@ -9,39 +9,42 @@ import static com.fabricio.fishing.screen.GameScreen.SCREEN_WIDTH;
 
 public class FishManager extends TimeManager {
     TimeManager timeManager;
-    private final Array<Fish> fishes = new Array<>();
+    private final EntityManager entityManager;
+
 
     private int maxFishes = 3;
     private float spawnTimer = 0;
 
-    public FishManager(TimeManager timeManager) {
+    public FishManager(TimeManager timeManager, EntityManager entityManager) {
         this.timeManager = timeManager;
+        this.entityManager = entityManager;
     }
 
-    public Array<Fish> getFishes(){
-        return fishes;
-    }
 
     public void createFish(){
         Fish fish = Fish.spawn();
-        fishes.add(fish);
+        entityManager.addEntity(fish);
     }
 
     public void update(float delta){
         spawnTimer += delta;
-        if(spawnTimer > 1 && getFishes().size <= maxFishes){
+
+        if(spawnTimer > 1 && entityManager.getFishes().size <= maxFishes){
             spawnTimer = 0;
             createFish();
-            System.out.println("Peixes:"+ getFishes().size);
+            System.out.println("Peixes:"+ entityManager.getFishes().size);
         }
-        for(int i = 0; i < fishes.size; i++){
-            Fish fish = fishes.get(i);
+        for(Fish fish : entityManager.getFishes()){
+            if(!fish.alive())
+                entityManager.MarkForRemoval(fish);
             fish.update(delta);
+
 //            System.out.println("Fish " + i + " - X : " + fish.getX() + " - Y : " + fish.getY());
         }
     }
 
     public void render(SpriteBatch batch){
-        for(Fish fish:fishes) fish.render(batch);
+        for(Fish fish: entityManager.getFishes())
+            fish.render(batch);
     }
 }
