@@ -4,19 +4,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.fabricio.fishing.entity.fish.Fish;
-import com.fabricio.fishing.entity.fish.FishSize;
-import com.fabricio.fishing.entity.fish.FishSpecies;
-import com.fabricio.fishing.entity.fish.FishRarity;
 
-import static com.badlogic.gdx.math.MathUtils.random;
-import static com.fabricio.fishing.screen.GameScreen.screenWidth;
-import static com.fabricio.fishing.screen.GameScreen.seaHeight;
+import static com.fabricio.fishing.screen.GameScreen.SCREEN_WIDTH;
 
 public class FishManager extends TimeManager {
     TimeManager timeManager;
     private final Array<Fish> fishes = new Array<>();
 
-    private int maxFishes = 50;
+    private int maxFishes = 3;
     private float spawnTimer = 0;
 
     public FishManager(TimeManager timeManager) {
@@ -42,12 +37,11 @@ public class FishManager extends TimeManager {
         for(int i = 0; i < fishes.size; i++){
             Fish fish = fishes.get(i);
             fish.update(delta);
-            if(fish.getX() >= screenWidth + 50) fishes.removeIndex(i);
-            System.out.println("Fish " + i + " - X : " + fish.getX() + " - Y : " + fish.getY());
+//            System.out.println("Fish " + i + " - X : " + fish.getX() + " - Y : " + fish.getY());
         }
     }
 
-    public void render(ShapeRenderer shapeRenderer){
-        for(Fish fish:fishes) fish.render(shapeRenderer);
+    public void render(SpriteBatch batch){
+        for(Fish fish:fishes) fish.render(batch);
     }
 }

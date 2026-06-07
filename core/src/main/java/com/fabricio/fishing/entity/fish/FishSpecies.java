@@ -1,5 +1,6 @@
 package com.fabricio.fishing.entity.fish;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
 
@@ -13,8 +14,9 @@ public enum FishSpecies {
         3,
         0,
         1,
+        30,
         10,
-        10
+        new Texture("fish/sample.png")
     ),
     SALMON(
         Zones.ZONE_1,
@@ -23,7 +25,8 @@ public enum FishSpecies {
         1,
         3,
         15,
-        15
+        15,
+        new Texture("fish/sample.png")
     );
 
     protected final Zones zone;
@@ -33,8 +36,9 @@ public enum FishSpecies {
     protected final float baseVAL;
     protected final float baseSPE;
     protected final float baseSIZ;
+    protected final Texture texture;
 
-    FishSpecies(Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ) {
+    FishSpecies(Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, Texture texture) {
         this.zone = zone;
         this.periods = periods;
         this.baseHP = baseHP;
@@ -42,6 +46,7 @@ public enum FishSpecies {
         this.baseVAL = baseVAL;
         this.baseSPE = baseSPE;
         this.baseSIZ = baseSIZ;
+        this.texture = texture;
     }
 
     public Zones getZone() {
@@ -70,5 +75,9 @@ public enum FishSpecies {
 
     public float getBaseSIZ() {
         return baseSIZ;
+    }
+
+    public Texture getTexture() {
+        return texture;
     }
 }

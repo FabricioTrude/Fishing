@@ -2,6 +2,7 @@ package com.fabricio.fishing.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.fabricio.fishing.entity.Player;
@@ -16,16 +17,16 @@ public class GameScreen implements Screen {
     final FishManager fishManager;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final SpriteBatch batch = new SpriteBatch();
 
-    public static float screenWidth = Gdx.graphics.getWidth();
-    public static float screenHeight = Gdx.graphics.getHeight();
-
-    static public float seaHeight = screenHeight * 0.7f;
+    public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
+    public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
+    static public float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
 
     private final Player player;
 
     public GameScreen() {
-        player = new Player(screenWidth/2-25,seaHeight);
+        player = new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT);
         timeManager = new TimeManager();
         paletteManager = new PaletteManager(timeManager);
         fishManager = new FishManager(timeManager);
@@ -45,16 +46,20 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(paletteManager.getSkyColor());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Palette.SEA);
-        shapeRenderer.rect(0,0,screenWidth,seaHeight);
+        shapeRenderer.rect(0,0, SCREEN_WIDTH, SEA_HEIGHT);
         shapeRenderer.setColor(Palette.FROG);
         shapeRenderer.rect(player.getX(), player.getY(), 50,50);
-        fishManager.render(shapeRenderer);
         shapeRenderer.end();
+
+        batch.begin();
+        fishManager.render(batch);
+        batch.end();
     }
 
     @Override
     public void resize(int i, int i1) {
-
+        SCREEN_HEIGHT = Gdx.graphics.getHeight();
+        SCREEN_WIDTH = Gdx.graphics.getWidth();
     }
 
     @Override

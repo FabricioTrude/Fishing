@@ -4,14 +4,14 @@ import com.badlogic.gdx.math.MathUtils;
 
 public enum FishSize {
 
-    MINUSCULE (0.25f),
-    TINY      (0.40f),
-    SMALL     (0.60f),
-    AVERAGE   (0.85f),
+    MINUSCULE (0.4f),
+    TINY      (0.60f),
+    SMALL     (0.80f),
+    AVERAGE   (0.95f),
     NORMAL    (1.00f),
-    BIG       (1.20f),
-    VERY_BIG  (1.50f),
-    GIGANTIC  (2.00f),
+    BIG       (1.25f),
+    VERY_BIG  (1.70f),
+    GIGANTIC  (2.20f),
     COLOSSAL  (3.50f);
 
     private final float scale;
