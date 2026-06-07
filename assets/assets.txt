@@ -2,3 +2,5 @@ fishes/bass.png
 fishes/clown_fish.png
 fishes/cod.png
 fishes/salmon.png
+player/base.png
+player/player.png

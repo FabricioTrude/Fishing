@@ -54,6 +54,7 @@ public class GameScreen implements Screen {
         shapeRenderer.end();
 
 //        entityManager.renderBoxes(shapeRenderer); // render colisao
+
         batch.begin();
         player.render(batch);
         fishManager.render(batch);

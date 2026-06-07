@@ -9,6 +9,7 @@ import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.fish.Fish;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.HasBounds;
+import com.fabricio.fishing.entity.player.Player;
 
 public class EntityManager {
     private final Array<Entity> entities = new Array<>();
@@ -17,12 +18,12 @@ public class EntityManager {
     private final Array<Entity> pendingRemoval = new Array<>();
 
     public void addEntity(Entity entity){
-        if(entity instanceof Clickable clickable){
-            this.clickables.add(clickable);
-            System.out.println("Added " + entity.toString());
+        this.clickables.add((Clickable)entity);
+        switch(entity){
+            case Player player -> {}
+            case Fish fish -> fishes.add(fish);
+            default -> {}
         }
-        if(entity instanceof Fish fish)
-            fishes.add(fish);
         entities.add(entity);
     }
 
@@ -56,6 +57,7 @@ public class EntityManager {
 
         pendingRemoval.clear();
     }
+
     public void renderBoxes(ShapeRenderer shapeRenderer){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);

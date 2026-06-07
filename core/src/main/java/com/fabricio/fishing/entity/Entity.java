@@ -1,8 +1,5 @@
 package com.fabricio.fishing.entity;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 public abstract class Entity {
     protected float x;
     protected float y;

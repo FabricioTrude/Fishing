@@ -6,13 +6,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Frog;
 import com.fabricio.fishing.entity.interfaces.Clickable;
+import com.fabricio.fishing.entity.interfaces.Holdable;
+import com.fabricio.fishing.manager.ClickManager;
 import com.fabricio.fishing.manager.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
 
 import static com.fabricio.fishing.screen.GameScreen.SCREEN_WIDTH;
 import static com.fabricio.fishing.screen.GameScreen.SEA_HEIGHT;
 
-public class Player extends Frog implements Clickable {
+public class Player extends Frog implements Holdable {
 
     protected TimeManager timeManager;
     protected EntityManager entityManager;
@@ -46,9 +48,6 @@ public class Player extends Frog implements Clickable {
         sprite.draw(batch);
     }
 
-    @Override
-    public void onClick() {
-    }
 
     @Override
     public Polygon getBounds() {
@@ -63,5 +62,45 @@ public class Player extends Frog implements Clickable {
         poly.setOrigin(width /2, height /2);
         poly.setPosition(x - width / 2, y - height / 2);
         return poly;
+    }
+
+    boolean isHolding = false;
+    boolean isFirstHold = true;
+
+    @Override
+    public boolean isFirstHold() {
+        return isFirstHold;
+    }
+
+    @Override
+    public boolean isHolding() {
+        return isHolding;
+    }
+
+    @Override
+    public void setFirstHold(boolean firstHold) {
+        this.isFirstHold = firstHold;
+    }
+
+    @Override
+    public void setHolding(boolean holding) {
+        this.isHolding = holding;
+    }
+
+    @Override
+    public void onClick() {
+        System.out.println("Player clicked");
+    }
+
+    @Override
+    public void onHold() {
+        System.out.println("Player is holding");
+        sprite.setScale(1.2f);
+    }
+
+    @Override
+    public void onRelease() {
+        System.out.println("Player released");
+        sprite.setScale(1f);
     }
 }
