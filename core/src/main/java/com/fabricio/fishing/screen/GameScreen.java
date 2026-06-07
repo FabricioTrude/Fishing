@@ -52,7 +52,7 @@ public class GameScreen implements Screen {
         shapeRenderer.setColor(Palette.SEA);
         shapeRenderer.rect(0,0, SCREEN_WIDTH, SEA_HEIGHT);
         shapeRenderer.end();
-        entityManager.renderBoxes(shapeRenderer); // render colisao
+ //       entityManager.renderBoxes(shapeRenderer); // render colisao
 
         batch.begin();
         fishManager.render(batch);
