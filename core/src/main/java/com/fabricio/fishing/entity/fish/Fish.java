@@ -20,20 +20,21 @@ public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
     protected FishRarity rarity;
     protected FishSize size;
-
     protected Zones zone;
     protected EnumSet<TimePeriod> periods;
+
     protected float fishHP;
     protected float fishDEF;
     protected float fishVAL;
     protected float fishSPE;
     protected float fishSIZ;
-    protected Sprite sprite;
-    protected boolean flipped;
     protected float targetX;
     protected float targetY;
     protected float tick = 0;
+
     protected FishState state;
+    protected Sprite sprite;
+    protected boolean flipped;
     protected float rotation;
 
 
@@ -41,8 +42,8 @@ public class Fish extends Entity implements Clickable {
     //1. Peixes nadam ✅
     //2. Peixes param para descansar
     //3. Peixes saem da tela e são removidos
-    //4. Novos peixes spawnam
-    //5. Toque detecta peixe
+    //4. Novos peixes spawnam ✅
+    //5. Toque detecta peixe ✅
     //6. HP / Defesa
     //7. Animação de pesca
     //8. Economia
