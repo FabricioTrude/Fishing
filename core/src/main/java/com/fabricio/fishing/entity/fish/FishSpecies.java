@@ -1,6 +1,7 @@
 package com.fabricio.fishing.entity.fish;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
 
@@ -9,24 +10,44 @@ import java.util.EnumSet;
 public enum FishSpecies {
 
     BASS(
-        Zones.ZONE_1,
+        Zones.SWAMP,
         EnumSet.allOf(TimePeriod.class),
-        3,
+        2,
         0,
         1,
         30,
-        10,
-        new Texture("fish/sample.png")
+        1,
+        new Texture("fishes/bass.png")
     ),
     SALMON(
-        Zones.ZONE_1,
+        Zones.SWAMP,
         EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
-        4,
+        3.5f,
+        0.2f,
+        2f,
+        25,
         1,
-        3,
-        15,
-        15,
-        new Texture("fish/sample.png")
+        new Texture("fishes/salmon.png")
+    ),
+    COD(
+        Zones.SWAMP,
+        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
+        2,
+        1,
+        1,
+        20,
+        1,
+        new Texture("fishes/cod.png")
+    ),
+    CLOWN_FISH(
+        Zones.SWAMP,
+        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
+        5,
+        0,
+        2,
+        30,
+        1,
+        new Texture("fishes/clown_fish.png")
     );
 
     protected final Zones zone;
@@ -47,6 +68,19 @@ public enum FishSpecies {
         this.baseSPE = baseSPE;
         this.baseSIZ = baseSIZ;
         this.texture = texture;
+    }
+    public static FishSpecies random(Zones zone){
+        float roll = MathUtils.random(100f);
+        FishSpecies species = switch(zone){
+            case SWAMP -> {
+                if (roll < 30f) yield BASS;
+                if (roll < 55.5f) yield SALMON;
+                if (roll < 75f) yield CLOWN_FISH;
+                yield COD;
+            }
+            default -> BASS;
+        };
+        return species;
     }
 
     public Zones getZone() {

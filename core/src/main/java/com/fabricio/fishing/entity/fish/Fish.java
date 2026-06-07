@@ -1,21 +1,22 @@
 package com.fabricio.fishing.entity.fish;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
+import com.fabricio.fishing.entity.interfaces.Clickable;
 
 import java.util.EnumSet;
 
 import static com.badlogic.gdx.math.MathUtils.random;
+import static com.fabricio.fishing.entity.enums.Zones.SWAMP;
 import static com.fabricio.fishing.screen.GameScreen.SCREEN_WIDTH;
 import static com.fabricio.fishing.screen.GameScreen.SEA_HEIGHT;
 
-public class Fish extends Entity {
+public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
     protected FishRarity rarity;
     protected FishSize size;
@@ -27,17 +28,14 @@ public class Fish extends Entity {
     protected float fishVAL;
     protected float fishSPE;
     protected float fishSIZ;
-
-    protected float width;
-    protected float height;
-
+    protected Sprite sprite;
+    protected boolean flipped;
     protected float targetX;
     protected float targetY;
     protected float tick = 0;
     protected FishState state;
     protected float rotation;
 
-    protected Texture texture;
 
     // TODO Fish
     //1. Peixes nadam ✅
@@ -51,19 +49,20 @@ public class Fish extends Entity {
 
     public Fish(float x, float y) {
         super(x, y);
-        this.species = FishSpecies.BASS;
+        this.zone = SWAMP;
+        this.species = FishSpecies.random(SWAMP);
         this.rarity = FishRarity.random();
         this.size = FishSize.random();
-        this.zone = species.getZone();
         this.periods = species.getPeriods();
         this.fishHP = species.getBaseHP();
         this.fishDEF = species.getBaseDEF();
         this.fishVAL = species.getBaseVAL();
         this.fishSPE = species.getBaseSPE();
-        this.fishSIZ = size.getScale();
-        this.texture = species.getTexture();
-        this.width = texture.getWidth() * fishSIZ;
-        this.height = texture.getHeight() * fishSIZ;
+        this.fishSIZ = size.getScale() * species.getBaseSIZ();
+        this.sprite = new Sprite(species.getTexture());
+        this.width = sprite.getWidth() * fishSIZ;
+        this.height = sprite.getHeight() * fishSIZ;
+        this.sprite.setSize(this.width, this.height);
         pickTarget();
     }
 
@@ -89,29 +88,47 @@ public class Fish extends Entity {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(
-            texture,
-            x - width/2,
-            y - height/2,
-            width / 2,
-            height / 2,
-            width,
-            height,
-            1,
-            1,
-            rotation,
-            0,
-            0,
-            texture.getWidth(),
-            texture.getHeight(),
-            false,
-            false
+        float sx = x-width/2;
+        float sy = y-width/2;
+        sprite.setPosition(sx , sy);
+        sprite.setOriginCenter();
+        boolean leftSide = rotation > 90 || rotation < -90;
+        if(leftSide) {
+            if(!flipped) {
+                sprite.flip(true, false);
+                flipped = true;
+            }
+            sprite.setRotation(rotation - 180);
+        } else {
+            if(flipped) {
+                sprite.flip(true, false);
+                flipped = false;
+            }
+            sprite.setRotation(rotation);
+        }
+        sprite.draw(batch);
+    }
+    public Polygon getBounds(){
+        Polygon poly = new Polygon(
+            new float[]{
+                0, 0,
+                width, 0,
+                width, height,
+                0 ,height
+            }
         );
+        poly.setOrigin(width / 2, height / 2);
+        poly.setPosition(x - width / 2, y - height / 2);
+        poly.rotate(rotation);
+        return poly;
     }
 
     public static Fish spawn(){
+        float direction = MathUtils.random(1f);
+        float rX = MathUtils.random(50f);
+        rX = direction >= 0.5f ? rX - 50 : rX + SCREEN_WIDTH;
         return new Fish(
-            -30,
+            rX,
             random.nextFloat() * SEA_HEIGHT
         );
     }
@@ -125,5 +142,14 @@ public class Fish extends Entity {
         );
         state = FishState.SWIMMING;
         tick = 0;
+    }
+
+    public boolean alive(){
+        return fishHP > 0;
+    }
+
+    @Override
+    public void onClick() {
+        fishHP--;
     }
 }
