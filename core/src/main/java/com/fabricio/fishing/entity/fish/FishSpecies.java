@@ -16,7 +16,7 @@ public enum FishSpecies {
         1,
         30,
         10,
-        new Texture("fish/sample.png")
+        new Texture("assets/fishes/fish.png")
     ),
     SALMON(
         Zones.ZONE_1,
@@ -26,7 +26,7 @@ public enum FishSpecies {
         3,
         15,
         15,
-        new Texture("fish/sample.png")
+        new Texture("assets/fishes/fish.png")
     );
 
     protected final Zones zone;

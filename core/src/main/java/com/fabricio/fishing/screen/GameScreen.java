@@ -6,15 +6,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.fabricio.fishing.entity.Player;
-import com.fabricio.fishing.manager.PaletteManager;
-import com.fabricio.fishing.manager.TimeManager;
-import com.fabricio.fishing.manager.FishManager;
+import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.util.Palette;
 
 public class GameScreen implements Screen {
     final TimeManager timeManager;
     final PaletteManager paletteManager;
+    final EntityManager entityManager;
     final FishManager fishManager;
+    final ClickManager clickManager;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final SpriteBatch batch = new SpriteBatch();
@@ -29,7 +29,9 @@ public class GameScreen implements Screen {
         player = new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT);
         timeManager = new TimeManager();
         paletteManager = new PaletteManager(timeManager);
-        fishManager = new FishManager(timeManager);
+        entityManager = new EntityManager();
+        fishManager = new FishManager(timeManager, entityManager);
+        clickManager = new ClickManager(entityManager);
     }
 
     @Override
@@ -42,6 +44,8 @@ public class GameScreen implements Screen {
         timeManager.update(delta);
         paletteManager.update();
         fishManager.update(delta);
+        clickManager.update();
+        entityManager.flushRemovals();
 
         ScreenUtils.clear(paletteManager.getSkyColor());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -50,6 +54,8 @@ public class GameScreen implements Screen {
         shapeRenderer.setColor(Palette.FROG);
         shapeRenderer.rect(player.getX(), player.getY(), 50,50);
         shapeRenderer.end();
+
+        entityManager.renderBoxes(shapeRenderer);
 
         batch.begin();
         fishManager.render(batch);
