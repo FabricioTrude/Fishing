@@ -29,6 +29,7 @@ public class Fish extends Entity implements Clickable {
     protected float fishSPE;
     protected float fishSIZ;
     protected Sprite sprite;
+    protected Polygon polygon;
     protected boolean flipped;
     protected float targetX;
     protected float targetY;
@@ -63,7 +64,18 @@ public class Fish extends Entity implements Clickable {
         this.width = sprite.getWidth() * fishSIZ;
         this.height = sprite.getHeight() * fishSIZ;
         this.sprite.setSize(this.width, this.height);
+        initPolygon();
         pickTarget();
+    }
+    private void initPolygon(){
+        this.polygon = new Polygon(
+            new float[]{
+                -width/2f, -height/2f,
+                width/2f, -height/2f,
+                width/2f, height/2f,
+                -width/2f, height/2f
+            }
+        );
     }
 
     @Override
@@ -85,11 +97,13 @@ public class Fish extends Entity implements Clickable {
                 if(tick >= 1) pickTarget();
             }
         }
+        polygon.setPosition(x, y);
+        polygon.setRotation(rotation);
     }
 
     public void render(SpriteBatch batch) {
         float sx = x-width/2;
-        float sy = y-width/2;
+        float sy = y-height/2;
         sprite.setPosition(sx , sy);
         sprite.setOriginCenter();
         boolean leftSide = rotation > 90 || rotation < -90;
@@ -109,18 +123,7 @@ public class Fish extends Entity implements Clickable {
         sprite.draw(batch);
     }
     public Polygon getBounds(){
-        Polygon poly = new Polygon(
-            new float[]{
-                0, 0,
-                width, 0,
-                width, height,
-                0 ,height
-            }
-        );
-        poly.setOrigin(width / 2, height / 2);
-        poly.setPosition(x - width / 2, y - height / 2);
-        poly.rotate(rotation);
-        return poly;
+        return polygon;
     }
 
     public static Fish spawn(){
