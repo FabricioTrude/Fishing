@@ -17,11 +17,12 @@ public class EntityManager {
     private final Array<Entity> pendingRemoval = new Array<>();
 
     public void addEntity(Entity entity){
+        if(entity instanceof Clickable clickable){
+            this.clickables.add(clickable);
+            System.out.println("Added " + entity.toString());
+        }
         if(entity instanceof Fish fish)
             fishes.add(fish);
-        if(entity instanceof Clickable clickable)
-            this.clickables.add(clickable);
-
         entities.add(entity);
     }
 

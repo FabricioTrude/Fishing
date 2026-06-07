@@ -25,9 +25,6 @@ public class ClickManager {
                 System.out.println(
                     clickable.getBounds()
                 );
-                System.out.println(
-                    "Mouse: " + mouseX + ", " + mouseY
-                );
                 clickable.onClick();
             }
         }
