@@ -1,6 +1,6 @@
 package com.fabricio.fishing.event;
 
-import com.fabricio.fishing.entity.fish.Fish;
+import com.fabricio.fishing.features.fishing.Fish;
 
 public class FishDiedEvent implements Event{
     public final Fish fish;

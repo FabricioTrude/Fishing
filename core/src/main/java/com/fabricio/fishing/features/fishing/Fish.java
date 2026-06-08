@@ -1,4 +1,4 @@
-package com.fabricio.fishing.entity.fish;
+package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,16 +8,13 @@ import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
 import com.fabricio.fishing.entity.interfaces.Clickable;
-import com.fabricio.fishing.event.Event;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.event.FishDiedEvent;
 
 import java.util.EnumSet;
 
-import static com.badlogic.gdx.math.MathUtils.random;
 import static com.fabricio.fishing.entity.enums.Zones.SWAMP;
-import static com.fabricio.fishing.screen.GameScreen.SCREEN_WIDTH;
-import static com.fabricio.fishing.screen.GameScreen.SEA_HEIGHT;
+import static com.fabricio.fishing.features.GameContext.*;
 
 public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
@@ -87,54 +84,6 @@ public class Fish extends Entity implements Clickable {
         );
     }
 
-    @Override
-    public void update(float delta) {
-        switch(state){
-            case FishState.SWIMMING -> {
-                float dx = targetX - x;
-                float dy = targetY - y;
-                rotation = MathUtils.atan2(dy, dx) * MathUtils.radiansToDegrees;
-                float distance = (float)Math.sqrt(
-                    dx * dx + dy * dy
-                );
-                if (distance <= 0.1f) state = FishState.IDLE;
-                x += dx / distance * fishSPE * delta;
-                y += dy / distance * fishSPE * delta;
-                fishSTAM -= delta;
-                if(fishSTAM <= 0) {
-                    restingTime = MathUtils.random(2, bSTAM/2);
-                    state = FishState.RESTING;
-                }
-            }
-            case FishState.RESTING -> {
-                restingTime -= delta;
-                if(restingTime <= 0){
-                    fishSTAM = bSTAM;
-                    state = FishState.SWIMMING;
-                }
-            }
-            case FishState.PANIC -> {
-                panicTick += delta;
-                pickTarget();
-                fishSPE *= 1.5f;
-                if(panicTick >=5 ) {
-                    fishSPE *= 0.5f;
-                    state = FishState.RESTING;
-                    panicTick = 0;
-                }
-            }
-            case FishState.IDLE -> {
-                tick += delta;
-                if(tick >= 1) pickTarget();
-            }
-        }
-        polygon.setPosition(x, y);
-        polygon.setRotation(rotation);
-
-        if(!alive())
-            eventBus.publish(new FishDiedEvent(this, this.fishVAL));
-    }
-
     public void render(SpriteBatch batch) {
         float sx = x-width/2;
         float sy = y-height/2;
@@ -156,6 +105,53 @@ public class Fish extends Entity implements Clickable {
         }
         sprite.draw(batch);
     }
+
+    @Override
+    public void update(float delta) {
+        float dx = targetX - x;
+        float dy = targetY - y;
+        rotation = MathUtils.atan2(dy, dx) * MathUtils.radiansToDegrees;
+        float distance = (float)Math.sqrt(dx * dx + dy * dy);
+        if (distance <= 1f) state = FishState.IDLE;
+
+        switch(state){
+            case FishState.SWIMMING -> {
+                x += dx / distance * fishSPE * delta;
+                y += dy / distance * fishSPE * delta;
+                fishSTAM -= delta;
+                if(fishSTAM <= 0) {
+                    restingTime = MathUtils.random(2, bSTAM/2);
+                    state = FishState.RESTING;
+                }
+            }
+            case FishState.PANIC -> {
+                x += dx / distance * fishSPE * delta * 1.5f;
+                y += dy / distance * fishSPE * delta * 1.5f;
+                fishSTAM -= delta * 1.5f;
+                if(panicTick >=5 ) {
+                    state = FishState.RESTING;
+                    panicTick = 0;
+                }
+            }
+            case FishState.RESTING -> {
+                restingTime -= delta;
+                if(restingTime <= 0){
+                    fishSTAM = bSTAM;
+                    state = FishState.SWIMMING;
+                }
+            }
+            case FishState.IDLE -> {
+                tick += delta;
+                if(tick >= 1) pickTarget();
+            }
+        }
+        polygon.setPosition(x, y);
+        polygon.setRotation(rotation);
+
+        if(!alive())
+            eventBus.publish(new FishDiedEvent(this, this.fishVAL));
+    }
+
     public Polygon getBounds(){
         return polygon;
     }
@@ -177,7 +173,10 @@ public class Fish extends Entity implements Clickable {
 
     @Override
     public void onClick() {
-        if(alive() && state != FishState.PANIC) state = FishState.PANIC;
+        if(alive() && state != FishState.PANIC) {
+            pickTarget();
+            state = FishState.PANIC;
+        }
         fishHP--;
     }
 }

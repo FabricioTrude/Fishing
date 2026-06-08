@@ -1,0 +1,70 @@
+package com.fabricio.fishing.features.fishing;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.features.GameContext;
+import com.fabricio.fishing.screen.FeatureScreen;
+import com.fabricio.fishing.util.Palette;
+
+import static com.fabricio.fishing.features.GameContext.*;
+
+public class FishingFeature implements FeatureScreen {
+    private final GameContext context;
+    private final FishManager fishManager;
+    private final Player player;
+
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final SpriteBatch batch = new SpriteBatch();
+
+    public FishingFeature(GameContext context) {
+        this.context = context;
+        fishManager = new FishManager(
+            context.getEventBus(),
+            context.getTimeManager(),
+            context.getEntityManager());
+        player = Player.createPlayer(
+            context.getTimeManager(),
+            context.getEntityManager(),
+            context.getEventBus());
+    }
+    public void render(){
+        update(Gdx.graphics.getDeltaTime());
+
+        ScreenUtils.clear(
+            context.getPaletteManager().getSkyColor()
+        );
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Palette.SEA);
+        shapeRenderer.rect(
+            0,
+            0,
+            SCREEN_WIDTH,
+            SEA_HEIGHT
+        );
+        shapeRenderer.end();
+
+        batch.begin();
+        player.render(batch);
+        fishManager.render(batch);
+        batch.end();
+
+    }
+
+    public void update(float delta){
+        context.getTimeManager().update(delta);
+        player.update(delta);
+        context.getPaletteManager().update();
+        fishManager.update(delta);
+        context.getClickManager().update();
+        context.getEntityManager().flushRemovals();
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}

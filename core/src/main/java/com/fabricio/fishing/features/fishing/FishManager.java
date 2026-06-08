@@ -1,17 +1,13 @@
-package com.fabricio.fishing.manager;
+package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Array;
-import com.fabricio.fishing.entity.fish.Fish;
-import com.fabricio.fishing.event.Event;
 import com.fabricio.fishing.event.EventBus;
-import com.fabricio.fishing.event.FishDiedEvent;
+import com.fabricio.fishing.manager.EntityManager;
+import com.fabricio.fishing.manager.TimeManager;
 
 import static com.badlogic.gdx.math.MathUtils.random;
-import static com.fabricio.fishing.screen.GameScreen.SCREEN_WIDTH;
-import static com.fabricio.fishing.screen.GameScreen.SEA_HEIGHT;
+import static com.fabricio.fishing.features.GameContext.*;
 
 public class FishManager extends TimeManager {
     TimeManager timeManager;
