@@ -82,5 +82,6 @@ public class Player extends Frog implements Holdable {
     @Override
     public void onRelease() {
         isHolding = false;
+        sprite.setScale(1f);
     }
 }
