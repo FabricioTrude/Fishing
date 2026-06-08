@@ -16,7 +16,8 @@ public enum FishSpecies {
         0,
         1,
         30,
-        1,
+        1.5f,
+        10,
         new Texture("fishes/bass.png")
     ),
     SALMON(
@@ -26,7 +27,8 @@ public enum FishSpecies {
         0.2f,
         2f,
         25,
-        1,
+        1.5f,
+        15,
         new Texture("fishes/salmon.png")
     ),
     COD(
@@ -36,7 +38,8 @@ public enum FishSpecies {
         1,
         1,
         20,
-        1,
+        1.5f,
+        5,
         new Texture("fishes/cod.png")
     ),
     CLOWN_FISH(
@@ -46,7 +49,8 @@ public enum FishSpecies {
         0,
         2,
         30,
-        1,
+        1.5f,
+        20,
         new Texture("fishes/clown_fish.png")
     );
 
@@ -57,9 +61,10 @@ public enum FishSpecies {
     protected final float baseVAL;
     protected final float baseSPE;
     protected final float baseSIZ;
+    protected final float baseSTAM;
     protected final Texture texture;
 
-    FishSpecies(Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, Texture texture) {
+    FishSpecies(Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
         this.zone = zone;
         this.periods = periods;
         this.baseHP = baseHP;
@@ -67,6 +72,7 @@ public enum FishSpecies {
         this.baseVAL = baseVAL;
         this.baseSPE = baseSPE;
         this.baseSIZ = baseSIZ;
+        this.baseSTAM = baseSTAM;
         this.texture = texture;
     }
     public static FishSpecies random(Zones zone){
@@ -109,6 +115,10 @@ public enum FishSpecies {
 
     public float getBaseSIZ() {
         return baseSIZ;
+    }
+
+    public float getBaseSTAM() {
+        return baseSTAM;
     }
 
     public Texture getTexture() {

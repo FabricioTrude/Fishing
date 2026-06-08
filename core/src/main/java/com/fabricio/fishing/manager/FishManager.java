@@ -19,7 +19,7 @@ public class FishManager extends TimeManager {
     private final EntityManager entityManager;
 
 
-    private int maxFishes = 3;
+    private int maxFishes = 10;
     private float spawnTimer = 0;
 
     public FishManager(EventBus eventBus,TimeManager timeManager, EntityManager entityManager) {
@@ -36,7 +36,7 @@ public class FishManager extends TimeManager {
 
     public void update(float delta){
         spawnTimer += delta;
-        if(spawnTimer > 1 && entityManager.getFishes().size <= maxFishes){
+        if(spawnTimer > 1 && entityManager.getFishes().size < maxFishes){
             spawnTimer = 0;
             createFish();
         }

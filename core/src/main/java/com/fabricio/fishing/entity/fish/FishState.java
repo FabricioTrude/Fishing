@@ -2,5 +2,7 @@ package com.fabricio.fishing.entity.fish;
 
 public enum FishState {
     IDLE,
-    SWIMMING
+    SWIMMING,
+    RESTING,
+    PANIC
 }
