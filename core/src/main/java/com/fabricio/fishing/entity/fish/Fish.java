@@ -8,6 +8,9 @@ import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
 import com.fabricio.fishing.entity.interfaces.Clickable;
+import com.fabricio.fishing.event.Event;
+import com.fabricio.fishing.event.EventBus;
+import com.fabricio.fishing.event.FishDiedEvent;
 
 import java.util.EnumSet;
 
@@ -53,8 +56,8 @@ public class Fish extends Entity implements Clickable {
     //7. Animação de pesca
     //8. Economia
 
-    public Fish(float x, float y) {
-        super(x, y);
+    public Fish(float x, float y, EventBus eventBus) {
+        super(x, y, eventBus);
         this.zone = SWAMP;
         this.species = FishSpecies.random(SWAMP);
         this.rarity = FishRarity.random();
@@ -127,6 +130,9 @@ public class Fish extends Entity implements Clickable {
         }
         polygon.setPosition(x, y);
         polygon.setRotation(rotation);
+
+        if(!alive())
+            eventBus.publish(new FishDiedEvent(this, this.fishVAL));
     }
 
     public void render(SpriteBatch batch) {
@@ -152,15 +158,6 @@ public class Fish extends Entity implements Clickable {
     }
     public Polygon getBounds(){
         return polygon;
-    }
-    public static Fish spawn(){
-        float direction = MathUtils.random(1f);
-        float rX = MathUtils.random(50f);
-        rX = direction >= 0.5f ? rX - 50 : rX + SCREEN_WIDTH;
-        return new Fish(
-            rX,
-            random.nextFloat() * SEA_HEIGHT
-        );
     }
 
     public void pickTarget(){
