@@ -40,7 +40,8 @@ public class FishingFeature implements FeatureScreen {
             SEA_HEIGHT
         );
         shapeRenderer.end();
-        context.getEntityManager().renderBoxes(shapeRenderer);
+
+//        context.getEntityManager().renderBoxes(shapeRenderer);
 
         batch.begin();
         player.render(batch);
