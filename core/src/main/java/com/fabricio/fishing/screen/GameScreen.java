@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.util.Palette;
 
 public class GameScreen implements Screen {
+    private final EventBus eventBus;
     final TimeManager timeManager;
     final PaletteManager paletteManager;
     final EntityManager entityManager;
@@ -26,12 +28,13 @@ public class GameScreen implements Screen {
     static public float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
 
     public GameScreen() {
+        eventBus = new EventBus();
         timeManager = new TimeManager();
         paletteManager = new PaletteManager(timeManager);
         entityManager = new EntityManager();
         clickManager = new ClickManager(entityManager);
-        player = Player.createPlayer(timeManager,entityManager);
-        fishManager = new FishManager(timeManager, entityManager);
+        player = Player.createPlayer(timeManager,entityManager, eventBus);
+        fishManager = new FishManager(eventBus, timeManager, entityManager);
     }
 
     @Override
@@ -45,6 +48,9 @@ public class GameScreen implements Screen {
         paletteManager.update();
         fishManager.update(delta);
         clickManager.update();
+
+        eventBus.subscribe(entityManager::handle);
+
         entityManager.flushRemovals();
 
         ScreenUtils.clear(paletteManager.getSkyColor());
@@ -52,9 +58,9 @@ public class GameScreen implements Screen {
         shapeRenderer.setColor(Palette.SEA);
         shapeRenderer.rect(0,0, SCREEN_WIDTH, SEA_HEIGHT);
         shapeRenderer.end();
-      
+
 //        entityManager.renderBoxes(shapeRenderer); // render colisao
-      
+
         batch.begin();
         player.render(batch);
         fishManager.render(batch);

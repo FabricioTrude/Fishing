@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Frog;
 import com.fabricio.fishing.entity.interfaces.Clickable;
+import com.fabricio.fishing.event.Event;
+import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
 
@@ -22,15 +24,15 @@ public class Player extends Frog implements Clickable {
     protected float width = sprite.getWidth();
     protected float height = sprite.getHeight();
 
-    public Player(float x, float y, TimeManager timeManager, EntityManager entityManager) {
-        super(x, y);
+    public Player(float x, float y, TimeManager timeManager, EntityManager entityManager, EventBus eventBus) {
+        super(x, y, eventBus);
         this.timeManager = timeManager;
         this.entityManager = entityManager;
         entityManager.addEntity(this);
     }
 
-    public static Player createPlayer(TimeManager timeManager, EntityManager entityManager){
-       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager);
+    public static Player createPlayer(TimeManager timeManager, EntityManager entityManager, EventBus eventBus){
+       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager, eventBus);
     }
 
     @Override
