@@ -16,6 +16,7 @@ public class GameScreen implements Screen {
     final PaletteManager paletteManager;
     final EntityManager entityManager;
     final ClickManager clickManager;
+    final ScoreManager scoreManager;
 
     final Player player;
     final FishManager fishManager;
@@ -35,6 +36,10 @@ public class GameScreen implements Screen {
         clickManager = new ClickManager(entityManager);
         player = Player.createPlayer(timeManager,entityManager, eventBus);
         fishManager = new FishManager(eventBus, timeManager, entityManager);
+        scoreManager = new ScoreManager();
+
+        eventBus.subscribe(entityManager::handle);
+        eventBus.subscribe(scoreManager::handle);
     }
 
     @Override
@@ -48,9 +53,6 @@ public class GameScreen implements Screen {
         paletteManager.update();
         fishManager.update(delta);
         clickManager.update();
-
-        eventBus.subscribe(entityManager::handle);
-
         entityManager.flushRemovals();
 
         ScreenUtils.clear(paletteManager.getSkyColor());

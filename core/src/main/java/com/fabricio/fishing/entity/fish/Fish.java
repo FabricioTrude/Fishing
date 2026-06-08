@@ -106,7 +106,7 @@ public class Fish extends Entity implements Clickable {
         polygon.setRotation(rotation);
 
         if(!alive())
-            eventBus.publish(new FishDiedEvent(this));
+            eventBus.publish(new FishDiedEvent(this, this.fishVAL));
     }
 
     public void render(SpriteBatch batch) {

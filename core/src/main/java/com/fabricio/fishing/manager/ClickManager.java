@@ -21,10 +21,6 @@ public class ClickManager {
 
         for(Clickable clickable : entityManager.getClickables()){
             if(clickable.getBounds().contains(mouseX, mouseY)){
-                System.out.println("Clicado");
-                System.out.println(
-                    clickable.getBounds()
-                );
                 clickable.onClick();
             }
         }
