@@ -27,6 +27,7 @@ public class ClickManager {
     private Holdable heldObject;
     private long clickStartTime;
     private boolean holdStarted;
+
     public void update(){
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();

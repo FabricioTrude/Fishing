@@ -7,13 +7,13 @@ import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Frog;
 import com.fabricio.fishing.entity.interfaces.Holdable;
 import com.fabricio.fishing.event.EventBus;
+import com.fabricio.fishing.features.fishing.FishingStatus;
 import com.fabricio.fishing.manager.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
 public class Player extends Frog implements Holdable {
-
     protected TimeManager timeManager;
     protected EntityManager entityManager;
 
@@ -21,6 +21,12 @@ public class Player extends Frog implements Holdable {
     protected Sprite sprite = new Sprite(texture);
     protected float width = sprite.getWidth();
     protected float height = sprite.getHeight();
+
+    private final FishingStatus fishingStatus = new FishingStatus();
+
+    public FishingStatus getFishingStatus(){
+        return fishingStatus;
+    }
 
     public Player(float x, float y, TimeManager timeManager, EntityManager entityManager, EventBus eventBus) {
         super(x, y, eventBus);
@@ -33,7 +39,6 @@ public class Player extends Frog implements Holdable {
        return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager, eventBus);
     }
 
-
     public void render(SpriteBatch batch) {
         float sx = x - width / 2;
         float sy = y - height / 2;
@@ -41,7 +46,6 @@ public class Player extends Frog implements Holdable {
         sprite.setOriginCenter();
         sprite.draw(batch);
     }
-
 
     @Override
     public Polygon getBounds() {

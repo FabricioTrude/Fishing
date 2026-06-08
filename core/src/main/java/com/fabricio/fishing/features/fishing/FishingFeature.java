@@ -21,14 +21,8 @@ public class FishingFeature implements FeatureScreen {
 
     public FishingFeature(GameContext context) {
         this.context = context;
-        fishManager = new FishManager(
-            context.getEventBus(),
-            context.getTimeManager(),
-            context.getEntityManager());
-        player = Player.createPlayer(
-            context.getTimeManager(),
-            context.getEntityManager(),
-            context.getEventBus());
+        player = context.getPlayer();
+        fishManager = new FishManager(context, player.getFishingStatus());
     }
     public void render(){
         update(Gdx.graphics.getDeltaTime());
@@ -46,6 +40,7 @@ public class FishingFeature implements FeatureScreen {
             SEA_HEIGHT
         );
         shapeRenderer.end();
+        context.getEntityManager().renderBoxes(shapeRenderer);
 
         batch.begin();
         player.render(batch);

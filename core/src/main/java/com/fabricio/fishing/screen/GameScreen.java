@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int i, int i1) {
+
     }
 
     @Override

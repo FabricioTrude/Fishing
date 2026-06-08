@@ -1,6 +1,7 @@
 package com.fabricio.fishing.features;
 
 import com.badlogic.gdx.Gdx;
+import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.screen.FeatureScreen;
@@ -16,7 +17,7 @@ public class GameContext {
     private final EntityManager entityManager = new EntityManager();
     private final ClickManager clickManager = new ClickManager(entityManager);
     private final ScoreManager scoreManager = new ScoreManager();
-
+    private Player player = Player.createPlayer(timeManager, entityManager, eventBus);
 
     private FeatureScreen currentFeature;
 
@@ -51,6 +52,18 @@ public class GameContext {
 
     public FeatureScreen getCurrentFeature() {
         return currentFeature;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public static void setScreenWidth(float screenWidth) {
+        SCREEN_WIDTH = screenWidth;
+    }
+
+    public static void setScreenHeight(float screenHeight) {
+        SCREEN_HEIGHT = screenHeight;
     }
 
     public void setFeature(FeatureScreen feature){
