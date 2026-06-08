@@ -6,14 +6,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.util.Palette;
 
 public class GameScreen implements Screen {
+    private final EventBus eventBus;
     final TimeManager timeManager;
     final PaletteManager paletteManager;
     final EntityManager entityManager;
     final ClickManager clickManager;
+    final ScoreManager scoreManager;
 
     final Player player;
     final FishManager fishManager;
@@ -26,12 +29,17 @@ public class GameScreen implements Screen {
     static public float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
 
     public GameScreen() {
+        eventBus = new EventBus();
         timeManager = new TimeManager();
         paletteManager = new PaletteManager(timeManager);
         entityManager = new EntityManager();
         clickManager = new ClickManager(entityManager);
-        player = Player.createPlayer(timeManager,entityManager);
-        fishManager = new FishManager(timeManager, entityManager);
+        player = Player.createPlayer(timeManager,entityManager, eventBus);
+        fishManager = new FishManager(eventBus, timeManager, entityManager);
+        scoreManager = new ScoreManager();
+
+        eventBus.subscribe(entityManager::handle);
+        eventBus.subscribe(scoreManager::handle);
     }
 
     @Override

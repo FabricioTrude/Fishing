@@ -10,6 +10,8 @@ import com.fabricio.fishing.entity.fish.Fish;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.HasBounds;
 import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.event.Event;
+import com.fabricio.fishing.event.FishDiedEvent;
 
 public class EntityManager {
     private final Array<Entity> entities = new Array<>();
@@ -46,7 +48,7 @@ public class EntityManager {
 
     public Array<Clickable> getClickables() { return clickables; }
 
-    public void MarkForRemoval(Entity entity){
+    public void markForRemoval(Entity entity){
         pendingRemoval.add(entity);
     }
 
@@ -68,5 +70,11 @@ public class EntityManager {
             shapeRenderer.polygon(rect.getTransformedVertices());
         }
         shapeRenderer.end();
+    }
+
+    public void handle(Event event){
+        if(event instanceof FishDiedEvent e){
+            markForRemoval(e.fish);
+        }
     }
 }
