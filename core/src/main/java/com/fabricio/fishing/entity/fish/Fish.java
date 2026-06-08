@@ -31,15 +31,18 @@ public class Fish extends Entity implements Clickable {
     protected float fishVAL;
     protected float fishSPE;
     protected float fishSIZ;
+    protected float fishSTAM;
+    protected float bSTAM;
+    protected FishState state;
+    protected float tick = 0;
+    protected float panicTick = 0;
+    protected float restingTime;
 
     protected Sprite sprite;
     protected Polygon polygon;
     protected boolean flipped;
     protected float targetX;
     protected float targetY;
-    protected float tick = 0;
-
-    protected FishState state;
     protected float rotation;
 
 
@@ -65,6 +68,7 @@ public class Fish extends Entity implements Clickable {
         this.fishVAL = species.getBaseVAL();
         this.fishSPE = species.getBaseSPE();
         this.fishSIZ = size.getScale() * species.getBaseSIZ();
+        this.bSTAM = species.getBaseSTAM();
         this.sprite = new Sprite(species.getTexture());
         this.width = sprite.getWidth() * fishSIZ;
         this.height = sprite.getHeight() * fishSIZ;
@@ -96,6 +100,28 @@ public class Fish extends Entity implements Clickable {
                 if (distance <= 0.1f) state = FishState.IDLE;
                 x += dx / distance * fishSPE * delta;
                 y += dy / distance * fishSPE * delta;
+                fishSTAM -= delta;
+                if(fishSTAM <= 0) {
+                    restingTime = MathUtils.random(2, bSTAM/2);
+                    state = FishState.RESTING;
+                }
+            }
+            case FishState.RESTING -> {
+                restingTime -= delta;
+                if(restingTime <= 0){
+                    fishSTAM = bSTAM;
+                    state = FishState.SWIMMING;
+                }
+            }
+            case FishState.PANIC -> {
+                panicTick += delta;
+                pickTarget();
+                fishSPE *= 1.5f;
+                if(panicTick >=5 ) {
+                    fishSPE *= 0.5f;
+                    state = FishState.RESTING;
+                    panicTick = 0;
+                }
             }
             case FishState.IDLE -> {
                 tick += delta;
@@ -151,6 +177,7 @@ public class Fish extends Entity implements Clickable {
 
     @Override
     public void onClick() {
+        if(alive() && state != FishState.PANIC) state = FishState.PANIC;
         fishHP--;
     }
 }
