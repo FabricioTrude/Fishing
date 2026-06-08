@@ -3,13 +3,14 @@ package com.fabricio.fishing.manager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.fabricio.fishing.entity.Entity;
-import com.fabricio.fishing.entity.fish.Fish;
+import com.fabricio.fishing.features.fishing.Fish;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.HasBounds;
 import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.event.Event;
+import com.fabricio.fishing.event.FishDiedEvent;
 
 public class EntityManager {
     private final Array<Entity> entities = new Array<>();
@@ -46,7 +47,7 @@ public class EntityManager {
 
     public Array<Clickable> getClickables() { return clickables; }
 
-    public void MarkForRemoval(Entity entity){
+    public void markForRemoval(Entity entity){
         pendingRemoval.add(entity);
     }
 
@@ -68,5 +69,11 @@ public class EntityManager {
             shapeRenderer.polygon(rect.getTransformedVertices());
         }
         shapeRenderer.end();
+    }
+
+    public void handle(Event event){
+        if(event instanceof FishDiedEvent e){
+            markForRemoval(e.fish);
+        }
     }
 }

@@ -20,8 +20,8 @@ public class Lwjgl3Launcher {
         configuration.setTitle("Fishing");
         configuration.useVsync(true);
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
-        configuration.setWindowedMode(640, 480);
-        configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
+        configuration.setWindowedMode(480, 720);
+        configuration.setWindowIcon("fishes/clown_fish.png");
         return configuration;
     }
 }

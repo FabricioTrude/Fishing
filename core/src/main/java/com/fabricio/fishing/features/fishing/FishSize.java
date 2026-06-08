@@ -1,4 +1,4 @@
-package com.fabricio.fishing.entity.fish;
+package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.math.MathUtils;
 
