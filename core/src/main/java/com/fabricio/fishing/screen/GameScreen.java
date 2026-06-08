@@ -42,6 +42,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         timeManager.update(delta);
+        player.update(delta);
         paletteManager.update();
         fishManager.update(delta);
         clickManager.update();

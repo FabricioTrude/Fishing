@@ -35,10 +35,6 @@ public class Player extends Frog implements Holdable {
        return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager);
     }
 
-    @Override
-    public void update(float delta){
-
-    }
 
     public void render(SpriteBatch batch) {
         float sx = x - width / 2;
@@ -64,42 +60,32 @@ public class Player extends Frog implements Holdable {
         return poly;
     }
 
-    boolean isHolding = false;
-    boolean isFirstHold = true;
-
+    boolean isHolding;
     @Override
-    public boolean isFirstHold() {
-        return isFirstHold;
-    }
-
-    @Override
-    public boolean isHolding() {
-        return isHolding;
-    }
-
-    @Override
-    public void setFirstHold(boolean firstHold) {
-        this.isFirstHold = firstHold;
-    }
-
-    @Override
-    public void setHolding(boolean holding) {
-        this.isHolding = holding;
+    public void update(float delta){
+        if(!isHolding) sprite.setScale(1);
     }
 
     @Override
     public void onClick() {
-        System.out.println("Player clicked");
+        sprite.setScale(0.8f);
     }
 
     @Override
-    public void onHold() {
-        System.out.println("Player is holding");
+    public void onHoldStart() {
+        isHolding = true;
+        System.out.println("Player started holding");
         sprite.setScale(1.2f);
     }
 
     @Override
+    public void onHold() {
+        System.out.println("Player is still holding");
+    }
+
+    @Override
     public void onRelease() {
+        isHolding = false;
         System.out.println("Player released");
         sprite.setScale(1f);
     }
