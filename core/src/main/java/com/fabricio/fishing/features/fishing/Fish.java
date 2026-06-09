@@ -9,6 +9,7 @@ import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.event.EventBus;
+import com.fabricio.fishing.event.FishClickedEvent;
 import com.fabricio.fishing.event.FishDiedEvent;
 
 import java.util.EnumSet;
@@ -178,5 +179,6 @@ public class Fish extends Entity implements Clickable {
             state = FishState.PANIC;
         }
         fishHP--;
+        eventBus.publish(new FishClickedEvent(this));
     }
 }
