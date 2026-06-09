@@ -10,10 +10,8 @@ public class SoundManager {
 
     private final Sound fishCaught;
 
-    public SoundManager(EventBus eventBus, GameAssets gameAssets){
+    public SoundManager(GameAssets gameAssets){
         fishCaught = gameAssets.getSound(Sounds.FISH_CLICKED);
-
-        eventBus.subscribe(this::handle);
     }
 
     public void handle(Event event){

@@ -6,6 +6,7 @@ import com.fabricio.fishing.assets.UIAssets;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishSpecies;
 import com.fabricio.fishing.features.fishing.FishingFeature;
+import com.fabricio.fishing.manager.InventoryManager;
 import com.fabricio.fishing.screen.ui.actors.TextureActor;
 import static com.fabricio.fishing.assets.UIAssets.*;
 
@@ -19,8 +20,8 @@ public class FishEntry extends Group {
     public FishEntry(FishSpecies fish) {
         this.fish = fish;
         int amount = 0;
-        FishingFeature fishing = GameContext.getContext().getFishingFeature();
-        if(fishing != null) amount = Math.round(fishing.getFishes(fish));
+        InventoryManager inventoryManager = GameContext.getContext().getInventoryManager();
+        amount = Math.round(inventoryManager.getFishes(fish));
         TextureActor wallpaper = new TextureActor(UIAssets.wood);
         setSize(WIDTH,HEIGHT);
         wallpaper.setBounds(0,0,WIDTH,HEIGHT);

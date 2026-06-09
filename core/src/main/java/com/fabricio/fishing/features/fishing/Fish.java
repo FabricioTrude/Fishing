@@ -172,6 +172,13 @@ public class Fish extends Entity implements Clickable {
         return fishHP > 0;
     }
 
+    public float getFishVAL(){
+        return fishVAL*size.getScale();
+    }
+    public FishSpecies getSpecies(){
+        return species;
+    }
+
     @Override
     public void onClick() {
         if(alive() && state != FishState.PANIC) {
