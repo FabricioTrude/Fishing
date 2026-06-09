@@ -1,6 +1,7 @@
 package com.fabricio.fishing.features;
 
 import com.badlogic.gdx.Gdx;
+import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.*;
@@ -17,11 +18,15 @@ public class GameContext {
     private final EntityManager entityManager = new EntityManager();
     private final ClickManager clickManager = new ClickManager(entityManager);
     private final ScoreManager scoreManager = new ScoreManager();
+    private final GameAssets gameAssets = new GameAssets();
+    private final SoundManager soundManager;
     private Player player = Player.createPlayer(timeManager, entityManager, eventBus);
 
     private FeatureScreen currentFeature;
 
     public GameContext() {
+        gameAssets.load();
+        soundManager = new SoundManager(eventBus, gameAssets);
         eventBus.subscribe(entityManager::handle);
         eventBus.subscribe(scoreManager::handle);
     }
