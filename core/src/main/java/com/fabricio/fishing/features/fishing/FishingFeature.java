@@ -22,15 +22,11 @@ public class FishingFeature implements FeatureScreen {
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final SpriteBatch batch = new SpriteBatch();
 
-        private final EnumMap<FishSpecies, Float> fishes = new EnumMap<>(FishSpecies.class);
 
     public FishingFeature(GameContext context) {
         this.context = context;
         player = context.getPlayer();
         fishManager = new FishManager(context, player.getFishingStatus());
-        for(FishSpecies fish: FishSpecies.values()){
-            fishes.put(fish, 0f);
-        }
     }
     public void render(){
         update(Gdx.graphics.getDeltaTime());
@@ -72,11 +68,5 @@ public class FishingFeature implements FeatureScreen {
 
     }
 
-    public void addFish(FishSpecies fish, float number){
-        fishes.put(fish, fishes.get(fish) + number);
-    }
 
-    public float getFishes(FishSpecies fish) {
-        return fishes.getOrDefault(fish,0f);
-    }
 }

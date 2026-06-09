@@ -2,12 +2,15 @@ package com.fabricio.fishing.features;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.fabricio.fishing.assets.GameAssets;
+import com.fabricio.fishing.assets.SoundManager;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.screen.FeatureScreen;
+import com.sun.source.tree.BreakTree;
 
 public final class GameContext {
     private static GameContext INSTANCE;
@@ -22,12 +25,19 @@ public final class GameContext {
     private final EntityManager entityManager = new EntityManager();
     private final ClickManager clickManager = new ClickManager(entityManager);
     private final ScoreManager scoreManager = new ScoreManager();
+    private final InventoryManager inventoryManager = new InventoryManager(eventBus);
+    private final GameAssets gameAssets = new GameAssets();
+    private final SoundManager soundManager;
     private Player player = Player.createPlayer(timeManager, entityManager, eventBus);
 
     private FeatureScreen currentFeature;
 
     public GameContext() {
         INSTANCE = this;
+        gameAssets.load();
+        soundManager = new SoundManager(gameAssets);
+        eventBus.subscribe(soundManager::handle);
+        eventBus.subscribe(inventoryManager::handle);
         eventBus.subscribe(entityManager::handle);
         eventBus.subscribe(scoreManager::handle);
     }
@@ -54,6 +64,10 @@ public final class GameContext {
 
     public ClickManager getClickManager() {
         return clickManager;
+    }
+
+    public InventoryManager getInventoryManager(){
+        return inventoryManager;
     }
 
     public ScoreManager getScoreManager() {
