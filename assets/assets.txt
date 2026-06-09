@@ -2,7 +2,13 @@ fishes/bass.png
 fishes/clown_fish.png
 fishes/cod.png
 fishes/salmon.png
+icons/backpack.png
 player/base.png
 player/player.png
 sounds/fish_clicked.wav
+ui/buttons/small_button.png
+ui/huds/bottom_hud.png
+ui/huds/fishing_inventory.png
+ui/huds/top_hud.png
+ui/icons/backpack.png
 ui/wood.jpg

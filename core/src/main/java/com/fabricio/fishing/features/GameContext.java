@@ -5,10 +5,13 @@ import com.badlogic.gdx.InputProcessor;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
+import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.screen.FeatureScreen;
 
-public class GameContext {
+public final class GameContext {
+    private static GameContext INSTANCE;
+
     public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
@@ -24,8 +27,13 @@ public class GameContext {
     private FeatureScreen currentFeature;
 
     public GameContext() {
+        INSTANCE = this;
         eventBus.subscribe(entityManager::handle);
         eventBus.subscribe(scoreManager::handle);
+    }
+
+    public static GameContext getContext(){
+        return INSTANCE;
     }
 
     public EventBus getEventBus() {
@@ -54,6 +62,11 @@ public class GameContext {
 
     public FeatureScreen getCurrentFeature() {
         return currentFeature;
+    }
+
+    public FishingFeature getFishingFeature(){
+        if (currentFeature instanceof FishingFeature fishing) return fishing;
+        return null;
     }
 
     public Player getPlayer() {

@@ -2,6 +2,7 @@ package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
+import com.fabricio.fishing.assets.FishAssets;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.enums.Zones;
 
@@ -10,6 +11,7 @@ import java.util.EnumSet;
 public enum FishSpecies {
 
     BASS(
+        "Bass",
         Zones.SWAMP,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -18,9 +20,10 @@ public enum FishSpecies {
         30,
         1.5f,
         10,
-        new Texture("fishes/bass.png")
+        FishAssets.BassTexture
     ),
     SALMON(
+        "Salmon",
         Zones.SWAMP,
         EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
         3.5f,
@@ -29,9 +32,10 @@ public enum FishSpecies {
         25,
         1.5f,
         15,
-        new Texture("fishes/salmon.png")
+        FishAssets.SalmonTexture
     ),
     COD(
+        "Cod",
         Zones.SWAMP,
         EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
         2,
@@ -40,9 +44,10 @@ public enum FishSpecies {
         20,
         1.5f,
         5,
-        new Texture("fishes/cod.png")
+        FishAssets.CodTexture
     ),
     CLOWN_FISH(
+        "Clown Fish",
         Zones.SWAMP,
         EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
         5,
@@ -51,9 +56,10 @@ public enum FishSpecies {
         30,
         1.5f,
         20,
-        new Texture("fishes/clown_fish.png")
+        FishAssets.ClownFishTexture
     );
 
+    private final String name;
     protected final Zones zone;
     protected final EnumSet<TimePeriod> periods;
     protected final float baseHP;
@@ -64,7 +70,8 @@ public enum FishSpecies {
     protected final float baseSTAM;
     protected final Texture texture;
 
-    FishSpecies(Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
+    FishSpecies(String name, Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
+        this.name = name;
         this.zone = zone;
         this.periods = periods;
         this.baseHP = baseHP;
@@ -87,6 +94,10 @@ public enum FishSpecies {
             default -> BASS;
         };
         return species;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Zones getZone() {

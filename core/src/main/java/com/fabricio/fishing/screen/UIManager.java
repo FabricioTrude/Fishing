@@ -2,14 +2,14 @@ package com.fabricio.fishing.screen;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.fabricio.fishing.screen.ui.Hud;
+import com.fabricio.fishing.screen.ui.MainHud;
 
 public class UIManager {
     private final Stage stage;
 
     public UIManager() {
         this.stage = new Stage(new ScreenViewport());
-        Hud hud = new Hud();
+        MainHud hud = new MainHud();
         stage.addActor(hud);
     }
 

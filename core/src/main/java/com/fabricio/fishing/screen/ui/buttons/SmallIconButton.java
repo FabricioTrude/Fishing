@@ -3,24 +3,27 @@ package com.fabricio.fishing.screen.ui.buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.fabricio.fishing.assets.UIAssets;
+import com.fabricio.fishing.screen.ui.actors.TextureActor;
 
-public class SmallIconButton extends Actor {
-    private final Texture texture;
+public class SmallIconButton extends Group {
 
-    public SmallIconButton(Texture texture, Runnable onClick) {
-        this.texture = texture;
+    public SmallIconButton(Texture icon, Runnable onClick) {
+        TextureActor background = new TextureActor(UIAssets.SmallIconButton);
+        TextureActor iconActor = new TextureActor(icon);
+        background.setBounds(0,0,32,32);
+        iconActor.setBounds(0,0,32,32);
+        iconActor.setScale(2.5f);
+        addActor(background);
+        addActor(iconActor);
         addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 onClick.run();
             }
         });
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 }
