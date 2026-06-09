@@ -5,3 +5,4 @@ fishes/salmon.png
 player/base.png
 player/player.png
 sounds/fish_clicked.wav
+ui/wood.jpg

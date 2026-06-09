@@ -1,7 +1,8 @@
 package com.fabricio.fishing.features;
 
 import com.badlogic.gdx.Gdx;
-import com.fabricio.fishing.assets.GameAssets;
+import com.badlogic.gdx.InputProcessor;
+import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.*;
@@ -10,7 +11,7 @@ import com.fabricio.fishing.screen.FeatureScreen;
 public class GameContext {
     public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
-    static public float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
+    public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
 
     private final EventBus eventBus = new EventBus();
     private final TimeManager timeManager = new TimeManager() ;
@@ -18,15 +19,11 @@ public class GameContext {
     private final EntityManager entityManager = new EntityManager();
     private final ClickManager clickManager = new ClickManager(entityManager);
     private final ScoreManager scoreManager = new ScoreManager();
-    private final GameAssets gameAssets = new GameAssets();
-    private final SoundManager soundManager;
     private Player player = Player.createPlayer(timeManager, entityManager, eventBus);
 
     private FeatureScreen currentFeature;
 
     public GameContext() {
-        gameAssets.load();
-        soundManager = new SoundManager(eventBus, gameAssets);
         eventBus.subscribe(entityManager::handle);
         eventBus.subscribe(scoreManager::handle);
     }

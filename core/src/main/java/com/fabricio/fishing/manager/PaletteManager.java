@@ -12,7 +12,7 @@ public class PaletteManager extends TimeManager{
     }
 
     public void updateSkyColor(){
-        switch(currentPeriod){
+        switch(timeManager.getCurrentPeriod()){
             case DAWN -> skyColor = Palette.DAWN_SKY;
             case DAY -> skyColor = Palette.DAY_SKY;
             case SUNSET -> skyColor = Palette.SUNSET_SKY;

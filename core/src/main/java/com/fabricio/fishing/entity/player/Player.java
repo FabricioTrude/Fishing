@@ -8,7 +8,7 @@ import com.fabricio.fishing.entity.Frog;
 import com.fabricio.fishing.entity.interfaces.Holdable;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.FishingStatus;
-import com.fabricio.fishing.manager.EntityManager;
+import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
 
 import static com.fabricio.fishing.features.GameContext.*;

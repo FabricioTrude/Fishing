@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.GameContext;
-import com.fabricio.fishing.manager.EntityManager;
+import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
 
 import static com.badlogic.gdx.math.MathUtils.random;
