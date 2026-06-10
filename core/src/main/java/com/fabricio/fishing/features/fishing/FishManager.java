@@ -3,7 +3,6 @@ package com.fabricio.fishing.features.fishing;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.entity.player.Player;
-import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
@@ -13,14 +12,12 @@ import static com.fabricio.fishing.features.GameContext.*;
 
 public class FishManager extends TimeManager {
     private final TimeManager timeManager;
-    private final EventBus eventBus;
     private final EntityManager entityManager;
     private final Player player;
     private final FishingStatus fishing;
     private float spawnTimer = 0;
 
     public FishManager(GameContext context, FishingStatus fishing) {
-        this.eventBus = context.getEventBus();
         this.timeManager = context.getTimeManager();
         this.entityManager = context.getEntityManager();
         this.player = context.getPlayer();
@@ -50,8 +47,7 @@ public class FishManager extends TimeManager {
         rX = direction >= 0.5f ? rX - 50 : rX + SCREEN_WIDTH;
         return new Fish(
             rX,
-            random.nextFloat() * SEA_HEIGHT,
-            eventBus
+            random.nextFloat() * SEA_HEIGHT
         );
     }
 

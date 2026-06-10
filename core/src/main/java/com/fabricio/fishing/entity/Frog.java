@@ -6,8 +6,8 @@ import com.fabricio.fishing.event.EventBus;
 
 public abstract class Frog extends Entity{
 
-    public Frog(float x, float y, EventBus eventBus) {
-        super(x, y, eventBus);
+    public Frog(float x, float y) {
+        super(x, y);
     }
 
     @Override

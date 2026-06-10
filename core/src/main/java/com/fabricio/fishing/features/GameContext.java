@@ -1,7 +1,6 @@
 package com.fabricio.fishing.features;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.assets.SoundManager;
 import com.fabricio.fishing.entity.EntityManager;
@@ -10,7 +9,6 @@ import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.screen.FeatureScreen;
-import com.sun.source.tree.BreakTree;
 
 public final class GameContext {
     private static GameContext INSTANCE;
@@ -18,17 +16,17 @@ public final class GameContext {
     public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
+    public static final EventBus eventBus = new EventBus();
+    public static final InventoryManager inventoryManager = new InventoryManager();
+    public static SoundManager soundManager;
 
-    private final EventBus eventBus = new EventBus();
     private final TimeManager timeManager = new TimeManager() ;
     private final PaletteManager paletteManager = new PaletteManager(timeManager);
     private final EntityManager entityManager = new EntityManager();
     private final ClickManager clickManager = new ClickManager(entityManager);
     private final ScoreManager scoreManager = new ScoreManager();
-    private final InventoryManager inventoryManager = new InventoryManager(eventBus);
     private final GameAssets gameAssets = new GameAssets();
-    private final SoundManager soundManager;
-    private Player player = Player.createPlayer(timeManager, entityManager, eventBus);
+    private Player player = Player.createPlayer(timeManager, entityManager);
 
     private FeatureScreen currentFeature;
 
@@ -36,18 +34,10 @@ public final class GameContext {
         INSTANCE = this;
         gameAssets.load();
         soundManager = new SoundManager(gameAssets);
-        eventBus.subscribe(soundManager::handle);
-        eventBus.subscribe(inventoryManager::handle);
-        eventBus.subscribe(entityManager::handle);
-        eventBus.subscribe(scoreManager::handle);
     }
 
     public static GameContext getContext(){
         return INSTANCE;
-    }
-
-    public EventBus getEventBus() {
-        return eventBus;
     }
 
     public TimeManager getTimeManager() {

@@ -2,11 +2,9 @@ package com.fabricio.fishing.screen.ui.features;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.fabricio.fishing.assets.UIAssets;
-import com.fabricio.fishing.event.Event;
-import com.fabricio.fishing.event.InventoryUpdateEvent;
+import com.fabricio.fishing.event.records.FishCaughtEvent;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishSpecies;
-import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.InventoryManager;
 import com.fabricio.fishing.screen.ui.actors.TextureActor;
 import com.fabricio.fishing.screen.ui.entries.FishEntry;
@@ -26,6 +24,9 @@ public class FishBackpack extends Group {
         createBackground();
         createFishEntries();
         setVisible(false);
+        eventBus.register(FishCaughtEvent.class, event -> {
+            updateFish(event.fish().getSpecies());
+        });
     }
     public void toggle(){
         setVisible(!isVisible());
@@ -39,6 +40,7 @@ public class FishBackpack extends Group {
     private void createTitle(){
 
     }
+
     private void createFishEntries(){
         float x = 20;
         float y = height - 80;
@@ -53,7 +55,6 @@ public class FishBackpack extends Group {
 
     public void updateFish(FishSpecies fish){
         FishEntry entry = entries.get(fish);
-        InventoryManager inventoryManager = GameContext.getContext().getInventoryManager();
         entry.setCount(
             Math.round(inventoryManager.getFishes(fish))
         );

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Frog;
 import com.fabricio.fishing.entity.interfaces.Holdable;
-import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.FishingStatus;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;
@@ -28,15 +27,15 @@ public class Player extends Frog implements Holdable {
         return fishingStatus;
     }
 
-    public Player(float x, float y, TimeManager timeManager, EntityManager entityManager, EventBus eventBus) {
-        super(x, y, eventBus);
+    public Player(float x, float y, TimeManager timeManager, EntityManager entityManager) {
+        super(x, y);
         this.timeManager = timeManager;
         this.entityManager = entityManager;
         entityManager.addEntity(this);
     }
 
-    public static Player createPlayer(TimeManager timeManager, EntityManager entityManager, EventBus eventBus){
-       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager, eventBus);
+    public static Player createPlayer(TimeManager timeManager, EntityManager entityManager){
+       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager);
     }
 
     public void render(SpriteBatch batch) {
