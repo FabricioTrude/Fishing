@@ -3,9 +3,7 @@ package com.fabricio.fishing.screen.ui.features;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.fabricio.fishing.assets.UIAssets;
 import com.fabricio.fishing.event.records.FishCaughtEvent;
-import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishSpecies;
-import com.fabricio.fishing.manager.InventoryManager;
 import com.fabricio.fishing.screen.ui.actors.TextureActor;
 import com.fabricio.fishing.screen.ui.entries.FishEntry;
 
@@ -56,7 +54,7 @@ public class FishBackpack extends Group {
     public void updateFish(FishSpecies fish){
         FishEntry entry = entries.get(fish);
         entry.setCount(
-            Math.round(inventoryManager.getFishes(fish))
+            Math.round(inventoryManager.getFish(fish))
         );
     }
 }

@@ -59,16 +59,16 @@ public enum FishSpecies {
         FishAssets.ClownFishTexture
     );
 
-    private final String name;
-    protected final Zones zone;
-    protected final EnumSet<TimePeriod> periods;
-    protected final float baseHP;
-    protected final float baseDEF;
-    protected final float baseVAL;
-    protected final float baseSPE;
-    protected final float baseSIZ;
-    protected final float baseSTAM;
-    protected final Texture texture;
+    final String name;
+    final Zones zone;
+    final EnumSet<TimePeriod> periods;
+    final float baseHP;
+    final float baseDEF;
+    final float baseVAL;
+    final float baseSPE;
+    final float baseSIZ;
+    final float baseSTAM;
+    final Texture texture;
 
     FishSpecies(String name, Zones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
         this.name = name;
@@ -134,5 +134,9 @@ public enum FishSpecies {
 
     public Texture getTexture() {
         return texture;
+    }
+
+    public static FishSpecies fromName(String name){
+        return FishSpecies.valueOf(name);
     }
 }

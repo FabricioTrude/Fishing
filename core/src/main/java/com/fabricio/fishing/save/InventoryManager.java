@@ -1,4 +1,4 @@
-package com.fabricio.fishing.manager;
+package com.fabricio.fishing.save;
 
 import com.fabricio.fishing.event.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.FishSpecies;
@@ -24,8 +24,33 @@ public class InventoryManager {
         System.out.println(fish.getName()+": "+fishes.get(fish));
     }
 
-    public float getFishes(FishSpecies fish) {
+    public float getFish(FishSpecies fish) {
         return fishes.getOrDefault(fish,0f);
     }
 
+    public EnumMap<FishSpecies, Float> getFishes(){
+        return new EnumMap<>(fishes);
+    }
+
+    public void save(SaveData save){
+        save.fishes.clear();
+        for(var entry : fishes.entrySet()){
+            save.fishes.put(
+                entry.getKey().name(),
+                entry.getValue()
+            );
+        }
+    }
+
+    public void load(SaveData save){
+        if(save.fishes!=null) {
+            this.fishes.clear();
+            for(var entry : save.fishes.entrySet()){
+                fishes.put(
+                    FishSpecies.valueOf(entry.getKey()),
+                    entry.getValue()
+                );
+            }
+        }
+    }
 }

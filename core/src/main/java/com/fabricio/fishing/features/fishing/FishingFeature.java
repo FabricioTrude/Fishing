@@ -48,8 +48,8 @@ public class FishingFeature implements FeatureScreen {
 //        context.getEntityManager().renderBoxes(shapeRenderer);
 
         batch.begin();
-        player.render(batch);
         fishManager.render(batch);
+        player.render(batch);
         batch.end();
 
     }

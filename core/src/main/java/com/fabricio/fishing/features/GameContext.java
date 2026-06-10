@@ -8,6 +8,10 @@ import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.*;
+import com.fabricio.fishing.save.InventoryManager;
+import com.fabricio.fishing.save.LoadGameEvent;
+import com.fabricio.fishing.save.SaveGameEvent;
+import com.fabricio.fishing.save.SaveManager;
 import com.fabricio.fishing.screen.FeatureScreen;
 
 public final class GameContext {
@@ -18,6 +22,7 @@ public final class GameContext {
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
     public static final EventBus eventBus = new EventBus();
     public static final InventoryManager inventoryManager = new InventoryManager();
+    public static final SaveManager saveManager = new SaveManager();
     public static SoundManager soundManager;
 
     private final TimeManager timeManager = new TimeManager() ;

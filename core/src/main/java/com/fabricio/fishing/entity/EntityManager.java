@@ -28,7 +28,10 @@ public class EntityManager {
         this.clickables.add((Clickable)entity);
         switch(entity){
             case Player player -> {}
-            case Fish fish -> fishes.add(fish);
+            case Fish fish -> {
+                fishes.add(fish);
+//                System.out.println("Fishes: " + fishes.size);
+            }
             default -> {}
         }
         entities.add(entity);

@@ -5,8 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.fabricio.fishing.assets.UIAssets;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishSpecies;
-import com.fabricio.fishing.features.fishing.FishingFeature;
-import com.fabricio.fishing.manager.InventoryManager;
+import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.screen.ui.actors.TextureActor;
 import static com.fabricio.fishing.assets.UIAssets.*;
 
@@ -21,7 +20,7 @@ public class FishEntry extends Group {
         this.fish = fish;
         int amount = 0;
         InventoryManager inventoryManager = GameContext.getContext().getInventoryManager();
-        amount = Math.round(inventoryManager.getFishes(fish));
+        amount = Math.round(inventoryManager.getFish(fish));
         TextureActor wallpaper = new TextureActor(UIAssets.wood);
         setSize(WIDTH,HEIGHT);
         wallpaper.setBounds(0,0,WIDTH,HEIGHT);
