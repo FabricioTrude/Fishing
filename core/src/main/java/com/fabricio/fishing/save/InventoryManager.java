@@ -21,7 +21,6 @@ public class InventoryManager {
 
     public void addFish(FishSpecies fish, float number){
         fishes.put(fish, fishes.get(fish) + number);
-        System.out.println(fish.getName()+": "+fishes.get(fish));
     }
 
     public float getFish(FishSpecies fish) {

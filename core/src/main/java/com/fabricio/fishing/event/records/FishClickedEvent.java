@@ -1,3 +1,5 @@
 package com.fabricio.fishing.event.records;
 
-public record FishClickedEvent(){}
+import com.fabricio.fishing.features.fishing.Fish;
+
+public record FishClickedEvent(Fish fish){}

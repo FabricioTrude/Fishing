@@ -30,7 +30,6 @@ public class EntityManager {
             case Player player -> {}
             case Fish fish -> {
                 fishes.add(fish);
-//                System.out.println("Fishes: " + fishes.size);
             }
             default -> {}
         }

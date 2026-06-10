@@ -21,7 +21,6 @@ public class BottomHud extends Group {
         addActor(background);
 
         addActor(inventory);
-        System.out.println("Inventory Hud: " + inventory.getHeight() + "x"+ inventory.getWidth());
         SmallIconButton backpackButton = new SmallIconButton(IconAssets.BackPackIcon, inventory::toggle);
         backpackButton.setBounds(8,8,32,32);
         addActor(backpackButton);

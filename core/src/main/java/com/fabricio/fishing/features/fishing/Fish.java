@@ -178,14 +178,17 @@ public class Fish extends Entity implements Clickable {
     public FishSpecies getSpecies(){
         return species;
     }
+    public float getFishSIZ() {
+        return fishSIZ;
+    }
 
     @Override
     public void onClick() {
         if(alive() && state != FishState.PANIC) {
             pickTarget();
             state = FishState.PANIC;
-            GameContext.eventBus.post(new FishClickedEvent());
         }
+        GameContext.eventBus.post(new FishClickedEvent(this));
         fishHP--;
     }
 }
