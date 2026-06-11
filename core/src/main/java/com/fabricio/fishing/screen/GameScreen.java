@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishingFeature;
+import com.fabricio.fishing.manager.ClickManager;
 import com.fabricio.fishing.save.LoadGameEvent;
 
 import static com.fabricio.fishing.features.GameContext.eventBus;
@@ -14,6 +15,7 @@ public class GameScreen implements Screen {
 
     private InputMultiplexer multiplexer;
     private UIManager uiManager;
+    private ClickManager clickManager;
 
     public GameScreen() {
         context.setFeature(new FishingFeature(context));
@@ -24,8 +26,10 @@ public class GameScreen implements Screen {
     public void show() {
         eventBus.post(new LoadGameEvent());
         uiManager = new UIManager();
+        clickManager = new ClickManager(context.getEntityManager());
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(uiManager.getStage());
+        multiplexer.addProcessor(clickManager);
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -33,6 +37,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         context.update(delta);
         context.render();
+        clickManager.update();
         uiManager.update(delta);
         uiManager.render();
     }
