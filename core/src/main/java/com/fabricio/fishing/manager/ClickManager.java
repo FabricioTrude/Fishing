@@ -2,13 +2,15 @@ package com.fabricio.fishing.manager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.Holdable;
+import com.fabricio.fishing.manager.enums.MouseState;
 
-public class ClickManager {
+public class ClickManager extends InputAdapter {
     private final EntityManager entityManager;
     private static Entity triggedEntity;
 
@@ -26,50 +28,70 @@ public class ClickManager {
 
     private Clickable clickedObject;
     private Holdable heldObject;
+    private MouseState state = MouseState.IDLE;
+
     private long clickStartTime;
-    private boolean holdStarted;
-
-    public void update(){
-        float mouseX = Gdx.input.getX();
-        float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-
-        if(Gdx.input.justTouched()){
-            for(Clickable clickable : entityManager.getClickables()){
-                if(!clickable.getBounds().contains(mouseX, mouseY)) continue;
-
-                clickedObject = clickable;
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        state = MouseState.PRESSED;
+        for (Clickable clickable : entityManager.getClickables()) {
+            {
+                int worldY = getWorldY(screenY);
+                if (!clickable.getBounds().contains(screenX, worldY)) continue;
                 clickStartTime = TimeUtils.millis();
-                holdStarted = false;
-
-                if(clickable instanceof Holdable holdable){
+                clickedObject = clickable;
+                if (clickable instanceof Holdable holdable) {
                     heldObject = holdable;
                 }
-                break;
+                return true;
             }
         }
-
-        if (clickedObject != null && Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            long holdTime = TimeUtils.millis() - clickStartTime;
-
-            if (heldObject != null){
-                if (!holdStarted && holdTime >= 180){
-                    holdStarted = true;
-                    heldObject.onHoldStart();
-                }
-                if (holdStarted) heldObject.onHold();
-            }
-
+        return false;
+    }
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        switch (state){
+            case PRESSED -> processRelease(screenX, screenY);
+            case HOLDING -> processHoldEnd(screenX, screenY);
         }
-        if(clickedObject != null && !Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-            if(heldObject != null){
-                if (holdStarted) heldObject.onRelease();
-                else clickedObject.onClick();
-                heldObject = null;
-            } else {
+        state = MouseState.IDLE;
+        return false;
+    }
+
+    private void processRelease(int screenX, int screenY){
+        if(clickedObject != null){
+
+            if(clickedObject.getBounds().contains(screenX, getWorldY(screenY)))
                 clickedObject.onClick();
-            }
             clickedObject = null;
-            holdStarted = false;
         }
+    }
+    private void processHoldEnd(int screenX, int screenY){
+        if(heldObject != null){
+            heldObject.onRelease();
+            heldObject = null;
+        }
+    }
+
+    public void update(){
+        if(state == MouseState.PRESSED && clickedObject != null){
+            long clickTime = TimeUtils.millis() - clickStartTime;
+            System.out.println(state);
+
+            if (clickTime >= 180) {
+                state = MouseState.HOLDING;
+                if(clickedObject instanceof Holdable holdable) {
+                    holdable.onHoldStart();
+                    heldObject = holdable;
+                }
+                clickedObject = null;
+            }
+        } else if(state == MouseState.HOLDING && heldObject != null){
+            heldObject.onHold();
+        }
+    }
+
+    private int getWorldY(int screenY){
+        return Gdx.graphics.getHeight() - screenY;
     }
 }
