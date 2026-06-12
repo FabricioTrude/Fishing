@@ -76,7 +76,6 @@ public class ClickManager extends InputAdapter {
     public void update(){
         if(state == MouseState.PRESSED && clickedObject != null){
             long clickTime = TimeUtils.millis() - clickStartTime;
-            System.out.println(state);
 
             if (clickTime >= 180) {
                 state = MouseState.HOLDING;

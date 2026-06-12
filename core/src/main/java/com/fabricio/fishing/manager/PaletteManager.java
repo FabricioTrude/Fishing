@@ -1,7 +1,7 @@
 package com.fabricio.fishing.manager;
 
 import com.badlogic.gdx.graphics.Color;
-import com.fabricio.fishing.util.Palette;
+import com.fabricio.fishing.entity.enums.Palette;
 
 public class PaletteManager extends TimeManager{
     TimeManager timeManager;

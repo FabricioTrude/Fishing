@@ -14,7 +14,6 @@ public class SmallIconButton extends Group {
         TextureActor iconActor = new TextureActor(icon);
         background.setBounds(0,0,64,64);
         iconActor.setBounds(0,0,64,64);
-        iconActor.setScale(2.5f);
         addActor(background);
         addActor(iconActor);
 

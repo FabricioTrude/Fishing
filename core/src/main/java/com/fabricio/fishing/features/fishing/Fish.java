@@ -54,11 +54,9 @@ public class Fish extends Entity implements Clickable {
     //7. Animação de pesca
     //8. Economia
 
-    public Fish(float x, float y) {
+    public Fish(float x, float y, FishSpecies species) {
         super(x, y);
-        assert GameContext.getContext().getFishingFeature() != null;
-        this.zone = GameContext.getContext().getFishingFeature().getZone();
-        this.species = FishSpecies.random(zone);
+        this.species = species;
         this.rarity = FishRarity.random();
         this.size = FishSize.random();
         this.periods = species.getPeriods();
@@ -75,6 +73,7 @@ public class Fish extends Entity implements Clickable {
         initPolygon();
         pickTarget();
     }
+
     private void initPolygon(){
         this.polygon = new Polygon(
             new float[]{

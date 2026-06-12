@@ -9,9 +9,11 @@ import java.util.EnumSet;
 
 public enum FishSpecies {
 
+    // SWAMP
     BASS(
         "Bass",
         FishingZones.SWAMP,
+        7,
         EnumSet.allOf(TimePeriod.class),
         2,
         0,
@@ -21,45 +23,181 @@ public enum FishSpecies {
         10,
         FeatureAssets.BassTexture
     ),
-    SALMON(
-        "Salmon",
+    CATFISH(
+        "Catfish",
         FishingZones.SWAMP,
-        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
-        3.5f,
-        0.2f,
-        2f,
-        25,
-        1.5f,
-        15,
-        FeatureAssets.SalmonTexture
-    ),
-    COD(
-        "Cod",
-        FishingZones.SWAMP,
-        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
+        3,
+        EnumSet.allOf(TimePeriod.class),
         2,
-        1,
-        1,
-        20,
-        1.5f,
-        5,
-        FeatureAssets.CodTexture
-    ),
-    CLOWN_FISH(
-        "Clown Fish",
-        FishingZones.SWAMP,
-        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
-        5,
         0,
-        2,
+        1,
         30,
         1.5f,
-        20,
-        FeatureAssets.ClownFishTexture
+        10,
+        FeatureAssets.CatfishTexture
+    ),
+    CICHLID(
+        "Cichlid",
+        FishingZones.SWAMP,
+        5,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.CichlidTexture
+    ),
+    PLECO(
+        "Pleco",
+        FishingZones.SWAMP,
+        2,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.PlecoTexture
+    ),
+    ARMORED_CATFISH(
+        "Armored Catfish",
+        FishingZones.SWAMP,
+        2,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.ArmoredCatfishTexture
+    ),
+    SILVER_AROWANA(
+        "Silver Arowana",
+        FishingZones.SWAMP,
+        1,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.SilverArowanaTexture
+    ),
+    WOLF_FISH(
+        "Wolf Fish",
+        FishingZones.SWAMP,
+        2,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.WolfFishTexture
+    ),
+
+    // OASIS
+    GOLDFISH(
+        "Goldfish",
+        FishingZones.OASIS,
+        4,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.GoldfishTexture
+    ),
+    KOI(
+        "Koi",
+        FishingZones.OASIS,
+    2.5f,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.KoiTexture
+    ),
+    Tilapia(
+        "Tilapia",
+        FishingZones.OASIS,
+        4,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.TilapiaTexture
+    ),
+    CHERRY_BARB(
+        "Cherry Barb",
+        FishingZones.OASIS,
+        1,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.CherryBarbTexture
+    ),
+    GOLDEN_BARB(
+        "Golden Barb",
+        FishingZones.OASIS,
+        3,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.GoldenBarbTexture
+    ),
+    PURPLE_CICHLID(
+        "Purple Cichlid",
+        FishingZones.OASIS,
+        1.5f,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.PurpleCichlidTexture
+    ),
+    SILVER_CARP(
+        "Silver Carp",
+        FishingZones.OASIS,
+        2.5f,
+        EnumSet.allOf(TimePeriod.class),
+        2,
+        0,
+        1,
+        30,
+        1.5f,
+        10,
+        FeatureAssets.SilverCarpTexture
     );
 
     final String name;
     final FishingZones zone;
+    final float weight;
     final EnumSet<TimePeriod> periods;
     final float baseHP;
     final float baseDEF;
@@ -69,9 +207,10 @@ public enum FishSpecies {
     final float baseSTAM;
     final Texture texture;
 
-    FishSpecies(String name, FishingZones zone, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
+    FishSpecies(String name, FishingZones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
         this.name = name;
         this.zone = zone;
+        this.weight = weight;
         this.periods = periods;
         this.baseHP = baseHP;
         this.baseDEF = baseDEF;
@@ -81,18 +220,18 @@ public enum FishSpecies {
         this.baseSTAM = baseSTAM;
         this.texture = texture;
     }
+
     public static FishSpecies random(FishingZones zone){
-        float roll = MathUtils.random(100f);
-        FishSpecies species = switch(zone){
-            case SWAMP -> {
-                if (roll < 30f) yield BASS;
-                if (roll < 55.5f) yield SALMON;
-                if (roll < 75f) yield CLOWN_FISH;
-                yield COD;
-            }
-            default -> BASS;
-        };
-        return species;
+        float totalWeight = 0;
+        for (FishSpecies fish : values()) if(fish.zone == zone) totalWeight += fish.weight;
+        float roll = MathUtils.random(totalWeight), accumulated = 0;
+        for (FishSpecies fish : values()){
+            if (fish.zone != zone) continue;
+            accumulated += fish.weight;
+            if(roll < accumulated) return fish;
+        }
+        return null;
+
     }
 
     public String getName() {
@@ -139,3 +278,43 @@ public enum FishSpecies {
         return FishSpecies.valueOf(name);
     }
 }
+
+//SALMON(
+//        "Salmon",
+//            null,
+//            0,
+//        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
+//        3.5f,
+//            0.2f,
+//            2f,
+//            25,
+//            1.5f,
+//            15,
+//FeatureAssets.SalmonTexture
+//    ),
+//COD(
+//        "Cod",
+//            null,
+//            0,
+//        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
+//        2,
+//            1,
+//            1,
+//            20,
+//            1.5f,
+//            5,
+//FeatureAssets.CodTexture
+//    ),
+//CLOWN_FISH(
+//        "Clown Fish",
+//            null,
+//            0,
+//        EnumSet.of(TimePeriod.DAWN, TimePeriod.DAY, TimePeriod.SUNSET),
+//        5,
+//            0,
+//            2,
+//            30,
+//            1.5f,
+//            20,
+//FeatureAssets.ClownFishTexture
+//    );

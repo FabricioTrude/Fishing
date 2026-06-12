@@ -8,7 +8,6 @@ import com.fabricio.fishing.features.fishing.enums.FishingZones;
 import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.screen.FeatureScreen;
-import com.fabricio.fishing.util.Palette;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
@@ -30,11 +29,9 @@ public class FishingFeature implements FeatureScreen {
     }
     public void render(){
         update(Gdx.graphics.getDeltaTime());
-
         ScreenUtils.clear(
             context.getPaletteManager().getSkyColor()
         );
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         assert GameContext.getContext().getFishingFeature() != null;
@@ -48,7 +45,6 @@ public class FishingFeature implements FeatureScreen {
         shapeRenderer.end();
 
 //        context.getEntityManager().renderBoxes(shapeRenderer);
-
         batch.begin();
         fishManager.render(batch);
         player.render(batch);

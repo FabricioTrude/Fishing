@@ -1,15 +1,16 @@
 package com.fabricio.fishing.features.fishing.enums;
 
 import com.badlogic.gdx.graphics.Color;
+import com.fabricio.fishing.entity.enums.Palette;
 
 public enum FishingZones {
     SWAMP(
         "Swamp",
-        Color.BLUE
+        Palette.SWAMP_POND
     ),
-    ZONE_2(
+    OASIS(
         "Zone 2",
-        Color.CORAL
+        Palette.OASIS_POND
     ),
     ZONE_3(
         "Zone 3",
