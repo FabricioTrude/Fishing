@@ -2,7 +2,7 @@ package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.manager.TimeManager;

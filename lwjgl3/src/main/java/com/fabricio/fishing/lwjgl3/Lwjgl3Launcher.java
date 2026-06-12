@@ -3,6 +3,7 @@ package com.fabricio.fishing.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.fabricio.fishing.FishingGame;
+import com.fabricio.fishing.assets.statics.FeatureAssets;
 
 public class Lwjgl3Launcher {
     // lwjgl3:run to run
@@ -21,7 +22,7 @@ public class Lwjgl3Launcher {
         configuration.useVsync(true);
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
         configuration.setWindowedMode(480, 720);
-        configuration.setWindowIcon("fishes/clown_fish.png");
+        configuration.setWindowIcon("features/fishes/clown_fish.png");
         return configuration;
     }
 }

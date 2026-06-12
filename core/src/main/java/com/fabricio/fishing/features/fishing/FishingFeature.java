@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.fabricio.fishing.entity.enums.Zones;
-import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.features.fishing.enums.FishingZones;
+import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.screen.FeatureScreen;
 import com.fabricio.fishing.util.Palette;
-
-import javax.naming.Context;
-import java.util.EnumMap;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
@@ -23,11 +20,11 @@ public class FishingFeature implements FeatureScreen {
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final SpriteBatch batch = new SpriteBatch();
 
-    private Zones zone;
+    private FishingZones zone;
 
     public FishingFeature(GameContext context) {
         this.context = context;
-        zone = Zones.SWAMP;
+        zone = FishingZones.SWAMP;
         player = context.getPlayer();
         fishManager = new FishManager(context, player.getFishingStatus());
     }
@@ -39,7 +36,9 @@ public class FishingFeature implements FeatureScreen {
         );
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Palette.SEA);
+
+        assert GameContext.getContext().getFishingFeature() != null;
+        shapeRenderer.setColor(GameContext.getContext().getFishingFeature().getZone().getColor());
         shapeRenderer.rect(
             0,
             0,
@@ -71,11 +70,11 @@ public class FishingFeature implements FeatureScreen {
 
     }
 
-    public Zones getZone() {
+    public FishingZones getZone() {
         return zone;
     }
 
-    public void setZone(Zones zone) {
+    public void setZone(FishingZones zone) {
         this.zone = zone;
     }
 }

@@ -1,6 +1,6 @@
 package com.fabricio.fishing.screen.ui.features;
 
-import com.fabricio.fishing.entity.enums.Zones;
+import com.fabricio.fishing.features.fishing.enums.FishingZones;
 import com.fabricio.fishing.screen.ui.entries.ZoneEntry;
 import com.fabricio.fishing.screen.ui.generics.MediumSizePanel;
 
@@ -14,7 +14,7 @@ public class ZonesHud extends MediumSizePanel {
     private void createZoneEntries(){
         float x = 20;
         float y = height - 120;
-        for(Zones zone : Zones.values()){
+        for(FishingZones zone : FishingZones.values()){
             ZoneEntry entry = new ZoneEntry(zone);
             entry.setPosition(x,y);
             addActor(entry);

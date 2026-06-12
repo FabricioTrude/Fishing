@@ -4,13 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.assets.SoundManager;
 import com.fabricio.fishing.entity.EntityManager;
-import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.save.InventoryManager;
-import com.fabricio.fishing.save.LoadGameEvent;
-import com.fabricio.fishing.save.SaveGameEvent;
 import com.fabricio.fishing.save.SaveManager;
 import com.fabricio.fishing.screen.FeatureScreen;
 

@@ -3,13 +3,15 @@ package com.fabricio.fishing.save;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.fabricio.fishing.event.records.FishCaughtEvent;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
+import com.fabricio.fishing.manager.records.LoadGameEvent;
+import com.fabricio.fishing.manager.records.SaveGameEvent;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
 public class SaveManager {
 
-    private static final String SAVE_FILE = "save.json";
+    private static final String SAVE_FILE = "save/save.json";
     private final Json json = new Json();
 
     public SaveManager(){

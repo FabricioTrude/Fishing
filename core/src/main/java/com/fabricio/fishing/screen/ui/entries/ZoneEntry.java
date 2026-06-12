@@ -4,18 +4,21 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.fabricio.fishing.assets.UIAssets;
-import com.fabricio.fishing.entity.enums.Zones;
+import com.fabricio.fishing.assets.statics.UIAssets;
+import com.fabricio.fishing.features.fishing.enums.FishingZones;
 import com.fabricio.fishing.features.GameContext;
+import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.screen.ui.actors.ColorActor;
+
+import static com.fabricio.fishing.features.GameContext.*;
 
 public class ZoneEntry extends Group {
     private static float WIDTH = 368;
     private static float HEIGHT = 72;
     private final Label name;
-    private final Zones zone;
+    private final FishingZones zone;
 
-    public ZoneEntry(Zones zone) {
+    public ZoneEntry(FishingZones zone) {
         this.zone = zone;
         String zoneName = zone.getName();
         setSize(WIDTH, HEIGHT);
@@ -29,7 +32,7 @@ public class ZoneEntry extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameContext.getContext().getFishingFeature().setZone(zone);
-                System.out.println(GameContext.getContext().getFishingFeature().getZone());
+                eventBus.post(new FishingZoneSwitchEvent(zone));
             }
         });
     }

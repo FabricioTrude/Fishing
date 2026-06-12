@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.fabricio.fishing.assets.UIAssets;
+import com.fabricio.fishing.assets.statics.UIAssets;
 import com.fabricio.fishing.screen.ui.actors.TextureActor;
 
 public class SmallIconButton extends Group {

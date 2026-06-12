@@ -1,8 +1,8 @@
 package com.fabricio.fishing.assets;
 
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.math.MathUtils;
-import com.fabricio.fishing.event.records.FishClickedEvent;
+import com.fabricio.fishing.assets.statics.SoundAssets;
+import com.fabricio.fishing.features.fishing.records.FishClickedEvent;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
@@ -11,7 +11,7 @@ public class SoundManager {
     private final Sound fishCaught;
 
     public SoundManager(GameAssets gameAssets){
-        fishCaught = gameAssets.getSound(Sounds.FISH_CLICKED);
+        fishCaught = gameAssets.getSound(SoundAssets.FISH_CLICKED);
         eventBus.register(FishClickedEvent.class, this::FishClickedSound);
     }
 

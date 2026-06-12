@@ -1,4 +1,4 @@
-package com.fabricio.fishing.event.records;
+package com.fabricio.fishing.features.fishing.records;
 
 import com.fabricio.fishing.features.fishing.Fish;
 

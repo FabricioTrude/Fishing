@@ -1,7 +1,7 @@
 package com.fabricio.fishing.screen.ui.features;
 
-import com.fabricio.fishing.event.records.FishCaughtEvent;
-import com.fabricio.fishing.features.fishing.FishSpecies;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
+import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 import com.fabricio.fishing.screen.ui.entries.FishEntry;
 import com.fabricio.fishing.screen.ui.generics.MediumSizePanel;
 

@@ -2,6 +2,7 @@ package com.fabricio.fishing.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.fabricio.fishing.assets.statics.SoundAssets;
 
 public class GameAssets {
     private final AssetManager assetManager;
@@ -11,7 +12,7 @@ public class GameAssets {
     }
 
     public void load(){
-        assetManager.load(Sounds.FISH_CLICKED, Sound.class);
+        assetManager.load(SoundAssets.FISH_CLICKED, Sound.class);
         assetManager.finishLoading();
     }
     public void dispose(){

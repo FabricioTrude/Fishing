@@ -1,7 +1,7 @@
 package com.fabricio.fishing.save;
 
-import com.fabricio.fishing.event.records.FishCaughtEvent;
-import com.fabricio.fishing.features.fishing.FishSpecies;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
+import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 
 import java.util.EnumMap;
 

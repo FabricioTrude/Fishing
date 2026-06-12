@@ -1,9 +1,10 @@
-package com.fabricio.fishing.entity.player;
+package com.fabricio.fishing.features.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
+import com.fabricio.fishing.assets.statics.FeatureAssets;
 import com.fabricio.fishing.entity.Frog;
 import com.fabricio.fishing.entity.interfaces.Holdable;
 import com.fabricio.fishing.features.fishing.FishingStatus;
@@ -16,7 +17,7 @@ public class Player extends Frog implements Holdable {
     protected TimeManager timeManager;
     protected EntityManager entityManager;
 
-    protected Texture texture = new Texture("player/player.png");
+    protected Texture texture = FeatureAssets.PlayerTexture;
     protected Sprite sprite = new Sprite(texture);
     protected float width = sprite.getWidth();
     protected float height = sprite.getHeight();

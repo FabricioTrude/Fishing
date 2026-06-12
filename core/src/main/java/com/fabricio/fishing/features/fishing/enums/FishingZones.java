@@ -1,8 +1,8 @@
-package com.fabricio.fishing.entity.enums;
+package com.fabricio.fishing.features.fishing.enums;
 
 import com.badlogic.gdx.graphics.Color;
 
-public enum Zones {
+public enum FishingZones {
     SWAMP(
         "Swamp",
         Color.BLUE
@@ -23,7 +23,7 @@ public enum Zones {
     final String name;
     final Color color;
 
-    Zones(String name, Color color) {
+    FishingZones(String name, Color color) {
         this.name = name;
         this.color = color;
     }

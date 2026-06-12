@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.ClickManager;
-import com.fabricio.fishing.save.LoadGameEvent;
+import com.fabricio.fishing.manager.records.LoadGameEvent;
 
 import static com.fabricio.fishing.features.GameContext.eventBus;
 

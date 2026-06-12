@@ -1,4 +1,4 @@
-package com.fabricio.fishing.assets;
+package com.fabricio.fishing.assets.statics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;

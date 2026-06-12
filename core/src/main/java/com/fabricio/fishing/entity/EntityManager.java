@@ -4,11 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
-import com.fabricio.fishing.event.records.FishCaughtEvent;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.Fish;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.HasBounds;
-import com.fabricio.fishing.entity.player.Player;
+import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
+import com.fabricio.fishing.features.player.Player;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
@@ -21,6 +22,9 @@ public class EntityManager {
     public EntityManager() {
         eventBus.register(FishCaughtEvent.class, event -> {
             removeEntity(event.fish());
+        });
+        eventBus.register(FishingZoneSwitchEvent.class, event -> {
+           clearEntities(Fish.class);
         });
     }
 
@@ -47,6 +51,18 @@ public class EntityManager {
             this.clickables.removeValue(clickable, true);
 
         entities.removeValue(entity, true);
+    }
+
+    public void clearEntities(Class<?> type){
+        if(type == Fish.class)
+            fishes.clear();
+        if(type == Clickable.class){
+            for(int i = clickables.size - 1; i >=0; i--) {
+                if (type.isInstance(clickables.get(i))) {
+                    clickables.removeIndex(i);
+                }
+            }
+        }
     }
 
     public Array<Fish> getFishes(){

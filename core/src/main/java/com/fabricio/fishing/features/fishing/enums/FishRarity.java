@@ -1,4 +1,4 @@
-package com.fabricio.fishing.features.fishing;
+package com.fabricio.fishing.features.fishing.enums;
 
 public enum FishRarity {
     COMMON,

@@ -6,23 +6,22 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.TimePeriod;
-import com.fabricio.fishing.entity.enums.Zones;
 import com.fabricio.fishing.entity.interfaces.Clickable;
-import com.fabricio.fishing.event.EventBus;
-import com.fabricio.fishing.event.records.FishCaughtEvent;
-import com.fabricio.fishing.event.records.FishClickedEvent;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
+import com.fabricio.fishing.features.fishing.records.FishClickedEvent;
 import com.fabricio.fishing.features.GameContext;
+import com.fabricio.fishing.features.fishing.enums.*;
 
 import java.util.EnumSet;
 
-import static com.fabricio.fishing.entity.enums.Zones.SWAMP;
+import static com.fabricio.fishing.features.fishing.enums.FishingZones.SWAMP;
 import static com.fabricio.fishing.features.GameContext.*;
 
 public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
     protected FishRarity rarity;
     protected FishSize size;
-    protected Zones zone;
+    protected FishingZones zone;
     protected EnumSet<TimePeriod> periods;
 
     protected float fishHP;
@@ -57,8 +56,9 @@ public class Fish extends Entity implements Clickable {
 
     public Fish(float x, float y) {
         super(x, y);
-        this.zone = SWAMP;
-        this.species = FishSpecies.random(SWAMP);
+        assert GameContext.getContext().getFishingFeature() != null;
+        this.zone = GameContext.getContext().getFishingFeature().getZone();
+        this.species = FishSpecies.random(zone);
         this.rarity = FishRarity.random();
         this.size = FishSize.random();
         this.periods = species.getPeriods();
