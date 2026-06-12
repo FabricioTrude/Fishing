@@ -5,7 +5,6 @@ fishes/salmon.png
 icons/backpack.png
 player/base.png
 player/player.png
-save.json
 sounds/fish_clicked.wav
 ui/buttons/small_button.png
 ui/huds/bottom_hud.png
