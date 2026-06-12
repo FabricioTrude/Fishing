@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.fabricio.fishing.entity.enums.Zones;
 import com.fabricio.fishing.entity.player.Player;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.screen.FeatureScreen;
@@ -22,9 +23,11 @@ public class FishingFeature implements FeatureScreen {
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final SpriteBatch batch = new SpriteBatch();
 
+    private Zones zone;
 
     public FishingFeature(GameContext context) {
         this.context = context;
+        zone = Zones.SWAMP;
         player = context.getPlayer();
         fishManager = new FishManager(context, player.getFishingStatus());
     }
@@ -68,5 +71,11 @@ public class FishingFeature implements FeatureScreen {
 
     }
 
+    public Zones getZone() {
+        return zone;
+    }
 
+    public void setZone(Zones zone) {
+        this.zone = zone;
+    }
 }

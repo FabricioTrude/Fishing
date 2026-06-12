@@ -9,7 +9,11 @@ save.json
 sounds/fish_clicked.wav
 ui/buttons/small_button.png
 ui/huds/bottom_hud.png
-ui/huds/fishing_inventory.png
+ui/huds/medium_panel.png
 ui/huds/top_hud.png
 ui/icons/backpack.png
+ui/icons/map.png
+ui/icons/menu.png
+ui/icons/question_mark.png
+ui/icons/settings.png
 ui/wood.jpg

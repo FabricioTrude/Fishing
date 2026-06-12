@@ -1,44 +1,26 @@
 package com.fabricio.fishing.screen.ui.features;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.fabricio.fishing.assets.UIAssets;
 import com.fabricio.fishing.event.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.FishSpecies;
-import com.fabricio.fishing.screen.ui.actors.TextureActor;
 import com.fabricio.fishing.screen.ui.entries.FishEntry;
+import com.fabricio.fishing.screen.ui.generics.MediumSizePanel;
 
 import java.util.EnumMap;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
-public class FishBackpack extends Group {
-    float width = 400;
-    float height = 500;
+public class FishBackpackHud extends MediumSizePanel {
 
     final EnumMap<FishSpecies, FishEntry> entries = new EnumMap<>(FishSpecies.class);
 
-    public FishBackpack() {
-        setBounds((SCREEN_WIDTH-width) / 2f, (SCREEN_HEIGHT-height) / 2f, width, height);
-        createBackground();
+    public FishBackpackHud() {
+        super("BackPack");
         createFishEntries();
         setVisible(false);
         eventBus.register(FishCaughtEvent.class, event -> {
             updateFish(event.fish().getSpecies());
         });
     }
-    public void toggle(){
-        setVisible(!isVisible());
-    }
-
-    private void createBackground(){
-        TextureActor background = new TextureActor(UIAssets.FishingInventory);
-        background.setBounds(0,0,width,height);
-        addActor(background);
-    }
-    private void createTitle(){
-
-    }
-
     private void createFishEntries(){
         float x = 20;
         float y = height - 80;
