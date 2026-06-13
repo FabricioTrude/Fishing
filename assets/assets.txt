@@ -1,3 +1,4 @@
+features/fishes.zip
 features/fishes/clown_fish.png
 features/fishes/cod.png
 features/fishes/oasis/cherry_barb.png

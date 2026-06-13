@@ -14,7 +14,6 @@ import com.fabricio.fishing.screen.FeatureScreen;
 
 public final class GameContext {
     private static GameContext INSTANCE;
-
     public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
@@ -24,7 +23,6 @@ public final class GameContext {
     public static SoundManager soundManager;
 
     private final TimeManager timeManager = new TimeManager() ;
-    private final PaletteManager paletteManager = new PaletteManager(timeManager);
     private final EntityManager entityManager = new EntityManager();
     private final ClickManager clickManager = new ClickManager(entityManager);
     private final ScoreManager scoreManager = new ScoreManager();
@@ -45,10 +43,6 @@ public final class GameContext {
 
     public TimeManager getTimeManager() {
         return timeManager;
-    }
-
-    public PaletteManager getPaletteManager() {
-        return paletteManager;
     }
 
     public EntityManager getEntityManager() {
