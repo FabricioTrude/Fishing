@@ -5,38 +5,31 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.assets.statics.FeatureAssets;
-import com.fabricio.fishing.entity.Frog;
+import com.fabricio.fishing.entity.Entity;
+import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.interfaces.Holdable;
-import com.fabricio.fishing.features.fishing.FishingStatus;
-import com.fabricio.fishing.entity.EntityManager;
-import com.fabricio.fishing.manager.TimeManager;
+import com.fabricio.fishing.features.player.stats.FishingStats;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
-public class Player extends Frog implements Holdable {
-    protected TimeManager timeManager;
-    protected EntityManager entityManager;
-
+public class Player extends Entity implements Holdable {
     protected Texture texture = FeatureAssets.PlayerTexture;
     protected Sprite sprite = new Sprite(texture);
     protected float width = sprite.getWidth();
     protected float height = sprite.getHeight();
 
-    private final FishingStatus fishingStatus = new FishingStatus();
+    public static final FishingStats fishingStats = new FishingStats();
 
-    public FishingStatus getFishingStatus(){
-        return fishingStatus;
+    private static EntityIndex[] indexes = {
+        EntityIndex.PLAYER, EntityIndex.ENTITY, EntityIndex.CLICKABLE, EntityIndex.HOLDABLE
+    };
+
+    public Player(float x, float y) {
+        super(x, y, indexes);
     }
 
-    public Player(float x, float y, TimeManager timeManager, EntityManager entityManager) {
-        super(x, y);
-        this.timeManager = timeManager;
-        this.entityManager = entityManager;
-        entityManager.addEntity(this);
-    }
-
-    public static Player createPlayer(TimeManager timeManager, EntityManager entityManager){
-       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT, timeManager, entityManager);
+    public static Player createPlayer(){
+       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT);
     }
 
     public void render(SpriteBatch batch) {

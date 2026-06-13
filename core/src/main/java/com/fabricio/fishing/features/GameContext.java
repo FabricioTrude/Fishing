@@ -3,6 +3,7 @@ package com.fabricio.fishing.features;
 import com.badlogic.gdx.Gdx;
 import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.assets.SoundManager;
+import com.fabricio.fishing.entity.ClickManager;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.event.EventBus;
@@ -18,16 +19,17 @@ public final class GameContext {
     public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
     public static final EventBus eventBus = new EventBus();
-    public static final InventoryManager inventoryManager = new InventoryManager();
     public static final SaveManager saveManager = new SaveManager();
     public static SoundManager soundManager;
 
-    private final TimeManager timeManager = new TimeManager() ;
-    private final EntityManager entityManager = new EntityManager();
-    private final ClickManager clickManager = new ClickManager(entityManager);
-    private final ScoreManager scoreManager = new ScoreManager();
-    private final GameAssets gameAssets = new GameAssets();
-    private Player player = Player.createPlayer(timeManager, entityManager);
+    public static final TimeManager timeManager = new TimeManager() ;
+    public static final EntityManager entityManager = new EntityManager();
+    public static final ClickManager clickManager = new ClickManager();
+    public static final ScoreManager scoreManager = new ScoreManager();
+    public static final GameAssets gameAssets = new GameAssets();
+    public static final Player player = Player.createPlayer();
+
+    public static final InventoryManager inventoryManager = new InventoryManager();
 
     private FeatureScreen currentFeature;
 
@@ -41,33 +43,12 @@ public final class GameContext {
         return INSTANCE;
     }
 
-    public TimeManager getTimeManager() {
-        return timeManager;
-    }
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    public ClickManager getClickManager() {
-        return clickManager;
-    }
-
-    public InventoryManager getInventoryManager(){
-        return inventoryManager;
-    }
-
-    public ScoreManager getScoreManager() {
+    public static ScoreManager getScoreManager() {
         return scoreManager;
     }
 
     public FeatureScreen getCurrentFeature() {
         return currentFeature;
-    }
-
-    public FishingFeature getFishingFeature(){
-        if (currentFeature instanceof FishingFeature fishing) return fishing;
-        return null;
     }
 
     public Player getPlayer() {

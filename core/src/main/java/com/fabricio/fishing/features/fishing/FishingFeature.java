@@ -1,66 +1,22 @@
 package com.fabricio.fishing.features.fishing;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.fabricio.fishing.event.Subscription;
 import com.fabricio.fishing.features.fishing.enums.FishingZones;
-import com.fabricio.fishing.features.player.Player;
-import com.fabricio.fishing.features.GameContext;
-import com.fabricio.fishing.screen.FeatureScreen;
+import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 
-import static com.fabricio.fishing.features.GameContext.*;
+import static com.fabricio.fishing.features.GameContext.eventBus;
 
-public class FishingFeature implements FeatureScreen {
-    private final GameContext context;
-    private final FishManager fishManager;
-    private final Player player;
-
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private final SpriteBatch batch = new SpriteBatch();
+public class FishingFeature {
+    private final FishManager manager;
 
     private FishingZones zone;
+    private final Subscription zoneSub;
 
-    public FishingFeature(GameContext context) {
-        this.context = context;
+    public FishingFeature() {
         zone = FishingZones.SWAMP;
-        player = context.getPlayer();
-        fishManager = new FishManager(context, player.getFishingStatus());
-    }
-    public void render(){
-        update(Gdx.graphics.getDeltaTime());
-        ScreenUtils.clear(context.getTimeManager().getSkyColor());
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        assert GameContext.getContext().getFishingFeature() != null;
-        shapeRenderer.setColor(GameContext.getContext().getFishingFeature().getZone().getColor());
-        shapeRenderer.rect(
-            0,
-            0,
-            SCREEN_WIDTH,
-            SEA_HEIGHT
-        );
-        shapeRenderer.end();
-
-//        context.getEntityManager().renderBoxes(shapeRenderer);
-        batch.begin();
-        fishManager.render(batch);
-        player.render(batch);
-        batch.end();
-
-    }
-
-    public void update(float delta){
-        context.getTimeManager().update(delta);
-        player.update(delta);
-        fishManager.update(delta);
-        context.getClickManager().update();
-        context.getEntityManager().flushRemovals();
-    }
-
-    @Override
-    public void dispose() {
-
+        manager = new FishManager(this);
+        zoneSub = eventBus.register(FishingZoneSwitchEvent.class, e -> setZone(e.zone()));
     }
 
     public FishingZones getZone() {
@@ -70,4 +26,10 @@ public class FishingFeature implements FeatureScreen {
     public void setZone(FishingZones zone) {
         this.zone = zone;
     }
+
+    public void update(float delta){manager.update(delta);}
+
+    public void render(SpriteBatch batch){manager.render(batch);}
+
+    public void dispose(){zoneSub.unsubscribe();}
 }

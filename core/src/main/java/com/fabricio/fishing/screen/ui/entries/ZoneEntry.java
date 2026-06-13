@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fabricio.fishing.assets.statics.UIAssets;
 import com.fabricio.fishing.features.fishing.enums.FishingZones;
-import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.screen.ui.actors.ColorActor;
 
@@ -31,7 +30,6 @@ public class ZoneEntry extends Group {
         addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameContext.getContext().getFishingFeature().setZone(zone);
                 eventBus.post(new FishingZoneSwitchEvent(zone));
             }
         });

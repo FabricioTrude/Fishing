@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.entity.Entity;
+import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
@@ -23,6 +24,8 @@ public class Fish extends Entity implements Clickable {
     protected FishSize size;
     protected FishingZones zone;
     protected EnumSet<TimePeriod> periods;
+
+    private static final EntityIndex[] indexes = {EntityIndex.FISH, EntityIndex.ENTITY, EntityIndex.CLICKABLE};
 
     protected float fishHP;
     protected float fishDEF;
@@ -55,7 +58,7 @@ public class Fish extends Entity implements Clickable {
     //8. Economia
 
     public Fish(float x, float y, FishSpecies species) {
-        super(x, y);
+        super(x, y, indexes);
         this.species = species;
         this.rarity = FishRarity.random();
         this.size = FishSize.random();

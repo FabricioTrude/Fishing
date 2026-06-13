@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
-import com.fabricio.fishing.manager.records.LoadGameEvent;
-import com.fabricio.fishing.manager.records.SaveGameEvent;
+import com.fabricio.fishing.save.records.LoadGameEvent;
+import com.fabricio.fishing.save.records.SaveGameEvent;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
@@ -28,6 +28,7 @@ public class SaveManager {
 
     public void loadSave(SaveData save){
         if(save.fishes!=null)inventoryManager.load(save);
+        System.out.println(save.fishes.get("CATFISH"));
     }
 
     public void saveToDisk(){

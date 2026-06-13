@@ -1,31 +1,16 @@
-package com.fabricio.fishing.manager;
+package com.fabricio.fishing.entity;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.fabricio.fishing.entity.Entity;
-import com.fabricio.fishing.entity.EntityManager;
+import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.Holdable;
-import com.fabricio.fishing.manager.enums.MouseState;
+import com.fabricio.fishing.entity.enums.MouseState;
+
+import static com.fabricio.fishing.features.GameContext.entityManager;
 
 public class ClickManager extends InputAdapter {
-    private final EntityManager entityManager;
-    private static Entity triggedEntity;
-
-    public ClickManager(EntityManager entityManager){
-        this.entityManager = entityManager;
-    }
-
-    public static Entity getTriggedEntity() {
-        return triggedEntity;
-    }
-
-    public static void setTriggedEntity(Entity triggedEntity) {
-        ClickManager.triggedEntity = triggedEntity;
-    }
-
     private Clickable clickedObject;
     private Holdable heldObject;
     private MouseState state = MouseState.IDLE;
@@ -34,17 +19,16 @@ public class ClickManager extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         state = MouseState.PRESSED;
-        for (Clickable clickable : entityManager.getClickables()) {
-            {
-                int worldY = getWorldY(screenY);
-                if (!clickable.getBounds().contains(screenX, worldY)) continue;
-                clickStartTime = TimeUtils.millis();
-                clickedObject = clickable;
-                if (clickable instanceof Holdable holdable) {
-                    heldObject = holdable;
-                }
-                return true;
+        int worldY = getWorldY(screenY);
+        for (Entity entity : entityManager.get(EntityIndex.CLICKABLE)) {
+            Clickable clickable = (Clickable) entity;
+            if (!clickable.getBounds().contains(screenX, worldY)) continue;
+            clickStartTime = TimeUtils.millis();
+            clickedObject = clickable;
+            if (clickable instanceof Holdable holdable) {
+                heldObject = holdable;
             }
+            return true;
         }
         return false;
     }
@@ -60,7 +44,6 @@ public class ClickManager extends InputAdapter {
 
     private void processRelease(int screenX, int screenY){
         if(clickedObject != null){
-
             if(clickedObject.getBounds().contains(screenX, getWorldY(screenY)))
                 clickedObject.onClick();
             clickedObject = null;

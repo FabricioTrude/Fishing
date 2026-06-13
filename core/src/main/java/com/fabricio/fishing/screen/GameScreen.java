@@ -4,33 +4,32 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.fabricio.fishing.features.GameContext;
-import com.fabricio.fishing.features.fishing.FishingFeature;
-import com.fabricio.fishing.manager.ClickManager;
-import com.fabricio.fishing.manager.records.LoadGameEvent;
+import com.fabricio.fishing.entity.ClickManager;
+import com.fabricio.fishing.save.records.LoadGameEvent;
+import com.fabricio.fishing.screen.ui.screens.FishingScreen;
 
 import static com.fabricio.fishing.features.GameContext.eventBus;
 
 public class GameScreen implements Screen {
-    private final GameContext context = new GameContext();
+    private static final GameContext context = new GameContext();
+    private final static InputMultiplexer multiplexer = new InputMultiplexer();
+    private final static PersistentUI ui = new PersistentUI();
+    private final static ClickManager clickManager = new ClickManager();
 
-    private InputMultiplexer multiplexer;
-    private UIManager uiManager;
-    private ClickManager clickManager;
+    static {
+        multiplexer.addProcessor(ui.getStage());
+        multiplexer.addProcessor(clickManager);
+        Gdx.input.setInputProcessor(multiplexer);
+    }
 
     public GameScreen() {
-        context.setFeature(new FishingFeature(context));
+        context.setFeature(new FishingScreen());
         context.render();
     }
 
     @Override
     public void show() {
         eventBus.post(new LoadGameEvent());
-        uiManager = new UIManager();
-        clickManager = new ClickManager(context.getEntityManager());
-        multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(uiManager.getStage());
-        multiplexer.addProcessor(clickManager);
-        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -38,8 +37,8 @@ public class GameScreen implements Screen {
         context.update(delta);
         context.render();
         clickManager.update();
-        uiManager.update(delta);
-        uiManager.render();
+        ui.update(delta);
+        ui.render();
     }
 
     @Override
@@ -64,6 +63,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        context.getCurrentFeature().dispose();
+        ui.dispose();
     }
 }

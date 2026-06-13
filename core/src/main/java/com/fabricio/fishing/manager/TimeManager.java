@@ -28,7 +28,7 @@ public class TimeManager {
             }
         }
         updateCurrentPeriod();
-        System.out.println(getClock());
+//        System.out.println(getClock());
     }
 
     public void updateCurrentPeriod(){

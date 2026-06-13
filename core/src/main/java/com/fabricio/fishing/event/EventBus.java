@@ -5,8 +5,9 @@ import java.util.*;
 public class EventBus {
     private final Map<Class<?>, List<Listener<?>>> listeners = new HashMap<>();
 
-    public <T> void register(Class<T> type, Listener<T> listener){
+    public <T> Subscription register(Class<T> type, Listener<T> listener){
         listeners.computeIfAbsent(type, k -> new ArrayList<>()).add(listener);
+        return new Subscription(() -> unregister(type, listener));
     }
 
     public <T> void unregister(Class<T> type, Listener<? super T> listener){

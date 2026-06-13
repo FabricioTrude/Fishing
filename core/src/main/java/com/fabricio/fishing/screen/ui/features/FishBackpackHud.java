@@ -1,7 +1,9 @@
 package com.fabricio.fishing.screen.ui.features;
 
+import com.fabricio.fishing.features.fishing.Fish;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
+import com.fabricio.fishing.save.records.LoadGameEvent;
 import com.fabricio.fishing.screen.ui.entries.FishEntry;
 import com.fabricio.fishing.screen.ui.generics.MediumSizePanel;
 
@@ -17,9 +19,8 @@ public class FishBackpackHud extends MediumSizePanel {
         super("BackPack");
         createFishEntries();
         setVisible(false);
-        eventBus.register(FishCaughtEvent.class, event -> {
-            updateFish(event.fish().getSpecies());
-        });
+        eventBus.register(LoadGameEvent.class, e -> updateEntries());
+        eventBus.register(FishCaughtEvent.class, e -> updateFish(e.fish().getSpecies()));
     }
     private void createFishEntries(){
         float x = 20;
@@ -30,6 +31,12 @@ public class FishBackpackHud extends MediumSizePanel {
             entries.put(fish,entry);
             addActor(entry);
             y-=40;
+        }
+    }
+
+    public void updateEntries(){
+        for(FishSpecies fish : FishSpecies.values()){
+            updateFish(fish);
         }
     }
 

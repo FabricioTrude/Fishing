@@ -20,7 +20,7 @@ public class InventoryManager {
     }
 
     public void addFish(FishSpecies fish, float number){
-        fishes.put(fish, fishes.get(fish) + number);
+        fishes.put(fish, fishes.getOrDefault(fish, 0f) + number);
     }
 
     public float getFish(FishSpecies fish) {

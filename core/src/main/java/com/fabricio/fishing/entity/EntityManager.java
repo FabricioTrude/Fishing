@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
+import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.Fish;
 import com.fabricio.fishing.entity.interfaces.Clickable;
@@ -11,82 +12,64 @@ import com.fabricio.fishing.entity.interfaces.HasBounds;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.features.player.Player;
 
+import java.util.EnumMap;
+
 import static com.fabricio.fishing.features.GameContext.*;
 
 public class EntityManager {
-    private final Array<Entity> entities = new Array<>();
-    private final Array<Fish> fishes = new Array<>();
-    private final Array<Clickable> clickables = new Array<>();
+    private final EnumMap<EntityIndex, Array<Entity>> indexes = new EnumMap<>(EntityIndex.class);
+
     private final Array<Entity> pendingRemoval = new Array<>();
 
     public EntityManager() {
+        for (EntityIndex index : EntityIndex.values()){
+            indexes.put(index, new Array<>());
+        }
         eventBus.register(FishCaughtEvent.class, event -> {
-            removeEntity(event.fish());
+            markForRemoval(event.fish());
         });
-        eventBus.register(FishingZoneSwitchEvent.class, event -> {
-           clearEntities(Fish.class);
+        eventBus.register(FishingZoneSwitchEvent.class, e -> {
+            clearIndex(EntityIndex.FISH);
         });
     }
 
-    public void addEntity(Entity entity){
-        this.clickables.add((Clickable)entity);
-        switch(entity){
-            case Player player -> {}
-            case Fish fish -> {
-                fishes.add(fish);
-            }
-            default -> {}
-        }
-        entities.add(entity);
+    public void register(Entity entity){
+        indexes.get(EntityIndex.ALL).add(entity);
+        for(EntityIndex index : entity.getCategories())
+            indexes.get(index).add(entity);
     }
 
-    public Array<Entity> getEntities(){
-        return entities;
-    }
-
-    public void removeEntity(Entity entity){
-        if(entity instanceof  Fish fish)
-            fishes.removeValue(fish, true);
-        if(entity instanceof  Clickable clickable)
-            this.clickables.removeValue(clickable, true);
-
-        entities.removeValue(entity, true);
-    }
-
-    public void clearEntities(Class<?> type){
-        if(type == Fish.class)
-            fishes.clear();
-        if(type == Clickable.class){
-            for(int i = clickables.size - 1; i >=0; i--) {
-                if (type.isInstance(clickables.get(i))) {
-                    clickables.removeIndex(i);
-                }
-            }
+    private void remove(Entity entity) {
+        for (Array<Entity> list : indexes.values()) {
+            list.removeValue(entity, true);
         }
     }
 
-    public Array<Fish> getFishes(){
-        return fishes;
+    public void clearIndex(EntityIndex index){
+        Array<Entity> entitiesToRemove = new Array<>(indexes.get(index));
+        for(Entity entity : entitiesToRemove)remove(entity);
     }
 
-    public Array<Clickable> getClickables() { return clickables; }
+    @SuppressWarnings("unchecked")
+    public <T extends Entity> Array<T> get(EntityIndex index) {
+        return (Array<T>) indexes.get(index);
+    }
 
-    public void markForRemoval(Entity entity){
+    public void markForRemoval(Entity entity) {
         pendingRemoval.add(entity);
     }
 
-    public void flushRemovals(){
-        for(Entity entity : pendingRemoval){
-            removeEntity(entity);
+    public void flushRemovals() {
+        for (Entity entity : pendingRemoval) {
+            remove(entity);
         }
-
         pendingRemoval.clear();
     }
 
     public void renderBoxes(ShapeRenderer shapeRenderer){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);
-        for(Entity entity : getEntities()){
+        for(Entity entity : indexes.get(EntityIndex.ALL)){
             if(!(entity instanceof HasBounds hasBounds))
                 continue;
             Polygon rect = hasBounds.getBounds();
