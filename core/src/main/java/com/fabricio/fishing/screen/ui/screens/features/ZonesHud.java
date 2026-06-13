@@ -1,7 +1,7 @@
-package com.fabricio.fishing.screen.ui.features;
+package com.fabricio.fishing.screen.ui.screens.features;
 
 import com.fabricio.fishing.features.fishing.enums.FishingZones;
-import com.fabricio.fishing.screen.ui.entries.ZoneEntry;
+import com.fabricio.fishing.screen.ui.screens.entries.ZoneEntry;
 import com.fabricio.fishing.screen.ui.generics.MediumSizePanel;
 
 public class ZonesHud extends MediumSizePanel {

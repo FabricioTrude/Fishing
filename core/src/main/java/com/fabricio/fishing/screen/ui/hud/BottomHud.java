@@ -4,9 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.fabricio.fishing.assets.statics.IconAssets;
 import com.fabricio.fishing.assets.statics.UIAssets;
 import com.fabricio.fishing.screen.ui.actors.TextureActor;
-import com.fabricio.fishing.screen.ui.features.ZonesHud;
+import com.fabricio.fishing.screen.ui.screens.features.ZonesHud;
 import com.fabricio.fishing.screen.ui.generics.SmallIconButton;
-import com.fabricio.fishing.screen.ui.features.FishBackpackHud;
+import com.fabricio.fishing.screen.ui.screens.features.FishBackpackHud;
 
 import static com.fabricio.fishing.features.GameContext.*;
 

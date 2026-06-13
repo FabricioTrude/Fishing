@@ -9,7 +9,7 @@ public enum FishingZones {
         Palette.SWAMP_POND
     ),
     OASIS(
-        "Zone 2",
+        "Oasis",
         Palette.OASIS_POND
     ),
     ZONE_3(

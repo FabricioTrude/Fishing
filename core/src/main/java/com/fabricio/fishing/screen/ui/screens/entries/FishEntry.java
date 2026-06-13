@@ -1,4 +1,4 @@
-package com.fabricio.fishing.screen.ui.entries;
+package com.fabricio.fishing.screen.ui.screens.entries;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;

@@ -1,10 +1,9 @@
-package com.fabricio.fishing.screen.ui.features;
+package com.fabricio.fishing.screen.ui.screens.features;
 
-import com.fabricio.fishing.features.fishing.Fish;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 import com.fabricio.fishing.save.records.LoadGameEvent;
-import com.fabricio.fishing.screen.ui.entries.FishEntry;
+import com.fabricio.fishing.screen.ui.screens.entries.FishEntry;
 import com.fabricio.fishing.screen.ui.generics.MediumSizePanel;
 
 import java.util.EnumMap;

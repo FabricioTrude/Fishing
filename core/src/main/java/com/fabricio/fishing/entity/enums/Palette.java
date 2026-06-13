@@ -28,10 +28,12 @@ public abstract class Palette {
 
 
     public static final Color SWAMP_POND =
-        Color.valueOf("14995D");
+        //Color.valueOf("14995D30");
+        Color.valueOf("448A6855");
 
     public static final Color OASIS_POND =
-        Color.valueOf("4aedbf");
+        //Color.valueOf("4aedbf50");
+        Color.valueOf("6907F055");
 
     public static final Color SEA =
         new Color(0f,0.3f,0.8f,1f);

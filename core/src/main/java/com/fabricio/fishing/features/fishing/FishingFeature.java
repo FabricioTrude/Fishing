@@ -5,7 +5,7 @@ import com.fabricio.fishing.event.Subscription;
 import com.fabricio.fishing.features.fishing.enums.FishingZones;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 
-import static com.fabricio.fishing.features.GameContext.eventBus;
+import static com.fabricio.fishing.features.GameContext.*;
 
 public class FishingFeature {
     private final FishManager manager;
@@ -29,7 +29,9 @@ public class FishingFeature {
 
     public void update(float delta){manager.update(delta);}
 
-    public void render(SpriteBatch batch){manager.render(batch);}
+    public void render(SpriteBatch batch){
+        manager.render(batch);
+    }
 
     public void dispose(){zoneSub.unsubscribe();}
 }
