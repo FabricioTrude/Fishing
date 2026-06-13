@@ -29,9 +29,7 @@ public class FishingFeature implements FeatureScreen {
     }
     public void render(){
         update(Gdx.graphics.getDeltaTime());
-        ScreenUtils.clear(
-            context.getPaletteManager().getSkyColor()
-        );
+        ScreenUtils.clear(context.getTimeManager().getSkyColor());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         assert GameContext.getContext().getFishingFeature() != null;
@@ -55,7 +53,6 @@ public class FishingFeature implements FeatureScreen {
     public void update(float delta){
         context.getTimeManager().update(delta);
         player.update(delta);
-        context.getPaletteManager().update();
         fishManager.update(delta);
         context.getClickManager().update();
         context.getEntityManager().flushRemovals();
