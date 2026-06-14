@@ -33,6 +33,7 @@ public class FishManager extends TimeManager {
             random.nextFloat() * SEA_HEIGHT,
             species
         ));
+        fishing.setCurrentFishes(fishing.getCurrentFishes() + 1);
     }
 
     public void update(float delta){

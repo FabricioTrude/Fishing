@@ -2,8 +2,11 @@ package com.fabricio.fishing.manager;
 
 import com.badlogic.gdx.graphics.Color;
 import com.fabricio.fishing.entity.enums.TimePeriod;
+import com.fabricio.fishing.manager.records.TickEvent;
 
 import java.time.LocalTime;
+
+import static com.fabricio.fishing.features.GameContext.eventBus;
 
 public class TimeManager {
     protected final boolean useRealTime = false;
@@ -28,7 +31,7 @@ public class TimeManager {
             }
         }
         updateCurrentPeriod();
-//        System.out.println(getClock());
+        eventBus.post(new TickEvent(getClock()));
     }
 
     public void updateCurrentPeriod(){

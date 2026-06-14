@@ -1,3 +1,5 @@
+backgrounds/swamp/swamp_background.png
+backgrounds/swamp/swamp_foreground.png
 features/fishes.zip
 features/fishes/clown_fish.png
 features/fishes/cod.png

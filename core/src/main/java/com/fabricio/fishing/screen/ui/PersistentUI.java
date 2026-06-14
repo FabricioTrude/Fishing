@@ -6,12 +6,15 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.fabricio.fishing.screen.ui.hud.BottomHud;
 import com.fabricio.fishing.screen.ui.hud.TopHud;
 
+import static com.fabricio.fishing.features.GameContext.*;
+
 public class PersistentUI extends Group {
     private final Stage stage;
 
     public PersistentUI() {
         this.stage = new Stage(new ScreenViewport());
         TopHud topHud = new TopHud();
+        topHud.setBounds(0, SCREEN_HEIGHT - 92, SCREEN_WIDTH, 92);
         BottomHud bottomHud = new BottomHud();
 
         stage.addActor(topHud);

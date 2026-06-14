@@ -29,7 +29,7 @@ public class Player extends Entity implements Holdable {
     }
 
     public static Player createPlayer(){
-       return new Player(SCREEN_WIDTH /2-25, SEA_HEIGHT);
+       return new Player(SCREEN_WIDTH / 2,0);
     }
 
     public void render(SpriteBatch batch) {
@@ -80,4 +80,19 @@ public class Player extends Entity implements Holdable {
     public void onRelease() {
         isHolding = false;
     }
+
+    public void setX(float x){
+        this.x = x;
+    }
+    public void setY(float y){
+        this.y = y;
+    }
+    public float getX(){
+        return x;
+    }
+    public float getY(){
+        return y;
+    }
+
+
 }
