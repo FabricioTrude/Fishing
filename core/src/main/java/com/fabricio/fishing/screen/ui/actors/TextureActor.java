@@ -1,5 +1,6 @@
 package com.fabricio.fishing.screen.ui.actors;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,6 +14,13 @@ public class TextureActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        Color old = batch.getColor();
+        batch.setColor(
+          getColor().r,
+          getColor().g,
+          getColor().b,
+          getColor().a * parentAlpha
+        );
         batch.draw(
             texture,
             getX(),
@@ -20,5 +28,6 @@ public class TextureActor extends Actor {
             getWidth(),
             getHeight()
         );
+        batch.setColor(old);
     }
 }

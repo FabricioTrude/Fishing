@@ -1,13 +1,14 @@
 package com.fabricio.fishing.event;
 
-public class Subscription {
+public class Subscription implements AutoCloseable{
     private final Runnable unsubscribe;
 
     public Subscription(Runnable unsubscribe) {
         this.unsubscribe = unsubscribe;
     }
 
-    public void unsubscribe(){
+    @Override
+    public void close() throws Exception {
         unsubscribe.run();
     }
 }

@@ -7,7 +7,6 @@ import com.fabricio.fishing.entity.ClickManager;
 import com.fabricio.fishing.entity.EntityManager;
 import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.event.EventBus;
-import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.save.SaveManager;
@@ -61,6 +60,10 @@ public final class GameContext {
 
     public static void setScreenHeight(float screenHeight) {
         SCREEN_HEIGHT = screenHeight;
+    }
+
+    public static void setSeaHeight(float seaHeight) {
+        SEA_HEIGHT = seaHeight;
     }
 
     public void setFeature(FeatureScreen feature){

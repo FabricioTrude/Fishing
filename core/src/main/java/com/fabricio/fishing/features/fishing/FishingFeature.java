@@ -33,5 +33,5 @@ public class FishingFeature {
         manager.render(batch);
     }
 
-    public void dispose(){zoneSub.unsubscribe();}
+    public void dispose(){}
 }

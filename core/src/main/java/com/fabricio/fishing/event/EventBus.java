@@ -1,12 +1,13 @@
 package com.fabricio.fishing.event;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EventBus {
     private final Map<Class<?>, List<Listener<?>>> listeners = new HashMap<>();
 
     public <T> Subscription register(Class<T> type, Listener<T> listener){
-        listeners.computeIfAbsent(type, k -> new ArrayList<>()).add(listener);
+        listeners.computeIfAbsent(type, k -> new CopyOnWriteArrayList<>()).add(listener);
         return new Subscription(() -> unregister(type, listener));
     }
 

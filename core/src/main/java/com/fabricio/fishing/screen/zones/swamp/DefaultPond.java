@@ -1,28 +1,23 @@
 package com.fabricio.fishing.screen.zones.swamp;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.fabricio.fishing.assets.statics.BackgroundAssets;
 import com.fabricio.fishing.assets.statics.UIAssets;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.FishingFeature;
 import com.fabricio.fishing.screen.zones.FishingZone;
 
 import static com.fabricio.fishing.features.GameContext.*;
-import static com.fabricio.fishing.features.GameContext.player;
 
-public class SwampPond implements FishingZone {
+public class DefaultPond implements FishingZone {
     FishingFeature feature;
     private SpriteBatch batch;
-    static Sprite foreground = new Sprite(BackgroundAssets.SWAMP_FOREGROUND);
-    static Sprite background = new Sprite(BackgroundAssets.SWAMP_BACKGROUND);
 
-    public SwampPond(FishingFeature feature) {
+    public DefaultPond(FishingFeature feature) {
         this.feature = feature;
-        GameContext.setSeaHeight(SCREEN_HEIGHT * 0.6f);
-        player.setY(SCREEN_HEIGHT * 0.6f);
+        GameContext.setSeaHeight(SCREEN_HEIGHT * 0.7f);
+        player.setY(SCREEN_HEIGHT * 0.7f);
     }
 
     @Override
@@ -37,22 +32,11 @@ public class SwampPond implements FishingZone {
     @Override
     public void render(SpriteBatch batch) {
         this.batch = batch;
-        //SKY
         ScreenUtils.clear(timeManager.getSkyColor());
-        //BACKGROUND
-        background.draw(batch);
-        //FISHES
         feature.render(batch);
-
-        //SEA
         batch.setColor(feature.getZone().getColor());
-        batch.draw(UIAssets.WHITE,0,0,SCREEN_WIDTH, SEA_HEIGHT);
-        //PLAYER
+        batch.draw(UIAssets.WHITE, 0, 0, SCREEN_WIDTH, SEA_HEIGHT);
         player.render(batch);
-        //FOREGROUND
-        foreground.draw(batch);
-//        entityManager().renderBoxes(shapeRenderer);
-
     }
 
     @Override
