@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class UIAssets {
+public abstract class UIAssets {
     public static Texture TopHud = new Texture("ui/huds/top_hud.png");
     public static Texture BottomHud = new Texture("ui/huds/bottom_hud.png");
 

@@ -21,6 +21,7 @@ features/fishes/swamp/wolf_fish.png
 features/player/base.png
 features/player/player.png
 music/sounds/fish_clicked.wav
+objects/cave_entrance.png
 save/save.json
 ui/buttons/small_button.png
 ui/huds/bottom_hud.png

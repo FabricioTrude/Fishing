@@ -9,7 +9,7 @@ import com.fabricio.fishing.screen.RenderLayer;
 public class SpriteEntity extends Entity{
     private final Sprite sprite;
 
-    private static final EntityIndex[] indexes = {EntityIndex.SPRITE};
+    static EntityIndex[] indexes = {EntityIndex.SPRITE};
 
     public SpriteEntity(Texture texture, RenderLayer layer) {
         super(0,0, layer, indexes);

@@ -3,7 +3,9 @@ package com.fabricio.fishing.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.entity.ClickManager;
 import com.fabricio.fishing.save.records.LoadGameEvent;
@@ -17,7 +19,9 @@ public class GameScreen implements Screen {
     private final static InputMultiplexer multiplexer = new InputMultiplexer();
     private final static PersistentUI ui = new PersistentUI();
     private final static ClickManager clickManager = new ClickManager();
+
     final SpriteBatch batch = new SpriteBatch();
+    ShapeRenderer renderer = new ShapeRenderer();
 
     static {
         multiplexer.addProcessor(ui.getStage());
@@ -45,7 +49,8 @@ public class GameScreen implements Screen {
         batch.begin();
         getScene().render(batch);
         batch.end();
-
+        renderer.setColor(Color.WHITE);
+        entityManager.renderBoxes(renderer);
         ui.update(delta);
         ui.render();
     }

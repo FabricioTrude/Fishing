@@ -2,7 +2,7 @@ package com.fabricio.fishing.assets.statics;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class FeatureAssets {
+public abstract class FeatureAssets {
     static public Texture PlayerTexture = new Texture("features/player/player.png");
 
     static public Texture BassTexture = new Texture("features/fishes/swamp/bass.png");
