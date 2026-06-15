@@ -9,9 +9,7 @@ import java.util.EnumSet;
 
 import static com.fabricio.fishing.features.GameContext.entityManager;
 
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-public abstract class Entity extends ClickListener {
+public abstract class Entity{
     protected float x;
     protected float y;
     protected float width;

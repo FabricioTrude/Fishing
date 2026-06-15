@@ -46,10 +46,10 @@ public class ClickableObjectEntity extends Entity implements Clickable {
     private void initPolygon(){
         this.polygon = new Polygon(
             new float[]{
-                -width/2f, -height/2f,
-                width/2f, -height/2f,
-                width/2f, height/2f,
-                -width/2f, height/2f
+                0, 0,
+                width, 0,
+                width, height,
+                0, height
             }
         );
     }
