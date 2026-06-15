@@ -1,9 +1,7 @@
 package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.event.Subscription;
-import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
@@ -14,27 +12,16 @@ import static com.fabricio.fishing.features.GameContext.*;
 import static com.fabricio.fishing.screen.scenes.DefaultPond.SEA_HEIGHT;
 
 public class FishingFeature {
-    private Zones zone;
     final FishingStats fishing = new FishingStats();
     float spawnTimer = 0;
-
-    final Subscription zoneSub;
+    Subscription zoneSub;
 
     public FishingFeature() {
         zone = Zones.SWAMP;
-        zoneSub = eventBus.register(FishingZoneSwitchEvent.class, e -> {
-            setZone(e.zone());
-            entityManager.clearIndex(EntityIndex.FISH);
+        eventBus.register(FishingZoneSwitchEvent.class, e -> {
             fishing.setCurrentFishes(0);
+            setZone(e.zone());
         });
-    }
-
-    public Zones getZone() {
-        return zone;
-    }
-
-    public void setZone(Zones zone) {
-        this.zone = zone;
     }
 
     public void createFish(){

@@ -12,7 +12,7 @@ import static com.fabricio.fishing.features.GameContext.*;
 
 public class DefaultPond extends LayeredScene {
 
-    protected FishingFeature fishing = new FishingFeature();
+    protected static FishingFeature fishing = new FishingFeature();
     protected SpriteBatch batch;
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.5f;
 

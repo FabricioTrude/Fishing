@@ -7,11 +7,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
-import com.fabricio.fishing.features.fishing.Fish;
-import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.HasBounds;
-import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
-import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.screen.RenderLayer;
 
 import java.util.EnumMap;
@@ -29,9 +25,6 @@ public class EntityManager {
         }
         eventBus.register(FishCaughtEvent.class, event -> {
             markForRemoval(event.fish());
-        });
-        eventBus.register(FishingZoneSwitchEvent.class, e -> {
-            clearIndex(EntityIndex.FISH);
         });
     }
 
@@ -93,10 +86,9 @@ public class EntityManager {
     }
 
     public void clearScene(){
-        for (Entity entity : new Array<>(indexes.get(EntityIndex.ALL))){
+        for (Entity entity : indexes.get(EntityIndex.ALL)){
             if(entity != player) {
-                System.out.println(entity.toString());
-                remove(entity);
+                markForRemoval(entity);
             };
         }
     }
