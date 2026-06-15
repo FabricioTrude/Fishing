@@ -9,6 +9,7 @@ import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.interfaces.Holdable;
 import com.fabricio.fishing.features.player.stats.FishingStats;
+import com.fabricio.fishing.screen.RenderLayer;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
@@ -25,7 +26,7 @@ public class Player extends Entity implements Holdable {
     };
 
     public Player(float x, float y) {
-        super(x, y, indexes);
+        super(x, y, RenderLayer.OVERLAY,indexes);
     }
 
     public static Player createPlayer(){

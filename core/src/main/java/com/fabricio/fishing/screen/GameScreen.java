@@ -3,18 +3,21 @@ package com.fabricio.fishing.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.entity.ClickManager;
 import com.fabricio.fishing.save.records.LoadGameEvent;
 import com.fabricio.fishing.screen.ui.PersistentUI;
 
-import static com.fabricio.fishing.features.GameContext.eventBus;
+import static com.fabricio.fishing.features.GameContext.*;
+import static com.fabricio.fishing.features.GameContext.clickManager;
 
 public class GameScreen implements Screen {
-    private static final GameContext context = new GameContext();
+    public static final GameContext context = new GameContext();
     private final static InputMultiplexer multiplexer = new InputMultiplexer();
     private final static PersistentUI ui = new PersistentUI();
     private final static ClickManager clickManager = new ClickManager();
+    final SpriteBatch batch = new SpriteBatch();
 
     static {
         multiplexer.addProcessor(ui.getStage());
@@ -23,8 +26,7 @@ public class GameScreen implements Screen {
     }
 
     public GameScreen() {
-        context.setFeature(new FishingScreen());
-        context.render();
+
     }
 
     @Override
@@ -34,9 +36,16 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        context.update(delta);
-        context.render();
+
+        entityManager.update(delta);
+        timeManager.update(delta);
         clickManager.update();
+        getScene().update(delta);
+
+        batch.begin();
+        getScene().render(batch);
+        batch.end();
+
         ui.update(delta);
         ui.render();
     }
@@ -63,7 +72,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        context.getCurrentFeature().dispose();
+        getScene().dispose();
         ui.dispose();
     }
 }

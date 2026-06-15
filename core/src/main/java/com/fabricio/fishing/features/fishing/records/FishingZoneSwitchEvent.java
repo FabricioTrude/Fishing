@@ -1,6 +1,6 @@
 package com.fabricio.fishing.features.fishing.records;
 
-import com.fabricio.fishing.features.fishing.enums.FishingZones;
+import com.fabricio.fishing.features.zones.Zones;
 
-public record FishingZoneSwitchEvent(FishingZones zone) {
+public record FishingZoneSwitchEvent(Zones zone) {
 }

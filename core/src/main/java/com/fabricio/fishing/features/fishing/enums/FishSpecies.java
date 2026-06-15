@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.assets.statics.FeatureAssets;
 import com.fabricio.fishing.entity.enums.TimePeriod;
+import com.fabricio.fishing.features.zones.Zones;
 
 import java.util.EnumSet;
 
@@ -12,7 +13,7 @@ public enum FishSpecies {
     // SWAMP
     BASS(
         "Bass",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         7,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -25,7 +26,7 @@ public enum FishSpecies {
     ),
     CATFISH(
         "Catfish",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         3,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -38,7 +39,7 @@ public enum FishSpecies {
     ),
     CICHLID(
         "Cichlid",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         5,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -51,7 +52,7 @@ public enum FishSpecies {
     ),
     PLECO(
         "Pleco",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         2,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -64,7 +65,7 @@ public enum FishSpecies {
     ),
     ARMORED_CATFISH(
         "Armored Catfish",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         2,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -77,7 +78,7 @@ public enum FishSpecies {
     ),
     SILVER_AROWANA(
         "Silver Arowana",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         1,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -90,7 +91,7 @@ public enum FishSpecies {
     ),
     WOLF_FISH(
         "Wolf Fish",
-        FishingZones.SWAMP,
+        Zones.SWAMP,
         2,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -105,7 +106,7 @@ public enum FishSpecies {
     // OASIS
     GOLDFISH(
         "Goldfish",
-        FishingZones.OASIS,
+        Zones.OASIS,
         4,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -118,7 +119,7 @@ public enum FishSpecies {
     ),
     KOI(
         "Koi",
-        FishingZones.OASIS,
+        Zones.OASIS,
     2.5f,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -131,7 +132,7 @@ public enum FishSpecies {
     ),
     Tilapia(
         "Tilapia",
-        FishingZones.OASIS,
+        Zones.OASIS,
         4,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -144,7 +145,7 @@ public enum FishSpecies {
     ),
     CHERRY_BARB(
         "Cherry Barb",
-        FishingZones.OASIS,
+        Zones.OASIS,
         1,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -157,7 +158,7 @@ public enum FishSpecies {
     ),
     GOLDEN_BARB(
         "Golden Barb",
-        FishingZones.OASIS,
+        Zones.OASIS,
         3,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -170,7 +171,7 @@ public enum FishSpecies {
     ),
     PURPLE_CICHLID(
         "Purple Cichlid",
-        FishingZones.OASIS,
+        Zones.OASIS,
         1.5f,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -183,7 +184,7 @@ public enum FishSpecies {
     ),
     SILVER_CARP(
         "Silver Carp",
-        FishingZones.OASIS,
+        Zones.OASIS,
         2.5f,
         EnumSet.allOf(TimePeriod.class),
         2,
@@ -196,7 +197,7 @@ public enum FishSpecies {
     );
 
     final String name;
-    final FishingZones zone;
+    final Zones zone;
     final float weight;
     final EnumSet<TimePeriod> periods;
     final float baseHP;
@@ -207,7 +208,7 @@ public enum FishSpecies {
     final float baseSTAM;
     final Texture texture;
 
-    FishSpecies(String name, FishingZones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
+    FishSpecies(String name, Zones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
         this.name = name;
         this.zone = zone;
         this.weight = weight;
@@ -221,7 +222,7 @@ public enum FishSpecies {
         this.texture = texture;
     }
 
-    public static FishSpecies random(FishingZones zone){
+    public static FishSpecies random(Zones zone){
         float totalWeight = 0;
         for (FishSpecies fish : values()) if(fish.zone == zone) totalWeight += fish.weight;
         float roll = MathUtils.random(totalWeight), accumulated = 0;
@@ -238,7 +239,7 @@ public enum FishSpecies {
         return name;
     }
 
-    public FishingZones getZone() {
+    public Zones getZone() {
         return zone;
     }
 

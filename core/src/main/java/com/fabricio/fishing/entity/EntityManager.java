@@ -1,6 +1,7 @@
 package com.fabricio.fishing.entity;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
@@ -11,6 +12,7 @@ import com.fabricio.fishing.entity.interfaces.Clickable;
 import com.fabricio.fishing.entity.interfaces.HasBounds;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.features.player.Player;
+import com.fabricio.fishing.screen.RenderLayer;
 
 import java.util.EnumMap;
 
@@ -77,4 +79,26 @@ public class EntityManager {
         }
         shapeRenderer.end();
     }
+
+    public void update(float delta){
+        for (Entity entity : indexes.get(EntityIndex.ALL)) {
+            entity.update(delta);
+        }
+    }
+
+    public void render(RenderLayer layer, SpriteBatch batch) {
+        for (Entity entity : indexes.get(EntityIndex.ALL)) {
+            if (entity.getRenderLayer() == layer) entity.render(batch);
+        }
+    }
+
+    public void clearScene(){
+        for (Entity entity : new Array<>(indexes.get(EntityIndex.ALL))){
+            if(entity != player) {
+                System.out.println(entity.toString());
+                remove(entity);
+            };
+        }
+    }
+
 }

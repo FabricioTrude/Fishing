@@ -8,5 +8,6 @@ public enum EntityIndex {
     PLAYER,
     FISH,
     DECORATION,
-    NPC
+    NPC,
+    SPRITE
 }

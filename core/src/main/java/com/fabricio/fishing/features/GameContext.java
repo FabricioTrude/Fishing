@@ -5,53 +5,49 @@ import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.assets.SoundManager;
 import com.fabricio.fishing.entity.ClickManager;
 import com.fabricio.fishing.entity.EntityManager;
+import com.fabricio.fishing.features.zones.ZoneManager;
+import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.features.player.Player;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.save.SaveManager;
-import com.fabricio.fishing.screen.FeatureScreen;
+import com.fabricio.fishing.screen.Scene;
+import com.fabricio.fishing.screen.scenes.swamp.SwampPond;
 
 public final class GameContext {
-    private static GameContext INSTANCE;
     public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
-    public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.7f;
-    public static final EventBus eventBus = new EventBus();
-    public static final SaveManager saveManager = new SaveManager();
-    public static SoundManager soundManager;
 
-    public static final TimeManager timeManager = new TimeManager() ;
+    public static final EventBus eventBus = new EventBus();
+
     public static final EntityManager entityManager = new EntityManager();
-    public static final ClickManager clickManager = new ClickManager();
-    public static final ScoreManager scoreManager = new ScoreManager();
-    public static final GameAssets gameAssets = new GameAssets();
     public static final Player player = Player.createPlayer();
 
+    public static final SaveManager saveManager = new SaveManager();
+    public static SoundManager soundManager;
+    public static final TimeManager timeManager = new TimeManager() ;
+    public static final ClickManager clickManager = new ClickManager();
     public static final InventoryManager inventoryManager = new InventoryManager();
+    public static final ScoreManager scoreManager = new ScoreManager();
+    public static final ZoneManager zoneManager = new ZoneManager();
 
-    private FeatureScreen currentFeature;
+    public static final GameAssets gameAssets = new GameAssets();
+
+    public static Zones zone = Zones.SWAMP;
+    private static Scene scene = new SwampPond();
 
     public GameContext() {
-        INSTANCE = this;
         gameAssets.load();
         soundManager = new SoundManager(gameAssets);
     }
 
-    public static GameContext getContext(){
-        return INSTANCE;
+    public static void setScene(Scene newScene){
+        scene = newScene;
     }
 
-    public static ScoreManager getScoreManager() {
-        return scoreManager;
-    }
-
-    public FeatureScreen getCurrentFeature() {
-        return currentFeature;
-    }
-
-    public Player getPlayer() {
-        return player;
+    public static Scene getScene() {
+        return scene;
     }
 
     public static void setScreenWidth(float screenWidth) {
@@ -60,22 +56,5 @@ public final class GameContext {
 
     public static void setScreenHeight(float screenHeight) {
         SCREEN_HEIGHT = screenHeight;
-    }
-
-    public static void setSeaHeight(float seaHeight) {
-        SEA_HEIGHT = seaHeight;
-    }
-
-    public void setFeature(FeatureScreen feature){
-        currentFeature = feature;
-    }
-
-    public void update(float delta){
-        if(currentFeature == null) return;
-        currentFeature.update(delta);
-    }
-    public void render(){
-        if(currentFeature == null) return;
-        currentFeature.render();
     }
 }

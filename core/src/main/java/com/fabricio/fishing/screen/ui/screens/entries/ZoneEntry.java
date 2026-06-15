@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fabricio.fishing.assets.statics.UIAssets;
-import com.fabricio.fishing.features.fishing.enums.FishingZones;
+import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.screen.ui.actors.ColorActor;
 
@@ -15,9 +15,9 @@ public class ZoneEntry extends Group {
     private static float WIDTH = 368;
     private static float HEIGHT = 72;
     private final Label name;
-    private final FishingZones zone;
+    private final Zones zone;
 
-    public ZoneEntry(FishingZones zone) {
+    public ZoneEntry(Zones zone) {
         this.zone = zone;
         String zoneName = zone.getName();
         setSize(WIDTH, HEIGHT);

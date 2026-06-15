@@ -12,17 +12,19 @@ import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.records.FishClickedEvent;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.features.fishing.enums.*;
+import com.fabricio.fishing.features.zones.Zones;
+import com.fabricio.fishing.screen.RenderLayer;
 
 import java.util.EnumSet;
 
-import static com.fabricio.fishing.features.fishing.enums.FishingZones.SWAMP;
 import static com.fabricio.fishing.features.GameContext.*;
+import static com.fabricio.fishing.screen.scenes.DefaultPond.SEA_HEIGHT;
 
 public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
     protected FishRarity rarity;
     protected FishSize size;
-    protected FishingZones zone;
+    protected Zones zone;
     protected EnumSet<TimePeriod> periods;
 
     private static final EntityIndex[] indexes = {EntityIndex.FISH, EntityIndex.ENTITY, EntityIndex.CLICKABLE};
@@ -58,7 +60,7 @@ public class Fish extends Entity implements Clickable {
     //8. Economia
 
     public Fish(float x, float y, FishSpecies species) {
-        super(x, y, indexes);
+        super(x, y, RenderLayer.ENTITY,indexes);
         this.species = species;
         this.rarity = FishRarity.random();
         this.size = FishSize.random();
@@ -175,7 +177,7 @@ public class Fish extends Entity implements Clickable {
     }
 
     public float getFishVAL(){
-        return fishVAL*size.getScale();
+        return fishVAL * size.getScale();
     }
     public FishSpecies getSpecies(){
         return species;
