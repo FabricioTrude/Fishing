@@ -18,6 +18,7 @@ public class ClickableObjectEntity extends Entity implements Clickable {
         EntityIndex.SPRITE
     };
 
+
     public ClickableObjectEntity(float x, float y, Texture texture, RenderLayer layer) {
         super(x, y, layer, indexes);
         sprite = new Sprite(texture);
@@ -38,18 +39,25 @@ public class ClickableObjectEntity extends Entity implements Clickable {
         sprite.draw(batch);
     }
 
+    private Runnable onClick;
+
+    public ClickableObjectEntity setOnClick(Runnable onClick){
+        this.onClick = onClick;
+        return  this;
+    }
+
     @Override
     public void onClick() {
-        System.out.println("CAVERNA CLICADA");
+        if (onClick != null) onClick.run();
     }
 
     private void initPolygon(){
         this.polygon = new Polygon(
             new float[]{
-                -width/2f, -height/2f,
-                width/2f, -height/2f,
-                width/2f, height/2f,
-                -width/2f, height/2f
+                0, 0,
+                width, 0,
+                width, height,
+                0, height
             }
         );
     }

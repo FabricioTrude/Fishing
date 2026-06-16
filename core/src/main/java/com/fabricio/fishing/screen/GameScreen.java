@@ -12,7 +12,6 @@ import com.fabricio.fishing.save.records.LoadGameEvent;
 import com.fabricio.fishing.screen.ui.PersistentUI;
 
 import static com.fabricio.fishing.features.GameContext.*;
-import static com.fabricio.fishing.features.GameContext.clickManager;
 
 public class GameScreen implements Screen {
     public static final GameContext context = new GameContext();
@@ -40,6 +39,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        entityManager.flushRemovals();
 
         entityManager.update(delta);
         timeManager.update(delta);
@@ -50,7 +50,8 @@ public class GameScreen implements Screen {
         getScene().render(batch);
         batch.end();
         renderer.setColor(Color.WHITE);
-        entityManager.renderBoxes(renderer);
+
+//        entityManager.renderBoxes(renderer); // render hitboxes
         ui.update(delta);
         ui.render();
     }

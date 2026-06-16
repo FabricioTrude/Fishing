@@ -9,7 +9,7 @@ import com.fabricio.fishing.features.player.stats.FishingStats;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.fabricio.fishing.features.GameContext.*;
-import static com.fabricio.fishing.screen.scenes.DefaultPond.SEA_HEIGHT;
+import static com.fabricio.fishing.screen.scenes.generic.GenericPond.SEA_HEIGHT;
 
 public class FishingFeature {
     final FishingStats fishing = new FishingStats();

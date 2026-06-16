@@ -87,7 +87,7 @@ public class EntityManager {
 
     public void clearScene(){
         for (Entity entity : indexes.get(EntityIndex.ALL)){
-            if(entity != player) {
+            if(!entity.hasCategory(EntityIndex.NOT_REMOVE)) {
                 markForRemoval(entity);
             };
         }

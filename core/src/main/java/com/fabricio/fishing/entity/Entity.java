@@ -14,8 +14,8 @@ public abstract class Entity {
     protected float y;
     protected float width;
     protected float height;
-    protected RenderLayer layer;
 
+    protected RenderLayer layer;
     private final EnumSet<EntityIndex> categories;
 
     public Entity(float x, float y, RenderLayer layer,EntityIndex... categories) {

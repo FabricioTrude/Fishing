@@ -12,7 +12,7 @@ import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.save.SaveManager;
 import com.fabricio.fishing.screen.Scene;
-import com.fabricio.fishing.screen.scenes.DefaultPond;
+import com.fabricio.fishing.screen.scenes.generic.GenericPond;
 import com.fabricio.fishing.screen.scenes.swamp.SwampPond;
 
 public final class GameContext {
@@ -22,7 +22,7 @@ public final class GameContext {
     public static final EventBus eventBus = new EventBus();
 
     public static final EntityManager entityManager = new EntityManager();
-    public static final Player player = Player.createPlayer();
+    public static final Player player = new Player();
 
     public static final SaveManager saveManager = new SaveManager();
     public static SoundManager soundManager;
@@ -41,6 +41,10 @@ public final class GameContext {
         soundManager = new SoundManager(gameAssets);
     }
 
+    public static void setScene(Scene newScene){
+        scene = newScene;
+    }
+
     public static Scene getScene() {
         return scene;
     }
@@ -50,7 +54,7 @@ public final class GameContext {
         zone = zoneType;
         switch (zoneType) {
             case SWAMP -> scene = new SwampPond();
-            default -> scene = new DefaultPond();
+            default -> scene = new GenericPond();
         }
     }
 

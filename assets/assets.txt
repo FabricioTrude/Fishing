@@ -1,5 +1,9 @@
+backgrounds/swamp/Background.png
+backgrounds/swamp/montanhas.png
+backgrounds/swamp/planta.png
 backgrounds/swamp/swamp_background.png
 backgrounds/swamp/swamp_foreground.png
+backgrounds/swamp/terra.png
 features/fishes.zip
 features/fishes/clown_fish.png
 features/fishes/cod.png

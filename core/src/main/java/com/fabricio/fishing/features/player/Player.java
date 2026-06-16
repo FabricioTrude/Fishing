@@ -11,8 +11,6 @@ import com.fabricio.fishing.entity.interfaces.Holdable;
 import com.fabricio.fishing.features.player.stats.FishingStats;
 import com.fabricio.fishing.screen.RenderLayer;
 
-import static com.fabricio.fishing.features.GameContext.*;
-
 public class Player extends Entity implements Holdable {
     protected Texture texture = FeatureAssets.PlayerTexture;
     protected Sprite sprite = new Sprite(texture);
@@ -21,56 +19,52 @@ public class Player extends Entity implements Holdable {
 
     public static final FishingStats fishingStats = new FishingStats();
 
-    private static EntityIndex[] indexes = {
-        EntityIndex.PLAYER, EntityIndex.ENTITY, EntityIndex.CLICKABLE, EntityIndex.HOLDABLE
+    static EntityIndex[] indexes = {
+        EntityIndex.PLAYER, EntityIndex.ENTITY, EntityIndex.CLICKABLE, EntityIndex.HOLDABLE, EntityIndex.NOT_REMOVE
     };
 
-    public Player(float x, float y) {
-        super(x, y, RenderLayer.OVERLAY,indexes);
-    }
-
-    public static Player createPlayer(){
-       return new Player(SCREEN_WIDTH / 2,0);
+    public Player() {
+        super(0,0, RenderLayer.PLAYER,indexes);
+        poly.setOrigin(width /2, height /2);
+        sprite.setOriginCenter();
     }
 
     public void render(SpriteBatch batch) {
-        float sx = x - width / 2;
-        float sy = y - height / 2;
-        sprite.setPosition(sx,sy);
-        sprite.setOriginCenter();
         sprite.draw(batch);
     }
 
+    protected Polygon poly = new Polygon(
+        new float[]{
+            0,0,
+            width, 0,
+            width, height,
+            0, height
+        }
+    );
+
     @Override
     public Polygon getBounds() {
-        Polygon poly = new Polygon(
-            new float[]{
-                0,0,
-                width, 0,
-                width, height,
-                0, height
-            }
-        );
-        poly.setOrigin(width /2, height /2);
-        poly.setPosition(x - width / 2, y - height / 2);
         return poly;
     }
 
     boolean isHolding;
     @Override
     public void update(float delta){
-        if(!isHolding) sprite.setScale(1);
+        float sx = x - width / 2;
+        float sy = y - height / 2;
+        sprite.setPosition(sx,sy);
+        poly.setPosition(sx,sy);
     }
 
     @Override
     public void onClick() {
-        sprite.setScale(0.8f);
     }
 
     @Override
     public void onHoldStart() {
         isHolding = true;
-        sprite.setScale(1.2f);
+        sprite.setScale(sprite.getScaleX() * 1.1f);
+        poly.setScale(poly.getScaleX() * 1.1f, poly.getScaleY() * 1.1f);
     }
 
     @Override
@@ -80,6 +74,8 @@ public class Player extends Entity implements Holdable {
     @Override
     public void onRelease() {
         isHolding = false;
+        sprite.setScale(sprite.getScaleX() * 0.9f);
+        poly.setScale(poly.getScaleX() * 0.9f, poly.getScaleY() * 0.9f);
     }
 
     public void setX(float x){
@@ -95,5 +91,8 @@ public class Player extends Entity implements Holdable {
         return y;
     }
 
-
+    public void setScale(float s){
+        sprite.setScale(s);
+        poly.setScale(s,s);
+    }
 }

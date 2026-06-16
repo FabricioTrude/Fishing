@@ -1,4 +1,4 @@
-package com.fabricio.fishing.screen.scenes;
+package com.fabricio.fishing.screen.scenes.generic;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,16 +10,18 @@ import com.fabricio.fishing.features.fishing.FishingFeature;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
-public class DefaultPond extends LayeredScene {
+public class GenericPond extends LayeredScene {
 
     protected static FishingFeature fishing = new FishingFeature();
     protected SpriteBatch batch;
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
-    public DefaultPond() {
+    public GenericPond() {
         float sea_height = zone.getSea_height();
         setSeaHeight(sea_height);
+        player.setX(SCREEN_WIDTH/2);
         player.setY(sea_height);
+        player.setScale(1);
     }
 
     public static void setSeaHeight(float seaHeight) {
@@ -29,20 +31,22 @@ public class DefaultPond extends LayeredScene {
     @Override
     protected void renderLayer(RenderLayer layer, SpriteBatch batch) {
         switch (layer) {
-            case SKY -> ScreenUtils.clear(timeManager.getSkyColor());
-            case BACKGROUND, BACKGROUND_OBJ, ENTITY, FOREGROUND_OBJ, OVERLAY -> entityManager.render(layer, batch);
-            case FOREGROUND -> {
+            case SKY -> {
+                ScreenUtils.clear(timeManager.getSkyColor());
+                entityManager.render(layer,batch);
+            }
+            case BACKGROUND -> {
+                entityManager.render(layer,batch);
                 batch.setColor(zone.getColor());
                 batch.draw(UIAssets.WHITE, 0, 0, SCREEN_WIDTH, SEA_HEIGHT);
                 batch.setColor(Color.WHITE);
-                entityManager.render(layer,batch);
             }
+            default -> entityManager.render(layer, batch);
         }
     }
 
     @Override
     public void update(float delta) {
         fishing.update(delta);
-        entityManager.flushRemovals();
     }
 }

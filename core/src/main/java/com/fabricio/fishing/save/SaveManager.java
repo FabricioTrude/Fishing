@@ -28,7 +28,6 @@ public class SaveManager {
 
     public void loadSave(SaveData save){
         if(save.fishes!=null)inventoryManager.load(save);
-        System.out.println(save.fishes.get("CATFISH"));
     }
 
     public void saveToDisk(){

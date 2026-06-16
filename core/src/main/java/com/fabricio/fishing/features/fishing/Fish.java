@@ -18,7 +18,7 @@ import com.fabricio.fishing.screen.RenderLayer;
 import java.util.EnumSet;
 
 import static com.fabricio.fishing.features.GameContext.*;
-import static com.fabricio.fishing.screen.scenes.DefaultPond.SEA_HEIGHT;
+import static com.fabricio.fishing.screen.scenes.generic.GenericPond.SEA_HEIGHT;
 
 public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
