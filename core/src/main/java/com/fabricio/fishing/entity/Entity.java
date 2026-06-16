@@ -9,7 +9,7 @@ import java.util.EnumSet;
 
 import static com.fabricio.fishing.features.GameContext.entityManager;
 
-public abstract class Entity {
+public abstract class Entity{
     protected float x;
     protected float y;
     protected float width;
