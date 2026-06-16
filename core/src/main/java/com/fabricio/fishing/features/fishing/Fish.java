@@ -60,7 +60,7 @@ public class Fish extends Entity implements Clickable {
     //8. Economia
 
     public Fish(float x, float y, FishSpecies species) {
-        super(x, y, RenderLayer.ENTITY,indexes);
+        super(x, y, -10, indexes);
         this.species = species;
         this.rarity = FishRarity.random();
         this.size = FishSize.random();

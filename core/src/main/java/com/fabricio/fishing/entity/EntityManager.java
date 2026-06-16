@@ -18,6 +18,8 @@ public class EntityManager {
     private final EnumMap<EntityIndex, Array<Entity>> indexes = new EnumMap<>(EntityIndex.class);
 
     private final Array<Entity> pendingRemoval = new Array<>();
+    private final Array<Entity> renderList = new Array<>();
+    private boolean renderDirty = false;
 
     public EntityManager() {
         for (EntityIndex index : EntityIndex.values()){
@@ -29,14 +31,17 @@ public class EntityManager {
     }
 
     public void register(Entity entity){
+        renderList.add(entity);
         indexes.get(EntityIndex.ALL).add(entity);
         for(EntityIndex index : entity.getCategories())
             indexes.get(index).add(entity);
+        renderDirty = true;
     }
 
     private void remove(Entity entity) {
         for (Array<Entity> list : indexes.values()) {
             list.removeValue(entity, true);
+            renderList.removeValue(entity, true);
         }
     }
 
@@ -79,17 +84,22 @@ public class EntityManager {
         }
     }
 
-    public void render(RenderLayer layer, SpriteBatch batch) {
-        for (Entity entity : indexes.get(EntityIndex.ALL)) {
-            if (entity.getRenderLayer() == layer) entity.render(batch);
-        }
+    public void render(SpriteBatch batch) {
+       if(renderDirty) {
+           renderList.sort();
+           renderDirty = false;
+       }
+
+       for(Entity entity: renderList){
+           entity.render(batch);
+       }
     }
 
     public void clearScene(){
         for (Entity entity : indexes.get(EntityIndex.ALL)){
             if(!entity.hasCategory(EntityIndex.NOT_REMOVE)) {
                 markForRemoval(entity);
-            };
+            }
         }
     }
 

@@ -19,8 +19,8 @@ public class ClickableObjectEntity extends Entity implements Clickable {
     };
 
 
-    public ClickableObjectEntity(float x, float y, Texture texture, RenderLayer layer) {
-        super(x, y, layer, indexes);
+    public ClickableObjectEntity(float x, float y, float z,Texture texture) {
+        super(x, y, z, indexes);
         sprite = new Sprite(texture);
         width = sprite.getWidth();
         height = sprite.getHeight();

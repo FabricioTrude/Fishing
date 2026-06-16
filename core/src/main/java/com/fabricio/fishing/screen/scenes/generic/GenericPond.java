@@ -3,6 +3,7 @@ package com.fabricio.fishing.screen.scenes.generic;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.fabricio.fishing.entity.ColorRectEntity;
 import com.fabricio.fishing.screen.LayeredScene;
 import com.fabricio.fishing.screen.RenderLayer;
 import com.fabricio.fishing.assets.statics.UIAssets;
@@ -19,30 +20,13 @@ public class GenericPond extends LayeredScene {
     public GenericPond() {
         float sea_height = zone.getSea_height();
         setSeaHeight(sea_height);
-        player.setX(SCREEN_WIDTH/2);
-        player.setY(sea_height);
-        player.setScale(1);
+        player.setScene(SCREEN_WIDTH/2, sea_height, 10, 1);
+        new ColorRectEntity(0,0, SCREEN_WIDTH, SEA_HEIGHT, zone.getColor(), 0);
+        new ColorRectEntity(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, timeManager.getSkyColor(), -10000);
     }
 
     public static void setSeaHeight(float seaHeight) {
         SEA_HEIGHT = seaHeight;
-    }
-
-    @Override
-    protected void renderLayer(RenderLayer layer, SpriteBatch batch) {
-        switch (layer) {
-            case SKY -> {
-                ScreenUtils.clear(timeManager.getSkyColor());
-                entityManager.render(layer,batch);
-            }
-            case BACKGROUND -> {
-                entityManager.render(layer,batch);
-                batch.setColor(zone.getColor());
-                batch.draw(UIAssets.WHITE, 0, 0, SCREEN_WIDTH, SEA_HEIGHT);
-                batch.setColor(Color.WHITE);
-            }
-            default -> entityManager.render(layer, batch);
-        }
     }
 
     @Override

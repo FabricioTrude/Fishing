@@ -11,8 +11,8 @@ public class SpriteEntity extends Entity{
 
     static EntityIndex[] indexes = {EntityIndex.SPRITE};
 
-    public SpriteEntity(Texture texture, RenderLayer layer) {
-        super(0,0, layer, indexes);
+    public SpriteEntity(Texture texture, float z) {
+        super(0,0, z, indexes);
         this.sprite = new Sprite(texture);
     }
 

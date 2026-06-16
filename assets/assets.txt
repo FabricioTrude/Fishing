@@ -24,6 +24,12 @@ features/fishes/swamp/silver_arowana.png
 features/fishes/swamp/wolf_fish.png
 features/player/base.png
 features/player/player.png
+generated/swamp/cave_background.png
+generated/swamp/cave_foreground.png
+generated/swamp/cave_ground.png
+generated/swamp/pond_background.png
+generated/swamp/pond_foreground.png
+generated/swamp/pond_ground.png
 music/sounds/fish_clicked.wav
 objects/cave_entrance.png
 save/save.json

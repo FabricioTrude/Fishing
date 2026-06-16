@@ -24,7 +24,7 @@ public class Player extends Entity implements Holdable {
     };
 
     public Player() {
-        super(0,0, RenderLayer.PLAYER,indexes);
+        super(0,0, 10,indexes);
         poly.setOrigin(width /2, height /2);
         sprite.setOriginCenter();
     }
@@ -47,13 +47,8 @@ public class Player extends Entity implements Holdable {
         return poly;
     }
 
-    boolean isHolding;
     @Override
     public void update(float delta){
-        float sx = x - width / 2;
-        float sy = y - height / 2;
-        sprite.setPosition(sx,sy);
-        poly.setPosition(sx,sy);
     }
 
     @Override
@@ -62,7 +57,6 @@ public class Player extends Entity implements Holdable {
 
     @Override
     public void onHoldStart() {
-        isHolding = true;
         sprite.setScale(sprite.getScaleX() * 1.1f);
         poly.setScale(poly.getScaleX() * 1.1f, poly.getScaleY() * 1.1f);
     }
@@ -73,7 +67,6 @@ public class Player extends Entity implements Holdable {
 
     @Override
     public void onRelease() {
-        isHolding = false;
         sprite.setScale(sprite.getScaleX() * 0.9f);
         poly.setScale(poly.getScaleX() * 0.9f, poly.getScaleY() * 0.9f);
     }
@@ -94,5 +87,20 @@ public class Player extends Entity implements Holdable {
     public void setScale(float s){
         sprite.setScale(s);
         poly.setScale(s,s);
+    }
+
+    public void setPosition(float x, float y, float z){
+        float sx = x-width/2;
+        float sy = y-height/2;
+        this.x = sx;
+        this.y = sy;
+        this.z = z;
+        sprite.setPosition(sx,sy);
+        poly.setPosition(sx,sy);
+    }
+
+    public void setScene(float x, float y, float z, float s){
+        setPosition(x,y,z);
+        setScale(s);
     }
 }

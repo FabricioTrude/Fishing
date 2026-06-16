@@ -5,11 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import static com.fabricio.fishing.features.GameContext.entityManager;
 
 public abstract class LayeredScene implements Scene {
-    protected void renderLayer(RenderLayer layer, SpriteBatch batch){}
 
     @Override
     public void render(SpriteBatch batch){
-        for(RenderLayer layer : RenderLayer.values()) renderLayer(layer, batch);
+        entityManager.render(batch);
     }
 
     @Override

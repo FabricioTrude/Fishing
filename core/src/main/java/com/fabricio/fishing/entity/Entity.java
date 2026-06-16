@@ -9,21 +9,22 @@ import java.util.EnumSet;
 
 import static com.fabricio.fishing.features.GameContext.entityManager;
 
-public abstract class Entity{
+public abstract class Entity implements Comparable<Entity>{
     protected float x;
     protected float y;
+    protected float z = 0;
     protected float width;
     protected float height;
 
-    protected RenderLayer layer;
+    private RenderLayer render = RenderLayer.WORLD;
     private final EnumSet<EntityIndex> categories;
 
-    public Entity(float x, float y, RenderLayer layer,EntityIndex... categories) {
+    public Entity(float x, float y, float z,EntityIndex... categories) {
         this.x = x;
         this.y = y;
+        this.z = z;
         this.categories = EnumSet.noneOf(EntityIndex.class);
         Collections.addAll(this.categories, categories);
-        this.layer = layer;
         entityManager.register(this);
     }
 
@@ -35,11 +36,24 @@ public abstract class Entity{
         return categories.contains(category);
     }
 
-    public RenderLayer getRenderLayer() {
-        return layer;
-    }
-
     public abstract void update(float delta);
 
     public abstract void render(SpriteBatch batch);
+
+    public float getZ() {
+        return z;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
+    public RenderLayer getRender() {
+        return render;
+    }
+
+    @Override
+    public int compareTo(Entity other) {
+        return Float.compare(this.z, other.z);
+    }
 }

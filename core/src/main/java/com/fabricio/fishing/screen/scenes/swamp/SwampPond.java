@@ -13,12 +13,9 @@ public class SwampPond extends GenericPond {
 
     public SwampPond() {
         super();
-        new SpriteEntity(BackgroundAssets.SWAMP_FAR_BACKGROUND, RenderLayer.SKY);
-        new SpriteEntity(BackgroundAssets.SWAMP_BACKGROUND, RenderLayer.BACKGROUND);
-        new ClickableObjectEntity(SCREEN_WIDTH * 0.05f,SCREEN_HEIGHT * 0.55f, WorldObjectAssets.CAVE_ENTRANCE, RenderLayer.OVERLAY)
-            .setOnClick(() -> {
-                dispose();
-                setScene(new SwampCave());
-            });
+        new SpriteEntity(BackgroundAssets.SWAMP_POND_BACKGROUND, -1000);
+        new SpriteEntity(BackgroundAssets.SWAMP_POND_GROUND, 0);
+        new ClickableObjectEntity(SCREEN_WIDTH * 0.05f,SCREEN_HEIGHT * 0.6f, 2,WorldObjectAssets.CAVE_ENTRANCE)
+            .setOnClick(() -> {dispose();setScene(new SwampCave());});
     }
 }
