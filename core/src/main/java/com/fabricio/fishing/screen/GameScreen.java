@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.fabricio.fishing.features.GameContext;
 import com.fabricio.fishing.entity.ClickManager;
 import com.fabricio.fishing.save.records.LoadGameEvent;
-import com.fabricio.fishing.screen.ui.PersistentUI;
+import com.fabricio.fishing.ui.UIManager;
 
 import static com.fabricio.fishing.features.GameContext.*;
 
 public class GameScreen implements Screen {
     public static final GameContext context = new GameContext();
     private final static InputMultiplexer multiplexer = new InputMultiplexer();
-    private final static PersistentUI ui = new PersistentUI();
+    public static final UIManager ui = new UIManager();
     private final static ClickManager clickManager = new ClickManager();
 
     final SpriteBatch batch = new SpriteBatch();

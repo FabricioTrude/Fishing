@@ -1,8 +1,10 @@
 package com.fabricio.fishing.features.fishing.enums;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.assets.statics.FeatureAssets;
+import com.fabricio.fishing.assets.statics.FishAssets;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.features.zones.Zones;
 
@@ -12,6 +14,7 @@ public enum FishSpecies {
 
     // SWAMP
     BASS(
+        "bass",
         "Bass",
         Zones.SWAMP,
         7,
@@ -21,10 +24,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.BassTexture
+        10
     ),
     CATFISH(
+        "catfish",
         "Catfish",
         Zones.SWAMP,
         3,
@@ -34,10 +37,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.CatfishTexture
+        10
     ),
     CICHLID(
+        "cichlid",
         "Cichlid",
         Zones.SWAMP,
         5,
@@ -47,10 +50,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.CichlidTexture
+        10
     ),
     PLECO(
+        "pleco",
         "Pleco",
         Zones.SWAMP,
         2,
@@ -60,10 +63,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.PlecoTexture
+        10
     ),
     ARMORED_CATFISH(
+        "armored_catfish",
         "Armored Catfish",
         Zones.SWAMP,
         2,
@@ -73,10 +76,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.ArmoredCatfishTexture
+        10
     ),
     SILVER_AROWANA(
+        "silver_arowana",
         "Silver Arowana",
         Zones.SWAMP,
         1,
@@ -86,10 +89,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.SilverArowanaTexture
+        10
     ),
     WOLF_FISH(
+        "wolf_fish",
         "Wolf Fish",
         Zones.SWAMP,
         2,
@@ -99,12 +102,12 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.WolfFishTexture
+        10
     ),
 
     // OASIS
     GOLDFISH(
+        "goldfish",
         "Goldfish",
         Zones.OASIS,
         4,
@@ -114,10 +117,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.GoldfishTexture
+        10
     ),
     KOI(
+        "koi",
         "Koi",
         Zones.OASIS,
     2.5f,
@@ -127,10 +130,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.KoiTexture
+        10
     ),
     Tilapia(
+        "tilapia",
         "Tilapia",
         Zones.OASIS,
         4,
@@ -140,10 +143,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.TilapiaTexture
+        10
     ),
     CHERRY_BARB(
+        "cherry_barb",
         "Cherry Barb",
         Zones.OASIS,
         1,
@@ -153,10 +156,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.CherryBarbTexture
+        10
     ),
     GOLDEN_BARB(
+        "golden_barb",
         "Golden Barb",
         Zones.OASIS,
         3,
@@ -166,10 +169,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.GoldenBarbTexture
+        10
     ),
     PURPLE_CICHLID(
+        "purple_cichlid",
         "Purple Cichlid",
         Zones.OASIS,
         1.5f,
@@ -179,10 +182,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.PurpleCichlidTexture
+        10
     ),
     SILVER_CARP(
+        "silver_carp",
         "Silver Carp",
         Zones.OASIS,
         2.5f,
@@ -192,10 +195,10 @@ public enum FishSpecies {
         1,
         30,
         1.5f,
-        10,
-        FeatureAssets.SilverCarpTexture
+        10
     );
 
+    final String id;
     final String name;
     final Zones zone;
     final float weight;
@@ -206,9 +209,9 @@ public enum FishSpecies {
     final float baseSPE;
     final float baseSIZ;
     final float baseSTAM;
-    final Texture texture;
 
-    FishSpecies(String name, Zones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM, Texture texture) {
+    FishSpecies(String id, String name, Zones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM) {
+        this.id = id;
         this.name = name;
         this.zone = zone;
         this.weight = weight;
@@ -219,7 +222,6 @@ public enum FishSpecies {
         this.baseSPE = baseSPE;
         this.baseSIZ = baseSIZ;
         this.baseSTAM = baseSTAM;
-        this.texture = texture;
     }
 
     public static FishSpecies random(Zones zone){
@@ -271,8 +273,8 @@ public enum FishSpecies {
         return baseSTAM;
     }
 
-    public Texture getTexture() {
-        return texture;
+    public TextureRegion getTexture() {
+        return FishAssets.get(zone.getId(), id);
     }
 
     public static FishSpecies fromName(String name){

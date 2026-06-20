@@ -51,7 +51,7 @@ public class Fish extends Entity implements Clickable {
 
     // TODO Fish
     //1. Peixes nadam ✅
-    //2. Peixes param para descansar
+    //2. Peixes param para descansar ✅
     //3. Peixes saem da tela e são removidos
     //4. Novos peixes spawnam ✅
     //5. Toque detecta peixe ✅

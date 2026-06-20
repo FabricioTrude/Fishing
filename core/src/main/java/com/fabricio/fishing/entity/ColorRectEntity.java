@@ -7,7 +7,7 @@ import com.fabricio.fishing.entity.enums.EntityIndex;
 
 public class ColorRectEntity extends Entity{
 
-    private final Color color;
+    private Color color;
     private final float width;
     private final float height;
 
@@ -20,15 +20,26 @@ public class ColorRectEntity extends Entity{
         this.height = height;
     }
 
-    @Override
-    public void update(float delta) {
-
-    }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.setColor(color);
         batch.draw(UIAssets.WHITE, x, y, width, height);
         batch.setColor(Color.WHITE);
+    }
+    private Runnable update;
+
+    public ColorRectEntity setUpdate(Runnable update){
+        this.update = update;
+        return this;
+    }
+
+    @Override
+    public void update(float delta) {
+        if(update != null) update.run();
+    }
+
+    public void setColor(Color color){
+        this.color = color;
     }
 }

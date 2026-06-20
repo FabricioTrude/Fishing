@@ -15,6 +15,7 @@ public abstract class UIAssets {
     public static Texture MediumPanel = new Texture("ui/huds/medium_panel.png");
 
     public static Texture SmallIconButton = new Texture("ui/buttons/small_button.png");
+    public static Texture ToggleHudButton = new Texture("ui/buttons/toggle_hud_button.png");
 
     public static final BitmapFont FONT = new BitmapFont();
     public static final Label.LabelStyle NORMAL = new Label.LabelStyle(FONT, Color.WHITE);

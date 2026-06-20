@@ -32,7 +32,7 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
   implementation project(':core')
-
+  implementation "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
 
@@ -205,3 +205,16 @@ tasks.withType(JavaExec.class).configureEach {
 if(enableGraalNative == 'true') {
   apply from: file("nativeimage.gradle")
 }
+
+tasks.register("generateAtlas", JavaExec) {
+  group = "tools"
+  description = "Gera texture atlas"
+  classpath = files(
+    sourceSets.main.runtimeClasspath,
+    sourceSets.main.output
+  )
+  mainClass.set("com.fabricio.fishing.lwjgl3.AtlasGenerator")
+  workingDir = rootProject.file("assets")
+}
+
+
