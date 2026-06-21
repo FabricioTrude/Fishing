@@ -1,22 +1,21 @@
 package com.fabricio.fishing.save;
 
+import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 
 import java.util.EnumMap;
 
-import static com.fabricio.fishing.features.GameContext.*;
-
 public class InventoryManager {
-
     private final EnumMap<FishSpecies, Float> fishes = new EnumMap<>(FishSpecies.class);
+    EventBus ebus;
 
-    public InventoryManager(){
+    public InventoryManager(EventBus ebus){
+        this.ebus = ebus;
         for(FishSpecies fish: FishSpecies.values()){
             fishes.put(fish, 0f);
         }
-
-        eventBus.register(FishCaughtEvent.class, event -> addFish(event.fish().getSpecies(), event.amount()));
+        ebus.register(FishCaughtEvent.class, event -> addFish(event.fish().getSpecies(), event.amount()));
     }
 
     public void addFish(FishSpecies fish, float number){

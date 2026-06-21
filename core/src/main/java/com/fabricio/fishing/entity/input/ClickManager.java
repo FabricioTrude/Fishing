@@ -1,14 +1,14 @@
-package com.fabricio.fishing.entity;
+package com.fabricio.fishing.entity.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.fabricio.fishing.context.statics.C;
+import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.EntityIndex;
-import com.fabricio.fishing.entity.interfaces.Clickable;
-import com.fabricio.fishing.entity.interfaces.Holdable;
+import com.fabricio.fishing.entity.input.interfaces.Clickable;
+import com.fabricio.fishing.entity.input.interfaces.Holdable;
 import com.fabricio.fishing.entity.enums.MouseState;
-
-import static com.fabricio.fishing.features.GameContext.entityManager;
 
 public class ClickManager extends InputAdapter {
     private Clickable clickedObject;
@@ -20,7 +20,7 @@ public class ClickManager extends InputAdapter {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         state = MouseState.PRESSED;
         int worldY = getWorldY(screenY);
-        for (Entity entity : entityManager.get(EntityIndex.CLICKABLE)) {
+        for (Entity entity : C.entities().get(EntityIndex.CLICKABLE)) {
             Clickable clickable = (Clickable) entity;
             if (!clickable.getBounds().contains(screenX, worldY)) continue;
             clickStartTime = TimeUtils.millis();

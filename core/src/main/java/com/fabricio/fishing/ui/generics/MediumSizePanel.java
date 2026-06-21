@@ -4,9 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.fabricio.fishing.assets.statics.UIAssets;
 import com.fabricio.fishing.ui.actors.TextureActor;
-
-import static com.fabricio.fishing.features.GameContext.SCREEN_HEIGHT;
-import static com.fabricio.fishing.features.GameContext.SCREEN_WIDTH;
+import static com.fabricio.fishing.context.GlobalContext.*;
 
 public abstract class MediumSizePanel extends Group {
     protected float width = 400;

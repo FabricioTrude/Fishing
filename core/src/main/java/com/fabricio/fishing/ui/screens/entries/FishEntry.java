@@ -3,11 +3,11 @@ package com.fabricio.fishing.ui.screens.entries;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.fabricio.fishing.assets.statics.UIAssets;
+import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 import com.fabricio.fishing.ui.actors.TextureActor;
 
 import static com.fabricio.fishing.assets.statics.UIAssets.*;
-import static com.fabricio.fishing.features.GameContext.*;
 
 public class FishEntry extends Group {
     private static final float WIDTH = 360;
@@ -19,7 +19,7 @@ public class FishEntry extends Group {
     public FishEntry(FishSpecies fish) {
         this.fish = fish;
         int amount = 0;
-        amount = Math.round(inventoryManager.getFish(fish));
+        amount = Math.round(G.inventory().getFish(fish));
         TextureActor wallpaper = new TextureActor(UIAssets.wood);
         setSize(WIDTH,HEIGHT);
         wallpaper.setBounds(0,0,WIDTH,HEIGHT);

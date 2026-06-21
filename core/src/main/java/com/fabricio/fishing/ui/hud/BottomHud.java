@@ -11,7 +11,7 @@ import com.fabricio.fishing.ui.UIManager;
 import com.fabricio.fishing.ui.actors.TextureActor;
 import com.fabricio.fishing.ui.generics.SmallIconButton;
 
-import static com.fabricio.fishing.features.GameContext.*;
+import static com.fabricio.fishing.context.GlobalContext.*;
 
 public class BottomHud extends Group {
     final float height = 52;

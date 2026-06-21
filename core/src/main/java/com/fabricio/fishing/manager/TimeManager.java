@@ -2,11 +2,10 @@ package com.fabricio.fishing.manager;
 
 import com.badlogic.gdx.graphics.Color;
 import com.fabricio.fishing.entity.enums.TimePeriod;
+import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.records.TickEvent;
 
 import java.time.LocalTime;
-
-import static com.fabricio.fishing.features.GameContext.eventBus;
 
 public class TimeManager {
     protected final boolean useRealTime = false;
@@ -15,7 +14,10 @@ public class TimeManager {
     protected LocalTime realTime = LocalTime.now();
     protected TimePeriod currentPeriod;
 
-    public TimeManager() {
+    EventBus ebus;
+
+    public TimeManager(EventBus ebus) {
+        this.ebus = ebus;
         this.currentPeriod = TimePeriod.MIDNIGHT;
     }
 
@@ -31,7 +33,7 @@ public class TimeManager {
             }
         }
         updateCurrentPeriod();
-        eventBus.post(new TickEvent(getClock()));
+        ebus.post(new TickEvent(getClock()));
     }
 
     public void updateCurrentPeriod(){

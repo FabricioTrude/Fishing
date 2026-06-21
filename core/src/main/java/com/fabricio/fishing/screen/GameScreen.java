@@ -6,48 +6,47 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.fabricio.fishing.features.GameContext;
-import com.fabricio.fishing.entity.ClickManager;
+import com.fabricio.fishing.context.GameContext;
+import com.fabricio.fishing.context.statics.C;
+import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.save.records.LoadGameEvent;
+import com.fabricio.fishing.screen.scenes.swamp.SwampPond;
 import com.fabricio.fishing.ui.UIManager;
 
-import static com.fabricio.fishing.features.GameContext.*;
-
 public class GameScreen implements Screen {
-    public static final GameContext context = new GameContext();
     private final static InputMultiplexer multiplexer = new InputMultiplexer();
     public static final UIManager ui = new UIManager();
-    private final static ClickManager clickManager = new ClickManager();
 
     final SpriteBatch batch = new SpriteBatch();
     ShapeRenderer renderer = new ShapeRenderer();
 
     static {
         multiplexer.addProcessor(ui.getStage());
-        multiplexer.addProcessor(clickManager);
+        multiplexer.addProcessor(G.input().clickManager);
         Gdx.input.setInputProcessor(multiplexer);
     }
 
     public GameScreen() {
-
+        C.init();
+        C.ctx().setScene(new SwampPond(C.zone()));
     }
 
     @Override
     public void show() {
-        eventBus.post(new LoadGameEvent());
+        G.ebus().post(new LoadGameEvent());
     }
 
     @Override
     public void render(float delta) {
-        entityManager.flushRemovals();
+        C.entities().flushRemovals();
 
-        entityManager.update(delta);
-        timeManager.update(delta);
-        clickManager.update();
-        getScene().update(delta);
+        C.entities().update(delta);
+        G.time().update(delta);
+        G.input().clickManager.update();
+        C.scene().update(delta);
 
         batch.begin();
-        getScene().render(batch);
+        C.scene().render(batch);
         batch.end();
         renderer.setColor(Color.WHITE);
 

@@ -3,7 +3,7 @@ package com.fabricio.fishing.features.zones;
 import com.badlogic.gdx.graphics.Color;
 import com.fabricio.fishing.entity.enums.Palette;
 
-import static com.fabricio.fishing.features.GameContext.SCREEN_HEIGHT;
+import static com.fabricio.fishing.context.GlobalContext.*;
 
 public enum Zones {
     SWAMP(

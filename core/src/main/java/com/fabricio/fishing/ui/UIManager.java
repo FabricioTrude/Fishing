@@ -13,7 +13,7 @@ import com.fabricio.fishing.ui.hud.TopHud;
 import com.fabricio.fishing.ui.screens.features.FishBackpackHud;
 import com.fabricio.fishing.ui.screens.features.ZonesHud;
 
-import static com.fabricio.fishing.features.GameContext.SCREEN_HEIGHT;
+import static com.fabricio.fishing.context.GlobalContext.*;
 
 public class UIManager {
     public Toggle toggle;

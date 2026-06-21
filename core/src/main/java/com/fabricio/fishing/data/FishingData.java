@@ -1,9 +1,16 @@
-package com.fabricio.fishing.features.player.stats;
+package com.fabricio.fishing.data;
 
-public class FishingStats {
+import com.fabricio.fishing.context.statics.G;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
+
+public class FishingData {
     private final int baseMaxFishes = 10;
     private int currentFishes = 0;
     private float fishingRespawnTime = 1;
+
+    public FishingData() {
+        G.ebus().register(FishCaughtEvent.class, e -> setCurrentFishes(currentFishes - 1));
+    }
 
     public float getFishingRespawnTime(){
         return fishingRespawnTime;
@@ -18,6 +25,6 @@ public class FishingStats {
     }
 
     public void setCurrentFishes(int n){
-        currentFishes += 1;
+        currentFishes = n;
     }
 }

@@ -5,14 +5,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
+import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
-import com.fabricio.fishing.entity.interfaces.HasBounds;
-import com.fabricio.fishing.screen.RenderLayer;
+import com.fabricio.fishing.entity.input.interfaces.HasBounds;
 
 import java.util.EnumMap;
-
-import static com.fabricio.fishing.features.GameContext.*;
 
 public class EntityManager {
     private final EnumMap<EntityIndex, Array<Entity>> indexes = new EnumMap<>(EntityIndex.class);
@@ -25,7 +23,7 @@ public class EntityManager {
         for (EntityIndex index : EntityIndex.values()){
             indexes.put(index, new Array<>());
         }
-        eventBus.register(FishCaughtEvent.class, event -> {
+        G.ebus().register(FishCaughtEvent.class, event -> {
             markForRemoval(event.fish());
         });
     }

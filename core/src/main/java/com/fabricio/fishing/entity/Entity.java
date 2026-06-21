@@ -1,13 +1,12 @@
 package com.fabricio.fishing.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.screen.RenderLayer;
 
 import java.util.Collections;
 import java.util.EnumSet;
-
-import static com.fabricio.fishing.features.GameContext.entityManager;
 
 public abstract class Entity implements Comparable<Entity>{
     protected float x;
@@ -25,7 +24,7 @@ public abstract class Entity implements Comparable<Entity>{
         this.z = z;
         this.categories = EnumSet.noneOf(EntityIndex.class);
         Collections.addAll(this.categories, categories);
-        entityManager.register(this);
+        C.entities().register(this);
     }
 
     public EnumSet<EntityIndex> getCategories() {

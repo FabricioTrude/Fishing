@@ -1,14 +1,13 @@
 package com.fabricio.fishing.screen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import static com.fabricio.fishing.features.GameContext.entityManager;
+import com.fabricio.fishing.context.statics.C;
 
 public abstract class LayeredScene implements Scene {
 
     @Override
     public void render(SpriteBatch batch){
-        entityManager.render(batch);
+        C.entities().render(batch);
     }
 
     @Override
@@ -16,6 +15,6 @@ public abstract class LayeredScene implements Scene {
 
     @Override
     public void dispose() {
-        entityManager.clearScene();
+        C.entities().clearScene();
     }
 }

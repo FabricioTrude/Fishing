@@ -1,12 +1,12 @@
-package com.fabricio.fishing.entity;
+package com.fabricio.fishing.entity.input;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Polygon;
+import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.EntityIndex;
-import com.fabricio.fishing.entity.interfaces.Clickable;
-import com.fabricio.fishing.screen.RenderLayer;
+import com.fabricio.fishing.entity.input.interfaces.Clickable;
 
 public class ClickableObjectEntity extends Entity implements Clickable {
     private final Sprite sprite;

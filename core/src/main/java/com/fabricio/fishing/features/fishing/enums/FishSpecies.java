@@ -1,10 +1,8 @@
 package com.fabricio.fishing.features.fishing.enums;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.assets.statics.FeatureAssets;
-import com.fabricio.fishing.assets.statics.FishAssets;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.features.zones.Zones;
 
@@ -274,7 +272,7 @@ public enum FishSpecies {
     }
 
     public TextureRegion getTexture() {
-        return FishAssets.get(zone.getId(), id);
+        return FeatureAssets.getFish(zone.getId(), id);
     }
 
     public static FishSpecies fromName(String name){

@@ -4,27 +4,26 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.TimePeriod;
-import com.fabricio.fishing.entity.interfaces.Clickable;
+import com.fabricio.fishing.entity.input.interfaces.Clickable;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.records.FishClickedEvent;
-import com.fabricio.fishing.features.GameContext;
+import com.fabricio.fishing.context.GameContext;
 import com.fabricio.fishing.features.fishing.enums.*;
 import com.fabricio.fishing.features.zones.Zones;
-import com.fabricio.fishing.screen.RenderLayer;
 
 import java.util.EnumSet;
 
-import static com.fabricio.fishing.features.GameContext.*;
+import static com.fabricio.fishing.context.GlobalContext.*;
 import static com.fabricio.fishing.screen.scenes.generic.GenericPond.SEA_HEIGHT;
 
 public class Fish extends Entity implements Clickable {
     protected FishSpecies species;
     protected FishRarity rarity;
     protected FishSize size;
-    protected Zones zone;
     protected EnumSet<TimePeriod> periods;
 
     private static final EntityIndex[] indexes = {EntityIndex.FISH, EntityIndex.ENTITY, EntityIndex.CLICKABLE};
@@ -154,7 +153,7 @@ public class Fish extends Entity implements Clickable {
         polygon.setPosition(x, y);
         polygon.setRotation(rotation);
 
-        if(!alive()) eventBus.post(new FishCaughtEvent(this, getFishVAL()));
+        if(!alive()) G.ebus().post(new FishCaughtEvent(this, getFishVAL()));
     }
 
     public Polygon getBounds(){
@@ -192,7 +191,7 @@ public class Fish extends Entity implements Clickable {
             pickTarget();
             state = FishState.PANIC;
         }
-        GameContext.eventBus.post(new FishClickedEvent(this));
+        G.ebus().post(new FishClickedEvent(this));
         fishHP--;
     }
 }
