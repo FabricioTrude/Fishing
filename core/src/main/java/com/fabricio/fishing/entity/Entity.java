@@ -39,6 +39,14 @@ public abstract class Entity implements Comparable<Entity>{
 
     public abstract void render(SpriteBatch batch);
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     public float getZ() {
         return z;
     }

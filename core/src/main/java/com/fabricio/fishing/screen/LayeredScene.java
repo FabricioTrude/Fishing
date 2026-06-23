@@ -16,5 +16,6 @@ public abstract class LayeredScene implements Scene {
     @Override
     public void dispose() {
         C.entities().clearScene();
+        C.CE().target(null);
     }
 }

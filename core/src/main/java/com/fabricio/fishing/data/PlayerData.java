@@ -9,4 +9,8 @@ public class PlayerData {
     public static void setPlayer(PlayerEntity player) {
         PlayerData.player = player;
     }
+
+    public static PlayerEntity getPlayer() {
+        return player;
+    }
 }
