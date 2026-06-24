@@ -1,5 +1,6 @@
 package com.fabricio.fishing.context.statics;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.assets.SoundManager;
 import com.fabricio.fishing.context.GlobalContext;
@@ -9,11 +10,18 @@ import com.fabricio.fishing.manager.TimeManager;
 import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.save.SaveManager;
 
+import static com.fabricio.fishing.context.GlobalContext.SCREEN_HEIGHT;
+import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
+
 public final class G {
     private static GlobalContext ctx;
 
     public static void init(){
         ctx = new GlobalContext();
+        G.CO().viewportWidth = SCREEN_WIDTH;
+        G.CO().viewportHeight = SCREEN_HEIGHT;
+        G.CO().position.set(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0);
+        G.CO().update();
     }
 
     public static GlobalContext get(){return ctx;}
@@ -24,4 +32,5 @@ public final class G {
     public static InventoryManager inventory(){return ctx.inventory();}
     public static GameAssets assets(){return ctx.assets();}
     public static SoundManager sound(){return ctx.sound();}
+    public static OrthographicCamera CO(){return ctx.CO();}
 }
