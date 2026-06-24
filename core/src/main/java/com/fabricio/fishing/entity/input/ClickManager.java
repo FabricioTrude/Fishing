@@ -2,6 +2,7 @@ package com.fabricio.fishing.entity.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.entity.Entity;
@@ -9,6 +10,8 @@ import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.input.interfaces.Clickable;
 import com.fabricio.fishing.entity.input.interfaces.Holdable;
 import com.fabricio.fishing.entity.enums.MouseState;
+
+import static com.fabricio.fishing.screen.GameScreen.viewport;
 
 public class ClickManager extends InputAdapter {
     private Clickable clickedObject;
@@ -19,10 +22,14 @@ public class ClickManager extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         state = MouseState.PRESSED;
-        int worldY = getWorldY(screenY);
+
+        Vector3 mousePos = new Vector3();
+        mousePos.set(screenX,screenY, 0);
+        viewport.unproject(mousePos);
+
         for (Entity entity : C.entities().get(EntityIndex.CLICKABLE)) {
             Clickable clickable = (Clickable) entity;
-            if (!clickable.getBounds().contains(screenX, worldY)) continue;
+            if (!clickable.getBounds().contains(mousePos.x, mousePos.y)) continue;
             clickStartTime = TimeUtils.millis();
             clickedObject = clickable;
             if (clickable instanceof Holdable holdable) {
@@ -34,22 +41,26 @@ public class ClickManager extends InputAdapter {
     }
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        Vector3 mousePos = new Vector3();
+        mousePos.set(screenX,screenY, 0);
+        viewport.unproject(mousePos);
+
         switch (state){
-            case PRESSED -> processRelease(screenX, screenY);
-            case HOLDING -> processHoldEnd(screenX, screenY);
+            case PRESSED -> processRelease(mousePos.x, mousePos.y);
+            case HOLDING -> processHoldEnd(mousePos.x, mousePos.y);
         }
         state = MouseState.IDLE;
         return false;
     }
 
-    private void processRelease(int screenX, int screenY){
+    private void processRelease(float x, float y){
         if(clickedObject != null){
-            if(clickedObject.getBounds().contains(screenX, getWorldY(screenY)))
+            if(clickedObject.getBounds().contains(x, y))
                 clickedObject.onClick();
             clickedObject = null;
         }
     }
-    private void processHoldEnd(int screenX, int screenY){
+    private void processHoldEnd(float x, float y){
         if(heldObject != null){
             heldObject.onRelease();
             heldObject = null;
@@ -71,9 +82,5 @@ public class ClickManager extends InputAdapter {
         } else if(state == MouseState.HOLDING && heldObject != null){
             heldObject.onHold();
         }
-    }
-
-    private int getWorldY(int screenY){
-        return Gdx.graphics.getHeight() - screenY;
     }
 }
