@@ -2,7 +2,7 @@ package com.fabricio.fishing.context;
 
 import com.badlogic.gdx.Gdx;
 import com.fabricio.fishing.assets.GameAssets;
-import com.fabricio.fishing.assets.SoundManager;
+import com.fabricio.fishing.assets.AudioManager;
 import com.fabricio.fishing.entity.input.InputManager;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.TimeManager;
@@ -18,7 +18,7 @@ public class GlobalContext {
     TimeManager time ;
     InputManager input;
     InventoryManager inventory;
-    SoundManager sound;
+    AudioManager sound;
     GameAssets assets;
 
     public GlobalContext() {
@@ -29,7 +29,7 @@ public class GlobalContext {
         save = new SaveManager(ebus, inventory);
         assets = new GameAssets();
         assets.load();
-        sound = new SoundManager(assets, ebus);
+        sound = new AudioManager(assets, ebus);
     }
 
     public EventBus ebus() {return ebus;}
@@ -37,7 +37,7 @@ public class GlobalContext {
     public TimeManager time() {return time;}
     public InputManager input() {return input;}
     public InventoryManager inventory() {return inventory;}
-    public SoundManager sound() {return sound;}
+    public AudioManager sound() {return sound;}
     public GameAssets assets() {return assets;}
 
     public static void setScreenWidth(float screenWidth) {

@@ -1,7 +1,9 @@
 package com.fabricio.fishing.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.fabricio.fishing.assets.enums.SFX;
 import com.fabricio.fishing.assets.statics.SoundAssets;
 
 public class GameAssets {
@@ -12,14 +14,12 @@ public class GameAssets {
     }
 
     public void load(){
-        assetManager.load(SoundAssets.FISH_CLICKED, Sound.class);
+        assetManager.load(SFX.FISH_CLICKED.path, Sound.class);
+        assetManager.load(SFX.SWAMP_CAVE.path, Music.class);
+        assetManager.load(SFX.SWAMP_POND.path, Music.class);
         assetManager.finishLoading();
     }
-    public void dispose(){
-        assetManager.dispose();
-    }
 
-    public Sound getSound(String path){
-       return assetManager.get(path, Sound.class);
-    }
+    public Sound getSound(SFX sfx){return assetManager.get(sfx.path, Sound.class);}
+    public Music getMusic(SFX sfx){return assetManager.get(sfx.path, Music.class);}
 }
