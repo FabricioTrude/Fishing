@@ -1,8 +1,10 @@
 package com.fabricio.fishing.screen.scenes.swamp;
 
+import com.fabricio.fishing.assets.enums.SFX;
 import com.fabricio.fishing.assets.statics.BackgroundAssets;
 import com.fabricio.fishing.assets.statics.WorldObjectAssets;
 import com.fabricio.fishing.context.statics.C;
+import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.input.ClickableObjectEntity;
 import com.fabricio.fishing.entity.SpriteEntity;
 import com.fabricio.fishing.screen.scenes.generic.GenericCave;
@@ -17,5 +19,6 @@ public class SwampCave extends GenericCave {
         new SpriteEntity(BackgroundAssets.SWAMP_CAVE_BACKGROUND, -999);
         new SpriteEntity(BackgroundAssets.SWAMP_CAVE_GROUND, 0);
         new SpriteEntity(BackgroundAssets.SWAMP_CAVE_FOREGROUND, 200);
+        G.sound().playMusic(SFX.SWAMP_CAVE, true);
     }
 }

@@ -2,7 +2,7 @@ package com.fabricio.fishing.context.statics;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fabricio.fishing.assets.GameAssets;
-import com.fabricio.fishing.assets.SoundManager;
+import com.fabricio.fishing.assets.AudioManager;
 import com.fabricio.fishing.context.GlobalContext;
 import com.fabricio.fishing.entity.input.InputManager;
 import com.fabricio.fishing.event.EventBus;
