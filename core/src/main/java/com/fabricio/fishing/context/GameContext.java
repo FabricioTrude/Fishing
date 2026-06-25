@@ -22,7 +22,6 @@ public final class GameContext {
     PlayerData player;
     Zones zone;
     Scene scene = null;
-    OrthographicCamera CO;
     CameraEntity CE;
 
     public GameContext() {
@@ -31,7 +30,6 @@ public final class GameContext {
         player = new PlayerData();
         zone = Zones.SWAMP;
         G.ebus().register(FishingZoneSwitchEvent.class, e -> setZone(e.zone()));
-        CO = new OrthographicCamera();
     }
 
     public EntityManager entities(){return entities;}
@@ -39,7 +37,6 @@ public final class GameContext {
     public PlayerData player(){return player;}
     public Zones zone(){return zone;}
     public Scene scene(){return scene;}
-    public OrthographicCamera CO(){return CO;}
     public CameraEntity CE(){return CE;}
 
     public void initCE(){

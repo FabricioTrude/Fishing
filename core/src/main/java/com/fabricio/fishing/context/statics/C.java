@@ -18,10 +18,6 @@ public final class C {
     public static void init() {
         ctx = new GameContext();
         ctx.initCE();
-        C.CO().viewportWidth = SCREEN_WIDTH;
-        C.CO().viewportHeight = SCREEN_HEIGHT;
-        C.CO().position.set(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0);
-        C.CO().update();
     }
 
     public static GameContext ctx(){return ctx;}
@@ -30,6 +26,5 @@ public final class C {
     public static PlayerData player(){return ctx.player();}
     public static Scene scene(){return ctx.scene();}
     public static Zones zone(){return ctx.zone();}
-    public static OrthographicCamera CO(){return ctx.CO();}
     public static CameraEntity CE(){return ctx.CE();}
 }

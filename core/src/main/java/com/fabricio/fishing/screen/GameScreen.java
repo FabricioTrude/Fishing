@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.fabricio.fishing.context.GameContext;
 import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.save.records.LoadGameEvent;
@@ -15,6 +18,7 @@ import com.fabricio.fishing.ui.UIManager;
 
 public class GameScreen implements Screen {
     private final static InputMultiplexer multiplexer = new InputMultiplexer();
+    public static Viewport viewport;
     public static final UIManager ui = new UIManager();
 
     final SpriteBatch batch = new SpriteBatch();
@@ -33,11 +37,19 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        viewport = new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT, G.CO());
+        viewport.apply();
         G.ebus().post(new LoadGameEvent());
     }
 
     @Override
     public void render(float delta) {
+        G.CO().position.set(C.CE().getX(), C.CE().getY(),0);
+        G.CO().update();
+        viewport.apply();
+
+        batch.setProjectionMatrix(G.CO().combined);
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -47,23 +59,21 @@ public class GameScreen implements Screen {
         G.input().clickManager.update();
         C.scene().update(delta);
 
-        C.CO().position.set(C.CE().getX(), C.CE().getY(),0);
-        C.CO().update();
-        batch.setProjectionMatrix(C.CO().combined);
+
 
         batch.begin();
         C.scene().render(batch);
         batch.end();
         renderer.setColor(Color.WHITE);
 
-//        entityManager.renderBoxes(renderer); // render hitboxes
+        //C.entities().renderBoxes(renderer); // render hitboxes
         ui.update(delta);
         ui.render();
     }
 
     @Override
     public void resize(int i, int i1) {
-
+        viewport.update(i,i1);
     }
 
     @Override

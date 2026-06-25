@@ -1,6 +1,7 @@
 package com.fabricio.fishing.context;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fabricio.fishing.assets.GameAssets;
 import com.fabricio.fishing.assets.AudioManager;
 import com.fabricio.fishing.entity.input.InputManager;
@@ -10,8 +11,8 @@ import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.save.SaveManager;
 
 public class GlobalContext {
-    public static float SCREEN_WIDTH = Gdx.graphics.getWidth();
-    public static float SCREEN_HEIGHT = Gdx.graphics.getHeight();
+    public static float SCREEN_WIDTH = 480;
+    public static float SCREEN_HEIGHT = 720;
 
     EventBus ebus;
     SaveManager save;
@@ -20,6 +21,7 @@ public class GlobalContext {
     InventoryManager inventory;
     AudioManager sound;
     GameAssets assets;
+    OrthographicCamera CO;
 
     public GlobalContext() {
         ebus = new EventBus();
@@ -29,7 +31,8 @@ public class GlobalContext {
         save = new SaveManager(ebus, inventory);
         assets = new GameAssets();
         assets.load();
-        sound = new AudioManager(assets, ebus);
+        sound = new SoundManager(assets, ebus);
+        CO = new OrthographicCamera();
     }
 
     public EventBus ebus() {return ebus;}
@@ -39,6 +42,7 @@ public class GlobalContext {
     public InventoryManager inventory() {return inventory;}
     public AudioManager sound() {return sound;}
     public GameAssets assets() {return assets;}
+    public OrthographicCamera CO(){return CO;}
 
     public static void setScreenWidth(float screenWidth) {
         SCREEN_WIDTH = screenWidth;
