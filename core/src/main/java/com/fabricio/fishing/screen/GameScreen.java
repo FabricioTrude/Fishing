@@ -9,21 +9,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.fabricio.fishing.context.GameContext;
 import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
-import com.fabricio.fishing.entity.camera.CameraEntity;
 import com.fabricio.fishing.save.records.LoadGameEvent;
 import com.fabricio.fishing.screen.scenes.swamp.SwampPond;
 import com.fabricio.fishing.ui.UIManager;
 
-import static com.fabricio.fishing.context.GlobalContext.SCREEN_HEIGHT;
-import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
+import static com.fabricio.fishing.context.GlobalContext.*;
 
 public class GameScreen implements Screen {
     private final static InputMultiplexer multiplexer = new InputMultiplexer();
     public static Viewport viewport;
     public static final UIManager ui = new UIManager();
+
 
     final SpriteBatch batch = new SpriteBatch();
     ShapeRenderer renderer = new ShapeRenderer();
@@ -56,8 +54,8 @@ public class GameScreen implements Screen {
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        C.entities().flushRemovals();
 
+        C.entities().flushRemovals();
         C.entities().update(delta);
         G.time().update(delta);
         G.input().clickManager.update();

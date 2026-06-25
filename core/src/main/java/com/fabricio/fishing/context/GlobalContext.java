@@ -3,7 +3,7 @@ package com.fabricio.fishing.context;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fabricio.fishing.assets.GameAssets;
-import com.fabricio.fishing.assets.SoundManager;
+import com.fabricio.fishing.assets.AudioManager;
 import com.fabricio.fishing.entity.input.InputManager;
 import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.TimeManager;
@@ -19,7 +19,7 @@ public class GlobalContext {
     TimeManager time ;
     InputManager input;
     InventoryManager inventory;
-    SoundManager sound;
+    AudioManager audio;
     GameAssets assets;
     OrthographicCamera CO;
 
@@ -31,7 +31,7 @@ public class GlobalContext {
         save = new SaveManager(ebus, inventory);
         assets = new GameAssets();
         assets.load();
-        sound = new SoundManager(assets, ebus);
+        audio = new AudioManager(assets, ebus);
         CO = new OrthographicCamera();
     }
 
@@ -40,7 +40,7 @@ public class GlobalContext {
     public TimeManager time() {return time;}
     public InputManager input() {return input;}
     public InventoryManager inventory() {return inventory;}
-    public SoundManager sound() {return sound;}
+    public AudioManager audio() {return audio;}
     public GameAssets assets() {return assets;}
     public OrthographicCamera CO(){return CO;}
 

@@ -2,7 +2,7 @@ package com.fabricio.fishing.context.statics;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fabricio.fishing.assets.GameAssets;
-import com.fabricio.fishing.assets.SoundManager;
+import com.fabricio.fishing.assets.AudioManager;
 import com.fabricio.fishing.context.GlobalContext;
 import com.fabricio.fishing.entity.input.InputManager;
 import com.fabricio.fishing.event.EventBus;
@@ -31,6 +31,6 @@ public final class G {
     public static InputManager input(){return ctx.input();}
     public static InventoryManager inventory(){return ctx.inventory();}
     public static GameAssets assets(){return ctx.assets();}
-    public static SoundManager sound(){return ctx.sound();}
+    public static AudioManager sound(){return ctx.audio();}
     public static OrthographicCamera CO(){return ctx.CO();}
 }
