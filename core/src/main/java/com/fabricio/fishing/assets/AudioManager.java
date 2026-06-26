@@ -10,7 +10,7 @@ import com.fabricio.fishing.features.fishing.records.FishClickedEvent;
 public class AudioManager {
     private final GameAssets assets;
     private Music currentMusic;
-    float musicVolume = 1f;
+    float musicVolume = 0.1f;
     float soundVolume = 1f;
 
     public AudioManager(GameAssets gameAssets, EventBus ebus){
@@ -19,7 +19,7 @@ public class AudioManager {
     }
 
     public void onFishClick(FishClickedEvent e){
-        playSound(SFX.FISH_CLICKED, 1f / (e.fish().getFishSIZ() * MathUtils.random(0.7f,1.2f)));
+        playSound(SFX.FISH_CLICKED, 1f / (e.fish().getScale() * MathUtils.random(0.7f,1.2f)));
     }
 
     public void playSound(SFX sfx, Float pitch){
@@ -35,6 +35,7 @@ public class AudioManager {
         currentMusic.setVolume(musicVolume);
         currentMusic.play();
     }
+
     public void stopMusic(){
         if(currentMusic != null) currentMusic.stop();
     }

@@ -61,14 +61,12 @@ public class GameScreen implements Screen {
         G.input().clickManager.update();
         C.scene().update(delta);
 
-
-
         batch.begin();
         C.scene().render(batch);
         batch.end();
         renderer.setColor(Color.WHITE);
 
-        //C.entities().renderBoxes(renderer); // render hitboxes
+        C.entities().renderBoxes(renderer); // render hitboxes
         ui.update(delta);
         ui.render();
     }

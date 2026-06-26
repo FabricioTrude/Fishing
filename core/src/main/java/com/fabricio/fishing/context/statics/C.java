@@ -1,16 +1,12 @@
 package com.fabricio.fishing.context.statics;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fabricio.fishing.context.GameContext;
 import com.fabricio.fishing.data.PlayerData;
 import com.fabricio.fishing.entity.EntityManager;
-import com.fabricio.fishing.entity.camera.CameraEntity;
+import com.fabricio.fishing.screen.camera.CameraEntity;
 import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.manager.ScoreManager;
 import com.fabricio.fishing.screen.Scene;
-
-import static com.fabricio.fishing.context.GlobalContext.SCREEN_HEIGHT;
-import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
 
 public final class C {
     private static GameContext ctx;

@@ -1,6 +1,6 @@
 package com.fabricio.fishing.data;
 
-import com.fabricio.fishing.entity.player.PlayerEntity;
+import com.fabricio.fishing.features.player.PlayerEntity;
 
 public class PlayerData {
     public static PlayerEntity player = null;

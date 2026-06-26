@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
-import com.fabricio.fishing.entity.input.interfaces.HasBounds;
+import com.fabricio.fishing.event.input.HasBounds;
 
 import java.util.EnumMap;
 
@@ -37,6 +37,7 @@ public class EntityManager {
     }
 
     private void remove(Entity entity) {
+        entity.dispose();
         for (Array<Entity> list : indexes.values()) {
             list.removeValue(entity, true);
             renderList.removeValue(entity, true);

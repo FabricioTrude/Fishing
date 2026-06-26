@@ -1,11 +1,10 @@
 package com.fabricio.fishing.screen.scenes.generic;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.data.PlayerData;
-import com.fabricio.fishing.entity.ColorRectEntity;
-import com.fabricio.fishing.entity.player.PlayerEntity;
+import com.fabricio.fishing.entity.statics.ColorRectEntity;
+import com.fabricio.fishing.features.player.PlayerEntity;
 import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.screen.LayeredScene;
 import com.fabricio.fishing.features.fishing.FishingFeature;

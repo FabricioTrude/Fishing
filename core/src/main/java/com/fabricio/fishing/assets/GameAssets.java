@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.fabricio.fishing.assets.enums.SFX;
-import com.fabricio.fishing.assets.statics.SoundAssets;
 
 public class GameAssets {
     private final AssetManager assetManager;

@@ -1,32 +1,24 @@
 package com.fabricio.fishing.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.entity.enums.EntityIndex;
-import com.fabricio.fishing.screen.RenderLayer;
 
-import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
 public abstract class Entity implements Comparable<Entity>{
-    protected float x;
-    protected float y;
-    protected float z = 0;
-    protected float width;
-    protected float height;
-
-    private RenderLayer render = RenderLayer.WORLD;
+    protected Vector3 pos;
     private final EnumSet<EntityIndex> categories;
 
-    public Entity(float x, float y, float z,EntityIndex... categories) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public Entity(float x, float y, float z) {
+        pos = new Vector3(x,y,z);
         this.categories = EnumSet.noneOf(EntityIndex.class);
-        Collections.addAll(this.categories, categories);
         C.entities().register(this);
     }
-
+    public void addCategory(EntityIndex index){categories.add(index);}
+    public void addCategories(EntityIndex... indexes){categories.addAll(List.of(indexes));}
     public EnumSet<EntityIndex> getCategories() {
         return categories;
     }
@@ -39,28 +31,21 @@ public abstract class Entity implements Comparable<Entity>{
 
     public abstract void render(SpriteBatch batch);
 
-    public float getX() {
-        return x;
-    }
+    public void dispose(){}
 
-    public float getY() {
-        return y;
-    }
-
-    public float getZ() {
-        return z;
-    }
-
+    public float getX(){return pos.x;}
+    public float getY(){return pos.y;}
+    public float getZ(){return pos.z;}
     public void setZ(float z) {
-        this.z = z;
+        pos.z = z;
     }
-
-    public RenderLayer getRender() {
-        return render;
+    public void setPos(float x, float y, float z){
+        pos.x = x;
+        pos.y = y;
+        pos.z = z;
     }
-
     @Override
     public int compareTo(Entity other) {
-        return Float.compare(this.z, other.z);
+        return Float.compare(this.pos.z, other.pos.z);
     }
 }

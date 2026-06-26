@@ -1,15 +1,14 @@
-package com.fabricio.fishing.entity.input;
+package com.fabricio.fishing.event.input;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.fabricio.fishing.context.statics.C;
+import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.enums.EntityIndex;
-import com.fabricio.fishing.entity.input.interfaces.Clickable;
-import com.fabricio.fishing.entity.input.interfaces.Holdable;
 import com.fabricio.fishing.entity.enums.MouseState;
+import com.fabricio.fishing.event.records.GroundClickEvent;
 
 import static com.fabricio.fishing.screen.GameScreen.viewport;
 
@@ -22,7 +21,6 @@ public class ClickManager extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         state = MouseState.PRESSED;
-
         Vector3 mousePos = new Vector3();
         mousePos.set(screenX,screenY, 0);
         viewport.unproject(mousePos);
@@ -37,6 +35,7 @@ public class ClickManager extends InputAdapter {
             }
             return true;
         }
+        G.ebus().post(new GroundClickEvent(mousePos.x, mousePos.y));
         return false;
     }
     @Override

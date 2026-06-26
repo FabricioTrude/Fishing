@@ -1,20 +1,15 @@
 package com.fabricio.fishing.context;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.data.PlayerData;
 import com.fabricio.fishing.entity.EntityManager;
-import com.fabricio.fishing.entity.camera.CameraEntity;
+import com.fabricio.fishing.screen.camera.CameraEntity;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.manager.*;
 import com.fabricio.fishing.screen.Scene;
 import com.fabricio.fishing.screen.scenes.generic.GenericPond;
 import com.fabricio.fishing.screen.scenes.swamp.SwampPond;
-
-import static com.fabricio.fishing.context.GlobalContext.SCREEN_HEIGHT;
-import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
 
 public final class GameContext {
     EntityManager entities;

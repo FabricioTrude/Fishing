@@ -1,4 +1,4 @@
-package com.fabricio.fishing.entity.input;
+package com.fabricio.fishing.event.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

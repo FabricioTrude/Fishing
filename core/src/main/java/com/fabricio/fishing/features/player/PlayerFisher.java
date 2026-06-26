@@ -1,4 +1,4 @@
-package com.fabricio.fishing.entity.player;
+package com.fabricio.fishing.features.player;
 
 import com.fabricio.fishing.data.PlayerData;
 

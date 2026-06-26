@@ -1,4 +1,4 @@
-package com.fabricio.fishing.entity.input.interfaces;
+package com.fabricio.fishing.event.input;
 
 public interface Holdable extends Clickable{
     void onHoldStart();
