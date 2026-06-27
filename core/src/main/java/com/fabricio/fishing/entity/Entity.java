@@ -17,8 +17,12 @@ public abstract class Entity implements Comparable<Entity>{
         this.categories = EnumSet.noneOf(EntityIndex.class);
         C.entities().register(this);
     }
-    public void addCategory(EntityIndex index){categories.add(index);}
-    public void addCategories(EntityIndex... indexes){categories.addAll(List.of(indexes));}
+    public void addCategories(EntityIndex... indexes){
+        for(EntityIndex index: indexes){
+            categories.addAll(List.of(indexes));
+            C.entities().addToIndex(this, index);
+        }
+    }
     public EnumSet<EntityIndex> getCategories() {
         return categories;
     }

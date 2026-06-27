@@ -21,7 +21,7 @@ public class SpriteEntity extends Entity {
         sprite = new Sprite(texture);
         setSize(sprite.getWidth(), sprite.getHeight());
         sprite.setBounds(x,y,width,height);
-        addCategory(EntityIndex.SPRITE);
+        addCategories(EntityIndex.SPRITE);
     }public SpriteEntity(float x, float y, float z, Texture texture){this(x,y,z,new TextureRegion(texture));}
 
 

@@ -66,7 +66,8 @@ public class GameScreen implements Screen {
         batch.end();
         renderer.setColor(Color.WHITE);
 
-        C.entities().renderBoxes(renderer); // render hitboxes
+//        renderer.setProjectionMatrix(G.CO().combined); // draw hitboxes
+//        C.entities().renderBoxes(renderer); // draw hitboxes
         ui.update(delta);
         ui.render();
     }

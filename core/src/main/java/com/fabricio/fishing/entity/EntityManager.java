@@ -102,4 +102,5 @@ public class EntityManager {
         }
     }
 
+    public void addToIndex(Entity entity, EntityIndex index){indexes.get(index).add(entity);}
 }

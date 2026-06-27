@@ -58,7 +58,7 @@ public class Fish extends MobileEntity implements Clickable {
         fishDEF = species.getBaseDEF();
         speed = species.getBaseSPE();
         bSTAM = species.getBaseSTAM();
-        setSize(sprite.getWidth(), sprite.getHeight());
+        setSize(sprite.getWidth() * species.getBaseSIZ(), sprite.getHeight() * species.getBaseSIZ());
         setScale(size.getScale());
         initPolygon();
         pickTarget();

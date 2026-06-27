@@ -12,7 +12,7 @@ public class CameraEntity extends Entity {
 
     public CameraEntity(Entity following) {
         super(0, 0, 0);
-        addCategory(EntityIndex.NOT_REMOVE);
+        addCategories(EntityIndex.NOT_REMOVE);
         target(following);
     }
 
