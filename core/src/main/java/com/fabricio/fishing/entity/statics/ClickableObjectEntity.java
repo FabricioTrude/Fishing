@@ -35,4 +35,13 @@ public class ClickableObjectEntity extends StaticEntity implements Clickable {
     public Polygon getBounds() {
         return polygon;
     }
+
+    public static Polygon createPolygon(float width, float height){
+        return new Polygon(new float[]{
+            -width/2f, -height/2f,
+            width/2f, -height/2f,
+            width/2f, height/2f,
+            -width/2f, height/2f
+        });
+    }
 }
