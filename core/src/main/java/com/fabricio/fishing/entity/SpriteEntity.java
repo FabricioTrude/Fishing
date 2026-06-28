@@ -74,6 +74,7 @@ public class SpriteEntity extends Entity {
     public void setScale(float s){sprite.setScale(s);}
     public float getScale(){return sprite.getScaleX();}
     public void setRotation(float r){sprite.setRotation(r);}
+    public float getRotation(){return sprite.getRotation();}
     public void setAnimation(Animation<TextureRegion> animation){
         this.animation = animation;
         this.stateTime = 0;

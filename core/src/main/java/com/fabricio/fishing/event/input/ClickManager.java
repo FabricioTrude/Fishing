@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.Entity;
+import com.fabricio.fishing.entity.components.ClickableComponent;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.MouseState;
 import com.fabricio.fishing.event.records.GroundClickEvent;
@@ -13,11 +14,12 @@ import com.fabricio.fishing.event.records.GroundClickEvent;
 import static com.fabricio.fishing.screen.GameScreen.viewport;
 
 public class ClickManager extends InputAdapter {
-    private Clickable clickedObject;
+    private ClickableComponent clickedObject;
     private Holdable heldObject;
     private MouseState state = MouseState.IDLE;
 
     private long clickStartTime;
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         state = MouseState.PRESSED;
@@ -26,8 +28,10 @@ public class ClickManager extends InputAdapter {
         viewport.unproject(mousePos);
 
         for (Entity entity : C.entities().get(EntityIndex.CLICKABLE)) {
-            Clickable clickable = (Clickable) entity;
+            ClickableComponent clickable = entity.getComponent(ClickableComponent.class);
+            if(clickable == null) continue;
             if (!clickable.getBounds().contains(mousePos.x, mousePos.y)) continue;
+
             clickStartTime = TimeUtils.millis();
             clickedObject = clickable;
             if (clickable instanceof Holdable holdable) {
@@ -55,7 +59,7 @@ public class ClickManager extends InputAdapter {
     private void processRelease(float x, float y){
         if(clickedObject != null){
             if(clickedObject.getBounds().contains(x, y))
-                clickedObject.onClick();
+                clickedObject.click();
             clickedObject = null;
         }
     }

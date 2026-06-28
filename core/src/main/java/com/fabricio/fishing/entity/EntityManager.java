@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.utils.Array;
 import com.fabricio.fishing.context.statics.G;
+import com.fabricio.fishing.entity.components.ClickableComponent;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.event.input.HasBounds;
@@ -69,9 +70,9 @@ public class EntityManager {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);
         for(Entity entity : indexes.get(EntityIndex.ALL)){
-            if(!(entity instanceof HasBounds hasBounds))
-                continue;
-            Polygon rect = hasBounds.getBounds();
+            ClickableComponent clickable = entity.getComponent(ClickableComponent.class);
+            if(clickable == null) continue;
+            Polygon rect = clickable.getBounds();
             shapeRenderer.polygon(rect.getTransformedVertices());
         }
         shapeRenderer.end();

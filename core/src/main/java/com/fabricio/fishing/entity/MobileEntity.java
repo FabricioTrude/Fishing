@@ -3,7 +3,7 @@ package com.fabricio.fishing.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fabricio.fishing.assets.AnimatedAsset;
-import com.fabricio.fishing.entity.components.MovementComponent;
+import com.fabricio.fishing.entity.components.MovementComponent.MovementComponent;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.EntityState;
 
@@ -16,7 +16,6 @@ public abstract class MobileEntity extends SpriteEntity {
         addCategories(categories);
         movement = new MovementComponent(this);
         addComponent(movement);
-
     }
     public MobileEntity(float x, float y, float z, Texture texture){this(x,y,z,new TextureRegion(texture));}
     public MobileEntity(float x, float y, float z, AnimatedAsset asset){this(x,y,z,asset.defaultFrame());}

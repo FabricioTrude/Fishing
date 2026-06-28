@@ -51,10 +51,12 @@ public abstract class Entity implements Comparable<Entity>{
         return Float.compare(this.pos.z, other.pos.z);
     }
 
-    public void addComponent(Component component){
-        component.setEntity(this);
-        components.put(component.getClass(), component);
-        component.onAdd();
+    public void addComponent(Component... c){
+        for(Component component: c){
+            component.setEntity(this);
+            components.put(component.getClass(), component);
+            component.onAdd();
+        }
     }
 
     public <T extends Component> T getComponent(Class<T> clazz){

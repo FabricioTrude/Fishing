@@ -5,24 +5,27 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.MobileEntity;
+import com.fabricio.fishing.entity.components.ClickableComponent;
 import com.fabricio.fishing.entity.components.HealthComponent;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.EntityState;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.event.input.Clickable;
+import com.fabricio.fishing.features.fishing.enums.FishRarity;
+import com.fabricio.fishing.features.fishing.enums.FishSize;
+import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
 import com.fabricio.fishing.features.fishing.records.FishClickedEvent;
-import com.fabricio.fishing.features.fishing.enums.*;
 
 import java.util.EnumSet;
 
-import static com.fabricio.fishing.context.GlobalContext.*;
+import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
 import static com.fabricio.fishing.screen.scenes.generic.GenericPond.SEA_HEIGHT;
 
-public class Fish extends MobileEntity implements Clickable {
+public class Fish extends MobileEntity {
     protected FishSpecies species;
-    protected FishRarity rarity;
-    protected FishSize size;
+    protected FishRarity rarity = FishRarity.random();
+    protected FishSize size = FishSize.random();
     protected EnumSet<TimePeriod> periods;
 
     private static final EntityIndex[] indexes = {EntityIndex.FISH, EntityIndex.CLICKABLE, EntityIndex.ENTITY};
@@ -35,49 +38,30 @@ public class Fish extends MobileEntity implements Clickable {
     protected float panicTick = 0;
     protected float restingTime;
 
-    protected Polygon poly;
-
     // TODO Fish
-    //1. Peixes nadam ✅
-    //2. Peixes param para descansar ✅
     //3. Peixes saem da tela e são removidos
-    //4. Novos peixes spawnam ✅
-    //5. Toque detecta peixe ✅
     //6. HP / Defesa
     //7. Animação de pesca
-    //8. Economia
 
     public Fish(float x, float y, FishSpecies species) {
         super(x, y, -10, species.texture());
         addCategories(indexes);
         this.species = species;
-        rarity = FishRarity.random();
-        size = FishSize.random();
         periods = species.periods();
-        health = new HealthComponent(species.HP(), species.DEF());
-        addComponent(health);
         movement.setSpeed(species.SPE());
         bSTAM = species.SIZ();
         setSize(sprite.getWidth() * species.SIZ(), sprite.getHeight() * species.SIZ());
         setScale(size.getScale());
-        initPolygon();
         pickTarget();
         centered = true;
+        health = new HealthComponent(species.HP(), species.DEF());
+        ClickableComponent clickable = new ClickableComponent(
+            this,
+            ClickableComponent.createCenteredPolygon(width, height),
+            this::click);
+        clickable.setScale(getScale());
+        addComponent(health, clickable);
     }
-
-    private void initPolygon(){
-        this.poly = new Polygon(
-            new float[]{
-                -width/2f, -height/2f,
-                width/2f, -height/2f,
-                width/2f, height/2f,
-                -width/2f, height/2f
-            }
-        );
-        poly.setScale(getScale(), getScale());
-        poly.setPosition(pos.x, pos.y);
-    }
-
     @Override
     public void update(float delta) {
         rotation = MathUtils.atan2(movement.dY(), movement.dX()) * MathUtils.radiansToDegrees;
@@ -111,8 +95,6 @@ public class Fish extends MobileEntity implements Clickable {
                 if(tick >= MathUtils.random(0.5f,3f)) pickTarget();
             }
         }
-        poly.setPosition(pos.x, pos.y);
-        poly.setRotation(rotation);
         if(health.isDead()) G.ebus().post(new FishCaughtEvent(this, getScale()));
         super.update(delta);
     }
@@ -136,10 +118,6 @@ public class Fish extends MobileEntity implements Clickable {
         super.render(batch);
     }
 
-    public Polygon getBounds(){
-        return poly;
-    }
-
     public void pickTarget(){
         setTarget(MathUtils.random(-20, SCREEN_WIDTH + 20),
             MathUtils.random(-20, SEA_HEIGHT -20));
@@ -147,13 +125,11 @@ public class Fish extends MobileEntity implements Clickable {
         tick = 0;
     }
 
-
     public FishSpecies getSpecies(){
         return species;
     }
 
-    @Override
-    public void onClick() {
+    public void click() {
         if(health.isAlive() && state != EntityState.PANIC) {
             pickTarget();
             state = EntityState.PANIC;
