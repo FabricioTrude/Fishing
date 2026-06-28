@@ -22,7 +22,7 @@ public class Lwjgl3Launcher {
         configuration.useVsync(true);
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
         configuration.setWindowedMode(480, 720);
-        configuration.setWindowIcon("generated/features/fishes/legacy/clown_fish.png");
+        configuration.setWindowIcon("generated/features/fishing/legacy/clown_fish_1_0.png");
         return configuration;
     }
 }

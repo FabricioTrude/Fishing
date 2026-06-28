@@ -1,0 +1,55 @@
+
+fishing_swamp.png
+size: 256, 32
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+armored_catfish_1
+  rotate: false
+  xy: 1, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+bass_1
+  rotate: false
+  xy: 34, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+catfish_1
+  rotate: false
+  xy: 67, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+cichlid_1
+  rotate: false
+  xy: 100, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+pleco_1
+  rotate: false
+  xy: 133, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+silver_arowana_1
+  rotate: false
+  xy: 166, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+wolf_fish_1
+  rotate: false
+  xy: 199, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0

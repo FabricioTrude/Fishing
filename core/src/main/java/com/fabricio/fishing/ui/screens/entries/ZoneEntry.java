@@ -18,9 +18,9 @@ public class ZoneEntry extends Group {
 
     public ZoneEntry(Zones zone) {
         this.zone = zone;
-        String zoneName = zone.getName();
+        String zoneName = zone.display();
         setSize(WIDTH, HEIGHT);
-        ColorActor bg = new ColorActor(zone.getColor());
+        ColorActor bg = new ColorActor(zone.color());
         bg.setSize(WIDTH, HEIGHT);
         addActor(bg);
         name = new Label(zoneName, UIAssets.NORMAL);

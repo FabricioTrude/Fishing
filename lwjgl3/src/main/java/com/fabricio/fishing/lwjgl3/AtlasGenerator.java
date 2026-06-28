@@ -1,5 +1,6 @@
 package com.fabricio.fishing.lwjgl3;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +37,16 @@ public class AtlasGenerator {
         if (hasFiles && subFolders.isEmpty()){
             String atlasName = buildAtlasName(root, current);
             System.out.println("Packing: " + atlasName);
-            TexturePacker.process(current.getAbsolutePath(), outputDir, atlasName);
+
+            TexturePacker.Settings settings = new TexturePacker.Settings();
+            settings.useIndexes = true;
+            settings.filterMin = Texture.TextureFilter.Nearest;
+            settings.filterMag = Texture.TextureFilter.Nearest;
+            settings.duplicatePadding = false;
+            settings.paddingX = 1;
+            settings.paddingY = 1;
+
+            TexturePacker.process(settings,current.getAbsolutePath(), outputDir, atlasName);
             return;
         }
         for (File folder : subFolders) packFolders(root, folder, outputDir);

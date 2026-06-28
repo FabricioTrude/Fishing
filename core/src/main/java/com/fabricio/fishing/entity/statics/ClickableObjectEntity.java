@@ -36,12 +36,20 @@ public class ClickableObjectEntity extends StaticEntity implements Clickable {
         return polygon;
     }
 
-    public static Polygon createPolygon(float width, float height){
+    public static Polygon createCenteredPolygon(float width, float height){
         return new Polygon(new float[]{
             -width/2f, -height/2f,
             width/2f, -height/2f,
             width/2f, height/2f,
             -width/2f, height/2f
+        });
+    }
+    public static Polygon createPolygon(float width, float height){
+        return new Polygon(new float[]{
+            0,0,
+            width,0,
+            width,height,
+            0,height
         });
     }
 }
