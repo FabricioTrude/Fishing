@@ -1,11 +1,9 @@
 package com.fabricio.fishing.features.player;
 
 import com.fabricio.fishing.context.statics.G;
-import com.fabricio.fishing.entity.components.MovementComponent;
 import com.fabricio.fishing.event.annotations.Subscribe;
 import com.fabricio.fishing.event.records.GroundClickEvent;
-
-import static java.lang.Float.NaN;
+import com.fabricio.fishing.entity.components.MovementComponent.*;
 
 public class PlayerMiner extends PlayerEntity{
     public PlayerMiner(float x, float y, float z, float s) {
@@ -22,10 +20,10 @@ public class PlayerMiner extends PlayerEntity{
     @Override
     public void update(float delta) {
         super.update(delta);
-        move(delta);
+        move();
     }
 
-    private void move(float delta){
+    private void move(){
         movement.dir.set(0,0);
         if(G.input().left()) movement.dir.x -= 1;
         if(G.input().right()) movement.dir.x += 1;
@@ -33,13 +31,13 @@ public class PlayerMiner extends PlayerEntity{
         if(G.input().up()) movement.dir.y += 1;
         if(!movement.dir.isZero()){
             movement.dir.nor();
-            movement.setMode(MovementComponent.ControlMode.DIRECT);
+            movement.setType(new ControlledMovement());
         }
     }
 
     @Subscribe
     public void onGroundClick(GroundClickEvent e){
         setTarget(e.x(), e.y());
-        movement.setMode(MovementComponent.ControlMode.TARGET);
+        movement.setType(new DirectMovement());
     }
 }

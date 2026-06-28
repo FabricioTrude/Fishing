@@ -1,12 +1,14 @@
-package com.fabricio.fishing.entity.components;
+package com.fabricio.fishing.entity.components.MovementComponent;
 
 import com.badlogic.gdx.math.Vector2;
 import com.fabricio.fishing.entity.MobileEntity;
+import com.fabricio.fishing.entity.components.Component;
 
 public class MovementComponent extends Component {
     private final MobileEntity e;
     private float speed;
     private float speedModifier = 1;
+    MovementType type = new DirectMovement();
 
     private final Vector2 target = new Vector2(Float.NaN, Float.NaN);
     public float tX(){return target.x;}
@@ -20,34 +22,11 @@ public class MovementComponent extends Component {
         this.e = entity;
     }
 
-    public enum ControlMode {TARGET,DIRECT}
-    private ControlMode mode = ControlMode.TARGET;
-
-    public void setMode(ControlMode mode) {
-        this.mode = mode;
-    }
-
     @Override
     public void update(float delta) {
         super.update(delta);
-        if(mode == ControlMode.DIRECT){
-            e.setPos(
-                e.getX() + (dir.x * speed * delta * speedModifier),
-                e.getY() + (dir.y * speed * delta * speedModifier),
-                e.getZ());
-            return;
-        }
         if(Float.isNaN(target.x)) return;
-        float dX = dX();
-        float dY = dY();
-        float dist = dist(dX,dY);
-        if(dist < 0.0001f) return;
-        dir.set(dX/dist, dY/dist);
-        System.out.println(e.getX());
-        e.setPos(
-            e.getX() + (dir.x * speed * delta * speedModifier),
-            e.getY() + (dir.y * speed * delta * speedModifier),
-            e.getZ());
+        if(type != null) type.update(this, delta);
     }
 
     public boolean reachedTarget(float threshold) {
@@ -56,6 +35,9 @@ public class MovementComponent extends Component {
 
     public void setTarget(float x, float y){
         target.set(x,y);
+    }
+    public void setTarget(Vector2 dir){
+        target.set(target.x + dir.x, target.y + dir.y);
     }
 
     public float dist(){
@@ -73,7 +55,21 @@ public class MovementComponent extends Component {
         this.speed = speed;
     }
 
+    public float getSpeedModifier() {
+        return speedModifier;
+    }
+
     public void setSpeedModifier(float speedModifier) {
         this.speedModifier = speedModifier;
     }
+
+    public void setType(MovementType type){
+        this.type = type;
+    }
+    public void setPos(float x, float y){
+        e.setPos(x,y,e.getZ());
+    }
+
+    public float getEX(){return e.getX();}
+    public float getEY(){return e.getY();}
 }

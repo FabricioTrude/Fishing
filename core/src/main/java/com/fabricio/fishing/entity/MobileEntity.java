@@ -3,7 +3,7 @@ package com.fabricio.fishing.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fabricio.fishing.assets.AnimatedAsset;
-import com.fabricio.fishing.entity.components.MovementComponent;
+import com.fabricio.fishing.entity.components.MovementComponent.MovementComponent;
 import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.EntityState;
 
