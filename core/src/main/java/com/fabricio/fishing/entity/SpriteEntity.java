@@ -1,0 +1,26 @@
+package com.fabricio.fishing.entity;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fabricio.fishing.entity.enums.EntityIndex;
+import com.fabricio.fishing.screen.RenderLayer;
+
+public class SpriteEntity extends Entity{
+    private final Sprite sprite;
+
+    static EntityIndex[] indexes = {EntityIndex.SPRITE};
+
+    public SpriteEntity(Texture texture, float z) {
+        super(0,0, z, indexes);
+        this.sprite = new Sprite(texture);
+    }
+
+    @Override
+    public void render(SpriteBatch batch) {
+        sprite.draw(batch);
+    }
+
+    @Override
+    public void update(float delta) {}
+}

@@ -1,0 +1,54 @@
+package com.fabricio.fishing.save;
+
+import com.fabricio.fishing.event.EventBus;
+import com.fabricio.fishing.features.fishing.records.FishCaughtEvent;
+import com.fabricio.fishing.features.fishing.enums.FishSpecies;
+
+import java.util.EnumMap;
+
+public class InventoryManager {
+    private final EnumMap<FishSpecies, Float> fishes = new EnumMap<>(FishSpecies.class);
+    EventBus ebus;
+
+    public InventoryManager(EventBus ebus){
+        this.ebus = ebus;
+        for(FishSpecies fish: FishSpecies.values()){
+            fishes.put(fish, 0f);
+        }
+        ebus.register(FishCaughtEvent.class, event -> addFish(event.fish().getSpecies(), event.amount()));
+    }
+
+    public void addFish(FishSpecies fish, float number){
+        fishes.put(fish, fishes.getOrDefault(fish, 0f) + number);
+    }
+
+    public float getFish(FishSpecies fish) {
+        return fishes.getOrDefault(fish,0f);
+    }
+
+    public EnumMap<FishSpecies, Float> getFishes(){
+        return new EnumMap<>(fishes);
+    }
+
+    public void save(SaveData save){
+        save.fishes.clear();
+        for(var entry : fishes.entrySet()){
+            save.fishes.put(
+                entry.getKey().name(),
+                entry.getValue()
+            );
+        }
+    }
+
+    public void load(SaveData save){
+        if(save.fishes!=null) {
+            this.fishes.clear();
+            for(var entry : save.fishes.entrySet()){
+                fishes.put(
+                    FishSpecies.valueOf(entry.getKey()),
+                    entry.getValue()
+                );
+            }
+        }
+    }
+}
