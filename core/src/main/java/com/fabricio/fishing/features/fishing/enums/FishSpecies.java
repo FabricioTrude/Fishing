@@ -2,17 +2,21 @@ package com.fabricio.fishing.features.fishing.enums;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.fabricio.fishing.assets.AnimatedAsset;
+import com.fabricio.fishing.assets.FeatureType;
+import com.fabricio.fishing.assets.enums.AtlasId;
 import com.fabricio.fishing.assets.statics.FeatureAssets;
 import com.fabricio.fishing.entity.enums.TimePeriod;
+import com.fabricio.fishing.features.Feature;
 import com.fabricio.fishing.features.zones.Zones;
 
 import java.util.EnumSet;
+import java.util.Locale;
 
-public enum FishSpecies {
+public enum FishSpecies implements FeatureType {
 
     // SWAMP
     BASS(
-        "bass",
         "Bass",
         Zones.SWAMP,
         7,
@@ -25,7 +29,6 @@ public enum FishSpecies {
         10
     ),
     CATFISH(
-        "catfish",
         "Catfish",
         Zones.SWAMP,
         3,
@@ -38,7 +41,6 @@ public enum FishSpecies {
         10
     ),
     CICHLID(
-        "cichlid",
         "Cichlid",
         Zones.SWAMP,
         5,
@@ -51,7 +53,6 @@ public enum FishSpecies {
         10
     ),
     PLECO(
-        "pleco",
         "Pleco",
         Zones.SWAMP,
         2,
@@ -64,7 +65,6 @@ public enum FishSpecies {
         10
     ),
     ARMORED_CATFISH(
-        "armored_catfish",
         "Armored Catfish",
         Zones.SWAMP,
         2,
@@ -77,7 +77,6 @@ public enum FishSpecies {
         10
     ),
     SILVER_AROWANA(
-        "silver_arowana",
         "Silver Arowana",
         Zones.SWAMP,
         1,
@@ -90,7 +89,6 @@ public enum FishSpecies {
         10
     ),
     WOLF_FISH(
-        "wolf_fish",
         "Wolf Fish",
         Zones.SWAMP,
         2,
@@ -105,7 +103,6 @@ public enum FishSpecies {
 
     // OASIS
     GOLDFISH(
-        "goldfish",
         "Goldfish",
         Zones.OASIS,
         4,
@@ -118,7 +115,6 @@ public enum FishSpecies {
         10
     ),
     KOI(
-        "koi",
         "Koi",
         Zones.OASIS,
     2.5f,
@@ -131,7 +127,6 @@ public enum FishSpecies {
         10
     ),
     Tilapia(
-        "tilapia",
         "Tilapia",
         Zones.OASIS,
         4,
@@ -144,7 +139,6 @@ public enum FishSpecies {
         10
     ),
     CHERRY_BARB(
-        "cherry_barb",
         "Cherry Barb",
         Zones.OASIS,
         1,
@@ -157,7 +151,6 @@ public enum FishSpecies {
         10
     ),
     GOLDEN_BARB(
-        "golden_barb",
         "Golden Barb",
         Zones.OASIS,
         3,
@@ -170,7 +163,6 @@ public enum FishSpecies {
         10
     ),
     PURPLE_CICHLID(
-        "purple_cichlid",
         "Purple Cichlid",
         Zones.OASIS,
         1.5f,
@@ -183,7 +175,6 @@ public enum FishSpecies {
         10
     ),
     SILVER_CARP(
-        "silver_carp",
         "Silver Carp",
         Zones.OASIS,
         2.5f,
@@ -196,7 +187,6 @@ public enum FishSpecies {
         10
     );
 
-    final String id;
     final String name;
     final Zones zone;
     final float weight;
@@ -208,8 +198,7 @@ public enum FishSpecies {
     final float baseSIZ;
     final float baseSTAM;
 
-    FishSpecies(String id, String name, Zones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM) {
-        this.id = id;
+    FishSpecies(String name, Zones zone, float weight, EnumSet<TimePeriod> periods, float baseHP, float baseDEF, float baseVAL, float baseSPE, float baseSIZ, float baseSTAM) {
         this.name = name;
         this.zone = zone;
         this.weight = weight;
@@ -235,48 +224,52 @@ public enum FishSpecies {
 
     }
 
-    public String getName() {
+    public String display() {
         return name;
     }
-
-    public Zones getZone() {
-        return zone;
-    }
-
-    public EnumSet<TimePeriod> getPeriods() {
+    public EnumSet<TimePeriod> periods() {
         return periods;
     }
-
-    public float getBaseHP() {
+    public float HP() {
         return baseHP;
     }
-
-    public float getBaseDEF() {
+    public float DEF() {
         return baseDEF;
     }
-
-    public float getBaseVAL() {
+    public float VAL() {
         return baseVAL;
     }
-
-    public float getBaseSPE() {
+    public float SPE() {
         return baseSPE;
     }
-
-    public float getBaseSIZ() {
+    public float SIZ() {
         return baseSIZ;
     }
-
-    public float getBaseSTAM() {
+    public float STAM() {
         return baseSTAM;
-    }
-
-    public TextureRegion getTexture() {
-        return FeatureAssets.getFish(zone.getId(), id);
     }
 
     public static FishSpecies fromName(String name){
         return FishSpecies.valueOf(name);
+    }
+
+    @Override
+    public Zones zone() {
+        return zone;
+    }
+    @Override
+    public String id() {
+        return name().toLowerCase(Locale.ROOT);
+    }
+
+    @Override
+    public AtlasId atlas() {
+        return zone.atlas(Feature.FISHING);
+    }
+
+    @Override
+    public AnimatedAsset texture() {
+        return FeatureType.super.texture();
     }
 }
 

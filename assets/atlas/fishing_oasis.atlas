@@ -1,0 +1,55 @@
+
+fishing_oasis.png
+size: 256, 32
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+cherry_barb_1
+  rotate: false
+  xy: 1, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+golden_barb_1
+  rotate: false
+  xy: 34, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+goldfish_1
+  rotate: false
+  xy: 67, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+koi_1
+  rotate: false
+  xy: 100, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+purple_cichlid_1
+  rotate: false
+  xy: 133, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+silver_carp_1
+  rotate: false
+  xy: 166, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0
+tilapia_1
+  rotate: false
+  xy: 199, 1
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: 0

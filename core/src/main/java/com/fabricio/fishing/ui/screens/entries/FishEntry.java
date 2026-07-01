@@ -24,11 +24,11 @@ public class FishEntry extends Group {
         setSize(WIDTH,HEIGHT);
         wallpaper.setBounds(0,0,WIDTH,HEIGHT);
         addActor(wallpaper);
-        TextureActor icon = new TextureActor(fish.getTexture());
+        TextureActor icon = new TextureActor(fish.texture().defaultFrame());
         icon.setBounds(0,0,48,32);
         addActor(icon);
 
-        Label label = new Label(fish.getName(), NORMAL);
+        Label label = new Label(fish.display(), NORMAL);
         label.setPosition(56, (HEIGHT - label.getPrefHeight()) / 2f);
         addActor(label);
 

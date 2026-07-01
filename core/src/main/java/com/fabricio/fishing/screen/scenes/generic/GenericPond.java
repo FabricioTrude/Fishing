@@ -24,7 +24,7 @@ public class GenericPond extends LayeredScene {
         PlayerData.setPlayer(new PlayerEntity(SCREEN_WIDTH/2, sea_height, 10));
         ColorRectEntity sky = new ColorRectEntity(0,0, SCREEN_WIDTH, SCREEN_HEIGHT, G.time().getSkyColor(), -10000);
         sky.setUpdate(() -> sky.setColor(G.time().getSkyColor()));
-        new ColorRectEntity(0,0, SCREEN_WIDTH, SEA_HEIGHT, zone.getColor(), -20);
+        new ColorRectEntity(0,0, SCREEN_WIDTH, SEA_HEIGHT, zone.color(), -20);
     }
 
     public static void setSeaHeight(float seaHeight) {

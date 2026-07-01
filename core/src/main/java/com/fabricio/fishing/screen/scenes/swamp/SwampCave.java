@@ -7,6 +7,8 @@ import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.StaticEntity;
 import com.fabricio.fishing.entity.statics.ClickableObjectEntity;
+import com.fabricio.fishing.features.mining.Ore;
+import com.fabricio.fishing.features.mining.enums.Ores;
 import com.fabricio.fishing.screen.scenes.generic.GenericCave;
 
 import static com.fabricio.fishing.context.GlobalContext.*;
@@ -20,5 +22,8 @@ public class SwampCave extends GenericCave {
         new StaticEntity(0,0,0, BackgroundAssets.SWAMP_CAVE_GROUND);
         new StaticEntity(0,0,200, BackgroundAssets.SWAMP_CAVE_FOREGROUND);
         G.sound().playMusic(SFX.SWAMP_CAVE, true);
+        new Ore(300,50,10, Ores.SWAMP_STONE);
+        new Ore(600,0,10, Ores.SWAMP_OPAL);
+        new Ore(400,-300,10, Ores.SWAMP_COPPER);
     }
 }
