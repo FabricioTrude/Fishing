@@ -18,6 +18,7 @@ public class GenericPond extends LayeredScene {
     public static float SEA_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
     public GenericPond(Zones zone) {
+        super(480,720);
         fishing = new FishingFeature();
         float sea_height = zone.getSea_height();
         setSeaHeight(sea_height);

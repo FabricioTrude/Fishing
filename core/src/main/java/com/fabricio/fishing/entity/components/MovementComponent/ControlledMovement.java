@@ -1,6 +1,6 @@
 package com.fabricio.fishing.entity.components.MovementComponent;
 
-public class ControlledMovement implements MovementType{
+public class ControlledMovement implements MovementBehavior {
     @Override
     public void update(MovementComponent move, float delta) {
         move.setPos(

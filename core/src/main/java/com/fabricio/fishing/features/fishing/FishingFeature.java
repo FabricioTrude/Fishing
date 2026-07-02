@@ -2,6 +2,9 @@ package com.fabricio.fishing.features.fishing;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.fabricio.fishing.context.statics.C;
+import com.fabricio.fishing.context.statics.G;
+import com.fabricio.fishing.event.annotations.Subscribe;
+import com.fabricio.fishing.event.records.GroundClickEvent;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
 import com.fabricio.fishing.data.FishingData;
 
@@ -15,6 +18,7 @@ public class FishingFeature {
     float spawnTimer = 0;
 
     public FishingFeature() {
+        G.ebus().register(this);
     }
 
     public void createFish(){
@@ -40,7 +44,14 @@ public class FishingFeature {
         }
     }
 
+    @Subscribe
+    public void onGroundClick(GroundClickEvent e){
+        C.CE().target(null);
+        C.CE().resetZoom();
+    }
+
     public void dispose(){
         fishing.setCurrentFishes(0);
+        G.ebus().unregister(this);
     }
 }

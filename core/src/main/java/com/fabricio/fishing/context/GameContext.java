@@ -3,6 +3,8 @@ package com.fabricio.fishing.context;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.data.PlayerData;
 import com.fabricio.fishing.entity.EntityManager;
+import com.fabricio.fishing.features.player.MouseEntity;
+import com.fabricio.fishing.screen.LayeredScene;
 import com.fabricio.fishing.screen.camera.CameraEntity;
 import com.fabricio.fishing.features.fishing.records.FishingZoneSwitchEvent;
 import com.fabricio.fishing.features.zones.Zones;
@@ -16,8 +18,9 @@ public final class GameContext {
     ScoreManager score;
     PlayerData player;
     Zones zone;
-    Scene scene = null;
+    LayeredScene scene = null;
     CameraEntity CE;
+    MouseEntity mouse;
 
     public GameContext() {
         entities = new EntityManager();
@@ -31,14 +34,16 @@ public final class GameContext {
     public ScoreManager score(){return score;}
     public PlayerData player(){return player;}
     public Zones zone(){return zone;}
-    public Scene scene(){return scene;}
+    public LayeredScene scene(){return scene;}
     public CameraEntity CE(){return CE;}
+    public MouseEntity mouse(){return mouse;}
 
-    public void initCE(){
+    public void init(){
+        mouse = new MouseEntity(0,0,9999);
         CE = new CameraEntity(null);
     }
 
-    public void setScene(Scene newScene){
+    public void setScene(LayeredScene newScene){
         scene = newScene;
     }
 

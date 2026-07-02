@@ -1,14 +1,14 @@
 package com.fabricio.fishing.entity.components.MovementComponent;
 
 import com.badlogic.gdx.math.Vector2;
-import com.fabricio.fishing.entity.MobileEntity;
+import com.fabricio.fishing.entity.Entity;
 import com.fabricio.fishing.entity.components.Component;
 
 public class MovementComponent extends Component {
-    private final MobileEntity e;
+    private final Entity e;
     private float speed;
     private float speedModifier = 1;
-    MovementType type = new DirectMovement();
+    MovementBehavior type = new DirectMovement();
 
     private final Vector2 target = new Vector2(Float.NaN, Float.NaN);
     public float tX(){return target.x;}
@@ -18,7 +18,7 @@ public class MovementComponent extends Component {
     public final Vector2 dir = new Vector2();
     protected Vector2 velocity = new Vector2();
 
-    public MovementComponent(MobileEntity entity) {
+    public MovementComponent(Entity entity) {
         this.e = entity;
     }
 
@@ -63,7 +63,7 @@ public class MovementComponent extends Component {
         this.speedModifier = speedModifier;
     }
 
-    public void setType(MovementType type){
+    public void setType(MovementBehavior type){
         this.type = type;
     }
     public void setPos(float x, float y){

@@ -16,6 +16,7 @@ public class GenericCave extends LayeredScene {
     protected SpriteBatch batch;
 
     public GenericCave() {
+        super(480,720);
         mining = new MiningFeature();
         float floor_height = SCREEN_HEIGHT * 0.15f;
         PlayerData.setPlayer(new PlayerMiner(SCREEN_WIDTH * 0.5f, floor_height, 10,0.5f));

@@ -3,6 +3,7 @@ package com.fabricio.fishing.features.fishing;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.MobileEntity;
 import com.fabricio.fishing.entity.components.ClickableComponent;
@@ -11,6 +12,7 @@ import com.fabricio.fishing.entity.enums.EntityIndex;
 import com.fabricio.fishing.entity.enums.EntityState;
 import com.fabricio.fishing.entity.enums.TimePeriod;
 import com.fabricio.fishing.event.input.Clickable;
+import com.fabricio.fishing.event.records.GroundClickEvent;
 import com.fabricio.fishing.features.fishing.enums.FishRarity;
 import com.fabricio.fishing.features.fishing.enums.FishSize;
 import com.fabricio.fishing.features.fishing.enums.FishSpecies;
@@ -130,12 +132,18 @@ public class Fish extends MobileEntity {
     }
 
     public void click() {
-        if(health.isAlive() && state != EntityState.PANIC) {
+        if(state != EntityState.PANIC) {
             pickTarget();
             state = EntityState.PANIC;
             movement.setSpeedModifier(1.5f);
         }
-        G.ebus().post(new FishClickedEvent(this));
         health.damage(1);
+        if(health.isAlive()){
+            G.ebus().post(new FishClickedEvent(this));
+            C.CE().zoomIn(1.3f);
+            C.CE().target(this);
+        } else {
+            G.ebus().post(new GroundClickEvent(pos.x,pos.y));
+        }
     }
 }

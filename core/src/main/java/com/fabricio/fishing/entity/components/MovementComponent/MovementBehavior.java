@@ -1,5 +1,5 @@
 package com.fabricio.fishing.entity.components.MovementComponent;
 
-public interface MovementType {
+public interface MovementBehavior {
     void update(MovementComponent move, float delta);
 }

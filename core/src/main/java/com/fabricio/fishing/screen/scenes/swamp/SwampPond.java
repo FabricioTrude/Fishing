@@ -7,11 +7,11 @@ import com.fabricio.fishing.context.statics.C;
 import com.fabricio.fishing.context.statics.G;
 import com.fabricio.fishing.entity.StaticEntity;
 import com.fabricio.fishing.entity.statics.ClickableObjectEntity;
-import com.fabricio.fishing.entity.SpriteEntity;
 import com.fabricio.fishing.features.zones.Zones;
 import com.fabricio.fishing.screen.scenes.generic.GenericPond;
 
-import static com.fabricio.fishing.context.GlobalContext.*;
+import static com.fabricio.fishing.context.GlobalContext.SCREEN_HEIGHT;
+import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
 
 public class SwampPond extends GenericPond {
 

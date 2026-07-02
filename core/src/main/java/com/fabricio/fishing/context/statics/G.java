@@ -9,6 +9,7 @@ import com.fabricio.fishing.event.EventBus;
 import com.fabricio.fishing.manager.TimeManager;
 import com.fabricio.fishing.save.InventoryManager;
 import com.fabricio.fishing.save.SaveManager;
+import com.fabricio.fishing.screen.camera.CameraOrthographic;
 
 import static com.fabricio.fishing.context.GlobalContext.SCREEN_HEIGHT;
 import static com.fabricio.fishing.context.GlobalContext.SCREEN_WIDTH;
@@ -32,5 +33,5 @@ public final class G {
     public static InventoryManager inventory(){return ctx.inventory();}
     public static GameAssets assets(){return ctx.assets();}
     public static AudioManager sound(){return ctx.audio();}
-    public static OrthographicCamera CO(){return ctx.CO();}
+    public static CameraOrthographic CO(){return ctx.CO();}
 }

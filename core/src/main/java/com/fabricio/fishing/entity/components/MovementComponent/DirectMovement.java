@@ -1,6 +1,6 @@
 package com.fabricio.fishing.entity.components.MovementComponent;
 
-public class DirectMovement implements MovementType{
+public class DirectMovement implements MovementBehavior {
     @Override
     public void update(MovementComponent move, float delta) {
         float dX = move.dX();

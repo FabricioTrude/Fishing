@@ -1,6 +1,7 @@
 package com.fabricio.fishing.entity;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.fabricio.fishing.context.statics.C;
@@ -42,9 +43,10 @@ public abstract class Entity implements Comparable<Entity>{
     public float getY(){return pos.y;}
     public float getZ(){return pos.z;}
     public void setPos(float x, float y, float z){
-        pos.x = x;
-        pos.y = y;
-        pos.z = z;
+        pos.set(x,y,z);
+    }
+    public void setPos(float x, float y){
+     pos.set(x,y,pos.z);
     }
     @Override
     public int compareTo(Entity other) {
